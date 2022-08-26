@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { renderUser, createUser, renderEditUser, editUser, deleteUser, resetPassword } from "../controllers/users.controller";
+import { renderHome, renderUser, createUser, renderEditUser, editUser, deleteUser, resetPassword } from "../controllers/users.controller";
 import passport from "passport";
 import { isAuthenticated, isAdmin } from "../helpers/auth";
 const router = Router();
@@ -16,6 +16,9 @@ router.post("/login", passport.authenticate("local", {
 })
 );
 
+router.get("/home", [isAuthenticated], renderHome);
+
+
 //cerrar sesion
 router.get("/logout", function (req, res, next) {
   req.logout(function (err) {
@@ -26,17 +29,17 @@ router.get("/logout", function (req, res, next) {
   });
 });
 
-router.get("/users", [isAuthenticated], renderUser);
+//router.get("/users", [isAuthenticated], renderUser);
 
-router.post("/users/add", [isAuthenticated], createUser);
+//router.post("/users/add", [isAuthenticated], createUser);
 
-router.get("/users/:id/edit", [isAuthenticated], renderEditUser);
+//router.get("/users/:id/edit", [isAuthenticated], renderEditUser);
 
-router.post("/users/:id/edit", [isAuthenticated], editUser);
+//router.post("/users/:id/edit", [isAuthenticated], editUser);
 
-router.get("/users/:id/delete", [isAuthenticated], deleteUser);
+//router.get("/users/:id/delete", [isAuthenticated], deleteUser);
 
 //Rutas de Restablecimiento de contraseña
-router.post("/resetPassword", resetPassword);
+//router.post("/resetPassword", resetPassword);
 
 export default router;

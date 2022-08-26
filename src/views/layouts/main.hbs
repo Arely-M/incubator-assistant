@@ -53,6 +53,14 @@
     {{{body}}}  
          
     <script>
+        $(function() {
+        // Sidebar toggle behavior
+            $('#sidebarCollapse').on('click', function() {
+                $('#sidebar, #content').toggleClass('active');
+            });
+        });
+
+        /*
         var esIndefinidoP = false;
         var esIndefinidoR = false;
         esPrimerEP = true;
@@ -361,7 +369,7 @@
         
         function delItemResponse(idR) {
             document.getElementById("dResponses" + idR).remove();
-        }
+        }*/
     </script>
 </body>
 </html>

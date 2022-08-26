@@ -16,28 +16,19 @@
                     <label for="rol">Rol</label> 
                     <select class="form-select" id="rol" name="rol" required>
                         <option value="" disabled>-- Escoja una opción --</option>
-                        {{#each rols}}
-                            {{#ifCond _id '==' ../users.rol}}
-                                <option value="{{_id}}" selected>{{rol}}</option>  
+                        {{#each role}}
+                            {{#ifCond _id '==' ../users.role}}
+                                <option value="{{_id}}" selected>{{role}}</option>  
                             {{else}}
-                                <option value="{{_id}}">{{rol}}</option>
+                                <option value="{{_id}}">{{role}}</option>
                             {{/ifCond}}                              
                         {{/each}}
                     </select>
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="responses">Categoria</label>                   
-                    <select class="form-select" id="category" name="category" required>
-                        <option value="" disabled>-- Escoja una opcion --</option>
-                        {{#each categories}}
-                            {{#ifCond _id '==' ../users.category}}
-                                <option value="{{_id}}" selected>{{category}}</option>  
-                            {{else}}
-                                <option value="{{_id}}">{{category}}</option>
-                            {{/ifCond}}                              
-                        {{/each}}
-                    </select>  
+                    <label for="responses">Categoria</label>               
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Ingrese un nombre" value="{{users.name}}"/>
                 </div>                   
             </div>
             <div class="card-footer">

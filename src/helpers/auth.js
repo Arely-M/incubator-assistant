@@ -1,4 +1,5 @@
 import Users from "../models/users";
+import Role from "../models/role";
 const helpers = {};
 
 helpers.isAuthenticated = (req, res, next) => {
@@ -11,12 +12,12 @@ helpers.isAuthenticated = (req, res, next) => {
 
 helpers.isAdmin = async (req, res, next) => {
   const user = await Users.findById(req.user.id);
-  const rol = await Rols.find({ _id: user.rol });
-  if (rol[0].rol === "Administrador") {
+  const role = await Role.find({ _id: user.role });
+  if (role[0].role === "Administrador") {
     next();
   } else {
-    res.redirect("/intents");
-    req.flash("error_msg", "No tienes permiso para acceder a esta opcion");
+    res.redirect("/home");
+    req.flash("error_msg", "No tienes permiso para acceder a esta opcion.");
   }
 };
 

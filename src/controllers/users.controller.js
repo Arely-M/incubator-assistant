@@ -1,26 +1,66 @@
 import Users from "../models/users";
-//import Rols from "../models/rols";
+import Role from "../models/role";
 import { transporter } from "../config/mailer";
+
+export const renderHome = async (req, res) => {
+  const user = await Users.find({ _id: req.user.id });
+  const role = await Role.find().lean();
+  const idUser = user[0].role;
+  console.log(idUser)
+  console.log(role)
+  res.render("home", {
+    role: role,
+    user: idUser,
+    helpers: {
+      ifCond: function (v1, operator, v2, options) {
+        switch (operator) {
+          case "==":
+            return v1 == v2 ? options.fn(this) : options.inverse(this);
+          case "===":
+            return v1 === v2 ? options.fn(this) : options.inverse(this);
+          case "!=":
+            return v1 != v2 ? options.fn(this) : options.inverse(this);
+          case "!==":
+            return v1 !== v2 ? options.fn(this) : options.inverse(this);
+          case "<":
+            return v1 < v2 ? options.fn(this) : options.inverse(this);
+          case "<=":
+            return v1 <= v2 ? options.fn(this) : options.inverse(this);
+          case ">":
+            return v1 > v2 ? options.fn(this) : options.inverse(this);
+          case ">=":
+            return v1 >= v2 ? options.fn(this) : options.inverse(this);
+          case "&&":
+            return v1 && v2 ? options.fn(this) : options.inverse(this);
+          case "||":
+            return v1 || v2 ? options.fn(this) : options.inverse(this);
+          default:
+            return options.inverse(this);
+        }
+      },
+    },
+  });
+};
 
 export const renderUser = async (req, res) => {
   const user = await Users.find({ _id: req.user.id });
-  const idUser = user[0].rol;
+  const idUser = user[0].role;
 
   const users = await Users.find().lean();
-  const categories = await Categories.find().lean();
-  const rols = await Rols.find().lean();
+  //const categories = await Categories.find().lean();
+  const role = await Role.find().lean();
   for (var i = 0; i < users.length; i++) {
-    const category = await Categories.find({ _id: users[i].category })
+    /*const category = await Categories.find({ _id: users[i].category })
       .limit(1)
-      .lean();
-    const rol = await Rols.find({ _id: users[i].rol }).limit(1).lean();
-    users[i].category = category[0].category;
-    users[i].rol = rol[0].rol;
+      .lean();*/
+    const role = await Role.find({ _id: users[i].role }).limit(1).lean();
+    //users[i].category = category[0].category;
+    users[i].role = role[0].role;
   }
   res.render("user", {
     users: users,
-    categories: categories,
-    rols: rols,
+    //categories: categories,
+    role: role,
     user: idUser,
     helpers: {
       ifCond: function (v1, operator, v2, options) {
@@ -64,14 +104,14 @@ export const createUser = async (req, res) => {
       .limit(1)
       .lean();
     if (emailUser === undefined) {
-      req.flash("error_msg", "Existe un usuario con este correo");
+      req.flash("error_msg", "Ya existe un usuario asociado a este correo electrónico.");
       res.redirect("/users");
     } else {
       const users = new Users({
         password: "",
         email: req.body.email,
-        rol: req.body.rol,
-        category: req.body.category,
+        role: req.body.role,
+        //category: req.body.category,
       });
 
       for (var i = 1; i <= 8; i++) {
@@ -97,7 +137,7 @@ export const createUser = async (req, res) => {
       users.password = pass;
       const savedUser = await users.save();
 
-      req.flash("success_msg", "Registro ingresado con exito");
+      req.flash("success_msg", "Registro exitoso!");
       res.redirect("/users");
     }
   } catch (error) {
@@ -108,12 +148,12 @@ export const createUser = async (req, res) => {
 export const renderEditUser = async (req, res) => {
   try {
     const users = await Users.findById(req.params.id).lean();
-    const categories = await Categories.find().lean();
-    const rols = await Rols.find().lean();
+    //const categories = await Categories.find().lean();
+    const role = await Role.find().lean();
     res.render("editUser", {
       users: users,
-      categories: categories,
-      rols: rols,
+      //categories: categories,
+      role: role,
       helpers: {
         ifCond: function (v1, operator, v2, options) {
           switch (operator) {
@@ -166,8 +206,8 @@ export const editUser = async (req, res) => {
     await Users.findByIdAndUpdate(id, {
       email: req.body.email,
       password: passw,
-      rol: req.body.rol,
-      category: req.body.category,
+      role: req.body.role,
+      //category: req.body.category,
     });
     await transporter.sendMail({
       from: '"UTI" <storepcbuild.2020@gmail.com>',
@@ -180,7 +220,7 @@ export const editUser = async (req, res) => {
             <p>Su nueva contraseña es: <b>${pass}</b></p>
       `,
     });
-    req.flash("success_msg", "Registro actualizado con exito");
+    req.flash("success_msg", "Actualización exitosa!");
     res.redirect("/users");
   } catch (error) {
     console.log(error.message);
@@ -225,7 +265,7 @@ export const resetPassword = async (req, res) => {
     if (users === null || users === undefined) {
       req.flash(
         "error_msg",
-        "El correo no coincide con ninguno existente, Intente de nuevo"
+        "El correo ingresado no coincide con ninguno existente, Intente de nuevo."
       );
       res.redirect("/");
     } else {
@@ -256,12 +296,12 @@ export const resetPassword = async (req, res) => {
             `,
           });
         }
-        req.flash("success_msg", "Se ha restablecido la contraseña con exito");
+        req.flash("success_msg", "Se ha restablecido la contraseña exitosamente.");
         res.redirect("/");
       } else {
         req.flash(
           "error_msg",
-          "Su correo de confirmacion no coincide, Intente de nuevo"
+          "Su correo de confirmacion no coincide, Intente de nuevo."
         );
         res.redirect("/");
       }

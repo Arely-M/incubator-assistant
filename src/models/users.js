@@ -5,11 +5,9 @@ const users = new Schema(
   {
     email: { type: String, required: [true, "El email es obligatorio!"] },
     password: { type: String, required: [true, "La password es obligatoria!"] },
-    rol: { type: String, required: [true, "El rol es obligatorio!"] },
-    category: {
-      type: String,
-      required: [true, "La categoria es obligatoria!"],
-    },
+    name: { type: String, required: [true, "El nombre es obligatoria!"], },
+    role: { type: String, required: [true, "El rol es obligatorio!"] },
+
   },
   {
     timestamps: false,
