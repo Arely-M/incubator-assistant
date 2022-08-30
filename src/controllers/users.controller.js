@@ -6,8 +6,7 @@ export const renderHome = async (req, res) => {
   const user = await Users.find({ _id: req.user.id });
   const role = await Role.find().lean();
   const idUser = user[0].role;
-  console.log(idUser)
-  console.log(role)
+
   res.render("home", {
     role: role,
     user: idUser,
@@ -111,7 +110,6 @@ export const createUser = async (req, res) => {
         password: "",
         email: req.body.email,
         role: req.body.role,
-        //category: req.body.category,
       });
 
       for (var i = 1; i <= 8; i++) {

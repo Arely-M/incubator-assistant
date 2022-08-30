@@ -185,11 +185,6 @@ img {
 	color: #fff;
 }
 
-.color-button {
-	background: #089d79;
-	color: #fff;
-}
-
 /*
 * ==========================================
 * Navar
@@ -266,10 +261,12 @@ body {
 	background: linear-gradient(to right, #599fd9, #c2e59c);*/
 	min-height: 100vh;
 	overflow-x: hidden;
+	background-color: #fff;
+	font-size: 14px;
 }
 
 .separator {
-	margin: 3rem 0;
+	margin: 2rem 0;
 	border-bottom: 1px dashed rgb(0, 0, 0);
 }
 
@@ -288,4 +285,61 @@ body {
 
 .text-turquoise {
 	color: #12e2b0;
+}
+
+.color-button {
+	background: #089d79;
+	color: #fff;
+}
+
+/* MENU Y SBMENU*/
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+ul li a {
+	display: block;
+	padding: 10px 15px;
+	color: #fff;
+	text-decoration: none;
+	-webkit-transition: 0.2s linear;
+	-moz-transition: 0.2s linear;
+	-ms-transition: 0.2s linear;
+	-o-transition: 0.2s linear;
+	transition: 0.2s linear;
+}
+ul li a:hover {
+	background: #2e987fde;
+	color: #fff;
+}
+
+/*ul li a .fa {
+	width: 16px;
+	text-align: center;
+	margin-right: 5px;
+	float: right;
+}*/
+
+ul ul {
+	background: rgba(0, 0, 0, 0.2);
+}
+ul li ul li a {
+	border-left: 4px solid transparent;
+	padding: 10px 20px;
+}
+ul li ul li a:hover {
+	border-left: 4px solid #3498db;
+}
+
+/*Canvas*/
+#resultado {
+	font-weight: bold;
+	font-size: 2rem;
+	text-align: center;
+}
+.canvas-container {
+	margin: 0 auto;
+	border: 1px solid #ccc;
 }

@@ -6,6 +6,15 @@ import path from "path";
 import morgan from "morgan";
 import passport from "passport";
 import flash from "connect-flash";
+import multer from "multer";
+
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'public/uploads'),
+  filename: (req, file, cb) => {
+    cb(null, 'imgTest.jpg')
+  }
+});
 
 //Initializations
 const app = express();
@@ -43,6 +52,11 @@ app.use(
     saveUninitialized: true,
   })
 );
+app.use(multer({
+  storage,
+  dest: path.join(__dirname, 'public/uploads')
+}).single('image'));
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());

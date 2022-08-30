@@ -20,18 +20,11 @@
 							{{/each}}
 						</select>
 					</div>
-					<div class="mb-3">
-						<label for="responses" class="col-form-label">Nombre</label>
-						<select class="form-select" id="category" name="category" required>
-							<option value="" selected>-- Escoja una opcion --</option>
-							<option value="{{name}}">{{name}}</option>
-						</select>
-					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
+				<button type="submit" class="btn color-button" form="createUser">Añadir</button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-				<button type="submit" class="btn btn-primary" form="createUser">Añadir</button>
 			</div>
 		</div>
 	</div>

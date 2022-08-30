@@ -13,60 +13,94 @@
 
 	<ul class="nav flex-column mb-0">
 		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
+			<a href="/home" class="font-italic text-turquoise">
+				<i class="fa fa-house mr-3 fa-fw"></i>
+				Inicio
+			</a>
+		</li>
+		<li class="nav-item">
+			<a href="/lots" class="font-italic text-turquoise">
 				<i class="fa fa-th-large mr-3 fa-fw"></i>
 				Lotes
 			</a>
 		</li>
-
 		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
+			<a href="users" class="font-italic text-turquoise">
 				<i class="fa fa-cubes mr-3 fa-fw"></i>
-				Services
+				Usuario
 			</a>
 		</li>
 		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
+			<a href="#" class="font-italic text-turquoise">
 				<i class="fa fa-picture-o mr-3fa-fw"></i>
 				Galeria
 			</a>
+		</li>
+		<li class="sub-menu"><a class="font-italic text-turquoise">Analizar<div class="fa fa-caret-down right"></div></a>
+			<ul>
+				<li class="nav-item"><a class="font-italic text-turquoise" href="/camera">Analisis por camara</a></li>
+				<li class="nav-item"><a class="font-italic text-turquoise" href="/image">Analisis por imagen</a></li>
+			</ul>
+		</li>
+		<li class="sub-menu"><a href="#message">Help<div class="fa fa-caret-down right"></div></a>
+			<ul>
+				<li class="nav-item"><a href="#settings">FAQ's</a></li>
+				<li class="nav-item"><a href="#settings">Submit a Ticket</a></li>
+				<li class="nav-item"><a href="#settings">Network Status</a></li>
+			</ul>
 		</li>
 	</ul>
 
 	<p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p>
 
 	<ul class="nav flex-column mb-0">
-		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
-				<i class="fa fa-area-chart mr-3 fa-fw"></i>
-				Area charts
-			</a>
+		<li class="sub-menu"><a href="#settings">Estadisticas<div class="fa fa-caret-down right"></div></a>
+			<ul>
+				<li class="nav-item">
+					<a href="#" class="font-italic text-turquoise">
+						<i class="fa fa-area-chart mr-3 fa-fw"></i>Area charts
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="font-italic text-turquoise">
+						<i class="fa fa-bar-chart mr-3 fa-fw"></i>Bar charts
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="#" class="font-italic text-turquoise">
+						<i class="fa fa-pie-chart mr-3 fa-fw"></i>
+						Pie charts
+					</a>
+				</li>
 		</li>
 		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
-				<i class="fa fa-bar-chart mr-3 fa-fw"></i>
-				Bar charts
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
-				<i class="fa fa-pie-chart mr-3 fa-fw"></i>
-				Pie charts
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
+			<a href="#" class="font-italic text-turquoise">
 				<i class="fa fa-line-chart mr-3 fa-fw"></i>
 				Line charts
 			</a>
 		</li>
+				<li class="nav-item"><a href="#settings">Profile</a></li>
+			</ul>
+		</li>
+		
 		<li class="nav-item">
-			<a href="#" class="nav-link font-italic text-turquoise">
+			<a href="#" class="font-italic text-turquoise">
 				<i class="fa fa-address-card mr-3 fa-fw"></i>
 				Nosotros
 			</a>
 		</li>
 	</ul>
+
+	<p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Charts</p>
+	<ul class="nav flex-column mb-0">
+		<li class="nav-item">
+			<a class="text-white" href="/logout">
+				<i class="fa fa-sign-out" aria-hidden="true"></i>
+				Salir
+			</a>
+		</li>
+	</ul>
+
 </div>
 <!-- End vertical navbar -->
 
@@ -78,7 +112,7 @@
 
 			<button id="sidebarCollapse" class="color-background" type="button"><i class="fa fa-bars mr-2"></i></button>
 			<a class="navbar-brand" href="/home">CM-Vision</a>
-			<button
+			<!--<button
 				class="navbar-toggler"
 				type="button"
 				data-bs-toggle="collapse"
@@ -88,7 +122,7 @@
 				aria-label="Toggle navigation"
 			>
 				<span class="navbar-toggler-icon"></span>
-			</button>
+			</button>-->
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<!--
                 <ul class="navbar-nav"> 
@@ -110,30 +144,8 @@
                     {{/each}}
                 </ul>
 				-->
-				<ul class="navbar-nav" style="margin-left: auto;">
-					<li class="nav-item">
-						<a class="nav-link" href="/logout">
-							<i class="fa fa-sign-out" aria-hidden="true"></i>
-							Salir
-						</a>
-					</li>
-				</ul>
+
 			</div>
 		</div>
 	</nav>
 </div>
-
-<!-- Page content holder -->
-<div class="page-content p-5" id="content">
-
-	<!-- Demo content -->
-	<h2 class="display-4 text-black">Bienvenido al Asistente de Incubación CM-Vision</h2>
-	<p class="lead text-black mb-0">Una herramienta sencilla y facil de usar, te permite llevar un control sobre tus incubaciones y más.</p>
-
-	<div class="separator"></div>
-	<div class="row text-black">
-
-	</div>
-
-</div>
-<!-- End demo content -->

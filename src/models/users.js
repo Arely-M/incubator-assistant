@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 
-const users = new Schema(
+const usersSchema = new Schema(
   {
     email: { type: String, required: [true, "El email es obligatorio!"] },
     password: { type: String, required: [true, "La password es obligatoria!"] },
@@ -16,15 +16,15 @@ const users = new Schema(
 );
 
 //Cifrar contraseña
-users.methods.encryptPassword = async (password) => {
+usersSchema.methods.encryptPassword = async (password) => {
   const salt = await bcrypt.genSalt(10);
   const hash = bcrypt.hash(password, salt);
   return hash;
 };
 
 //iniciar sesion
-users.methods.matchPassword = async function (password) {
+usersSchema.methods.matchPassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-export default model("users", users);
+export default model("users", usersSchema);
