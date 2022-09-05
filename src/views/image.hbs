@@ -28,12 +28,12 @@
 
 <script type="text/javascript">
     //////////////////////Script de imagen///////////////////////
-    /*var modelo = null;
+    var modelo = null;
     (async () => {
         console.log("Cargando modelo...");
-        modelo = await tf.loadLayersModel("ent/model.json");
+        modelo = await tf.loadLayersModel("train/model.json");
         console.log("Modelo cargado...");        
-    })();    */
+    })();
 
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");    
@@ -74,7 +74,7 @@
             var mayorIndice = resultados.indexOf(
                 Math.max.apply(null, resultados)
             );
-            var clases = ["Baseball", "BasketBall", "Boxeo", "Football", "Formula 1", "Golf", "Motorcycle Racing" ,"Natacion", "Tennis", "Volleyball"];
+            var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
 
             document.getElementById("resultado").innerHTML = clases[mayorIndice];
         }
