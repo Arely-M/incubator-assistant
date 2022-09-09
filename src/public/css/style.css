@@ -334,12 +334,26 @@ ul li ul li a:hover {
 }
 
 /*Canvas*/
-#resultado {
-	font-weight: bold;
-	font-size: 2rem;
-	text-align: center;
-}
+
 .canvas-container {
 	margin: 0 auto;
 	border: 1px solid #ccc;
+}
+
+.columnas {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+}
+
+.resultados {
+	width: 400px;
+	height: 400px;
+}
+#resultado {
+	padding: 3px 10px;
+	border: PowderBlue 5px solid;
+	border-radius: 20px;
+	font-weight: bold;
+	/*font-size: 14px;*/
+	font-size: 2rem;
 }

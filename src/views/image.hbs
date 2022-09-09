@@ -1,6 +1,8 @@
 {{> nav/navigation}}    
 
 <div class="page-content p-5" id="content">
+    <h2 class="display-7 text-black">Análisis de Etpas mediante imagenes</h2>
+	<div class="separator"></div>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div class="row mb-2 mt-2">
             <div class="col-3"></div>
@@ -12,17 +14,19 @@
                     Guardar
                 </button>
             </div>
+            <div class="col-1">
+                <button id="pred" class="btn color-button" type="button" onclick="clasificar();">
+                    Clasificar
+                </button>
+            </div>
         </div>
-        
     </form>
-    <div class="col-12 col-md-4 offset-md-4 text-center">
-        <button id="pred" class="btn btn-success" type="button" onclick="predecir();">
-            Predecir
-        </button>
-        <br>
-        <canvas id="canvas" class="mt-2" width="400" height="400" style="max-width: 100%"></canvas>
-        <canvas id="othercanvas" width="150" height="150" style="display: none;"></canvas>            
-        <div id="resultado"></div>               
+    <div class="columnas">
+        <div class="resultados">
+            <canvas id="canvas" class="mt-2" width="400" height="400" style="max-width: 100%; border-radius: 20px;"></canvas>
+            <canvas id="othercanvas" width="150" height="150" style="display: none;"></canvas> 
+        </div>
+        <div id="resultado"></div>
     </div>
 </div>
 
@@ -45,7 +49,7 @@
         ctx.drawImage(img1, 0, 0, 400, 400);        
     }
 
-    function predecir() {
+    function clasificar() {
         if (modelo != null) {
             //Redimensión del canvas 150x150
             resample_single(canvas, 150, 150, othercanvas);
