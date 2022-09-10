@@ -345,6 +345,7 @@ ul li ul li a:hover {
 	grid-template-columns: repeat(2, 1fr);
 }
 
+/*Diseño de image.hbs*/
 .resultados {
 	width: 400px;
 	height: 400px;

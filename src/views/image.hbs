@@ -1,23 +1,21 @@
 {{> nav/navigation}}    
 
 <div class="page-content p-5" id="content">
-    <h2 class="display-7 text-black">Análisis de Etpas mediante imagenes</h2>
+    <h5 class="text-black">Análisis de Etpas mediante imagenes</h5>
 	<div class="separator"></div>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div class="row mb-2 mt-2">
-            <div class="col-3"></div>
-            <div class="col-4">
-                <input class="form-control" type="file" id="formFile" name="image" id="image">
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha de inicio: </label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="date" name="fecha" id="fecha">
+                </div>
             </div>
-            <div class="col-1">
-                <button type="submit" class="btn btn-secondary" name="predict">
-                    Guardar
-                </button>
-            </div>
-            <div class="col-1">
-                <button id="pred" class="btn color-button" type="button" onclick="clasificar();">
-                    Clasificar
-                </button>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Imagen: </label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="file" id="formFile" name="image">
+                </div>                
             </div>
         </div>
     </form>
@@ -25,6 +23,11 @@
         <div class="resultados">
             <canvas id="canvas" class="mt-2" width="400" height="400" style="max-width: 100%; border-radius: 20px;"></canvas>
             <canvas id="othercanvas" width="150" height="150" style="display: none;"></canvas> 
+            <div class="col-1">
+                <button id="pred" class="btn color-button" type="button" onclick="clasificar();">
+                    Clasificar
+                </button>
+            </div>
         </div>
         <div id="resultado"></div>
     </div>
@@ -38,6 +41,27 @@
         modelo = await tf.loadLayersModel("train/model.json");
         console.log("Modelo cargado...");        
     })();
+    
+    (function(){
+        function filePreview(input){
+            if(input.files && input.files[0]){
+                var reader = new FileReader();
+                reader.onload = (loadEvent) => {
+                    var canvas = document.getElementById("canvas");
+                    var ctx = canvas.getContext("2d");   
+                    var img = new Image();                    
+                    img.src = reader.result;  
+                    img.onload = function(){        
+                        ctx.drawImage(img, 0, 0, 400, 400);        
+                    }             
+                }
+                reader.readAsDataURL(input.files[0])
+            }
+        }
+        $('#formFile').change(function(){
+            filePreview(this);
+        });
+    })(); 
 
     var canvas = document.getElementById("canvas");
     var ctx = canvas.getContext("2d");    
