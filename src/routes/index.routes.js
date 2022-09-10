@@ -10,14 +10,14 @@ router.get("/", async (req, res) => {
   res.render("index");
 });
 
+router.get("/home", [isAuthenticated], renderHome);
+
 router.post("/login", passport.authenticate("local", {
   successRedirect: "/home",
   failureRedirect: "/",
   failureFlash: true,
 })
 );
-
-router.get("/home", [isAuthenticated], renderHome);
 
 //cerrar sesion
 router.get("/logout", function (req, res, next) {

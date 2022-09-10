@@ -13,22 +13,24 @@
 		</div>
 	</div>
 	<div class="separator"></div>
-
-	<div class="card">
-		<h5 class="card-header color-button">Lote 1 <a href="#" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i><i class="fa fa-trash-o mr-3 fa-fw"></i></a></h5>
-		<div class="card-body">
-			<h5 class="card-title">Special title treatment</h5>
-			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-
+	{{#each lots as |lot|}}
+		<div class="card">
+			<h5 class="card-header color-button">Lote {{lot.number}}  
+				<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
+				<a href="/lots/{{lot._id}}/delete" class="text-white"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
+			</h5>
+			<div class="card-body">				
+				<p class="card-title">Cantidad: {{lot.amount}}</p>
+				{{#ifCond lot.comment '==' ''}}
+					<p class="card-text">Comentario: Ninguno</p>
+				{{else}}				
+					<p class="card-text">Comentario: {{lot.comment}}</p>	
+				{{/ifCond}}			
+			</div>
+			<div class="card-footer text-muted">
+				{{lot.date}}
+			</div>
 		</div>
-	</div>
-	<br/>
-	<div class="card">
-		<h5 class="card-header color-button">Lote 1 <a href="#" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i><i class="fa fa-trash-o mr-3 fa-fw"></i></a></h5>
-		<div class="card-body">
-			<h5 class="card-title">Special title treatment</h5>
-			<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-
-		</div>
-	</div>
+		<br/>
+	{{/each}}	
 </div>

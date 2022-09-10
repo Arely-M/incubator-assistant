@@ -3,9 +3,14 @@ import Users from "../models/users";
 
 export const renderLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
+    const lots = await Lots.find().lean();
+    for(let i=0; i<lots.length; i++){        
+        lots[i].date = lots[i].date.toISOString().substring(0,10);          
+    }
     const idUser = user[0].role;
     res.render("lot", {
         user: idUser,
+        lots: lots,
         helpers: {
             ifCond: function (v1, operator, v2, options) {
                 switch (operator) {
@@ -46,9 +51,12 @@ export const createLot = async (req, res) => {
             comment: req.body.comment,
             status: "1",
             id_user: req.user.id,
-        });
-        console.log(req.body.date);
+        });        
         await lots.save();
+        //const lot = await Lots.find().sort({$natural:-1}).limit(1);
+        for (let i=0; i<req.body.amount; i++){
+           
+        }
 
         req.flash("success_msg", "Registro exitoso!");
         res.redirect("/lots");
