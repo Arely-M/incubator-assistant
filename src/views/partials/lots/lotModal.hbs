@@ -1,4 +1,4 @@
-<div class="modal fade" id="formUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="formLots" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -7,46 +7,32 @@
 			</div>
 			<div class="modal-body">
 				<form id="createLot" action="/lots/add" method="POST">
-					<div class="mb-3">
-						<label for="recipient-name" class="col-form-label">Recipient:</label>
-						<input type="text" class="form-control" id="recipient-name" />
-					</div>
-					<div class="row mb-2 mt-2">
-						<div class="row mb-3">
-							<label for="number" class="col-sm-4 col-form-label">Número de Lote </label>
-							<div class="col-sm-8">
-								<input type="number" class="form-control" id="number" name="number" placeholder="Ingrese un número de lote" required />
-							</div>
+					<div class="row g-3">
+						<div class="col-md-4">
+							<label for="number" class="col-form-label">Número de Lote:</label>
+							<input type="number" class="form-control" id="number" name="number" placeholder="Ingrese un número de lote" required />
 						</div>
-						<div class="row mb-3">
-							<label for="name" class="col-sm-4 col-form-label">Nombre de Lote </label>
-							<div class="col-sm-8">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del lote" required />
-							</div>
+						<div class="col-md-8">
+							<label for="name" class="col-form-label">Nombre de Lote:</label>
+							<input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del lote" required />
 						</div>
-						<div class="row mb-3">
-							<label for="amount" class="col-sm-5 col-form-label">Cantidade de huevos </label>
-							<div class="col-sm-7">
-								<input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese la cantidad de huevos" required />
-							</div>
+						<div class="col-md-12">
+							<label for="amount" class="col-form-label">Cantidade de huevos:</label>
+							<input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese la cantidad de huevos" required />
 						</div>
-						<div class="row mb-3">
-							<label for="date" class="col-sm-4 col-form-label">Fecha de inicio </label>
-							<div class="col-sm-8">
-								<input type="date" class="form-control" id="date" name="date" placeholder="Ingrese la fecha de inicio" required />
-							</div>
+						<div class="col-md-12">
+							<label for="date" class="col-form-label">Fecha de inicio:</label>
+							<input type="date" class="form-control" id="date" name="date" placeholder="Ingrese la fecha de inicio" required />
 						</div>
-						<div class="row mb-3">
-							<label for="comment" class="col-sm-4 col-form-label">Comentario </label>
-							<div class="col-sm-8">
-								<textarea class="form-control" id="comment" name="comment" placeholder="Ingrese un comentario"></textarea>
-							</div>
+						<div class="col-md-12">
+							<label for="comment" class="col-form-label">Comentario:</label>
+							<textarea class="form-control" id="comment" name="comment" placeholder="Ingrese un comentario"></textarea>
 						</div>
 					</div>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn color-button" form="createLot">Añadir</button>
+				<button type="submit" class="btn color-button" form="createLot">Agregar</button>
 				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
