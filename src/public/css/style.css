@@ -354,7 +354,6 @@ ul li ul li a:hover {
 	padding: 3px 10px;
 	border: PowderBlue 5px solid;
 	border-radius: 20px;
-	font-weight: bold;
 	/*font-size: 14px;*/
-	font-size: 2rem;
+	font-size: 20px;
 }

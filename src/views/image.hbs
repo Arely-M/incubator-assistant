@@ -6,13 +6,13 @@
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div class="row mb-2 mt-2">
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Fecha de inicio: </label>
+                <label for="fecha" class="col-sm-2 col-form-label">Fecha de inicio: </label>
                 <div class="col-sm-9">
                     <input class="form-control" type="date" name="fecha" id="fecha">
                 </div>
             </div>
             <div class="row mb-3">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Imagen: </label>
+                <label for="image" class="col-sm-2 col-form-label">Imagen: </label>
                 <div class="col-sm-9">
                     <input class="form-control" type="file" id="formFile" name="image">
                 </div>   
@@ -29,7 +29,12 @@
             <canvas id="canvas" class="mt-2" width="400" height="400" style="max-width: 100%; border-radius: 20px;"></canvas>
             <canvas id="othercanvas" width="150" height="150" style="display: none;"></canvas> 
         </div>
-        <div id="resultado"></div>
+        <div id="resultado">
+            
+        </div>
+        <div id="dias">
+           
+        </div>
     </div>
 </div>
 
@@ -73,38 +78,163 @@
         ctx.drawImage(img1, 0, 0, 400, 400);        
     }
 
+    function calcularDias(){    
+        var NowMoment = moment().format('DD/MM/YYYY');
+        var Date =  document.getElementById("fecha").value;
+        return moment().diff(moment(Date), 'days');
+    }
+
+    function descipcionEtapa(claseMayor) {
+        if(claseMayor == "Etapa Inicial"){
+            return "Esta etapa comprende del dia 1 al dia 7 de incubacion.";    
+        }
+        if(claseMayor == "Etapa Media"){
+            return "Esta etapa comprende del dia 8 al dia 14 de incubacion.";  
+        }
+        if(claseMayor == "Etapa Final"){
+            return "Esta etapa comprende del dia 15 al dia 18 de incubacion.";  
+        }
+        if(claseMayor == "Feto Muerto"){
+            return "Ninguna";
+        }                 
+    } 
+
+    function descipcionDia(dia) {
+        switch(dia) {
+            case 1:
+                return msg = "El disco germinal se encuentra en etapa bastulación, la cavidad de segmentación en el marco del área pelucida toma la forma de un anillo oscura.";
+                break;
+            case 2:
+                return msg = "Aparece  la primera ranura en el centro del blastomero ya se ve la membrana vitelina.";
+                break;
+            case 3:
+                return msg = "El embrión esta echado sobre su lado izquierdo ya hay circulación sanguínea, el vitelo ya se extiende, el corazón ya late.";
+                break;
+            case 4:
+                return msg = "Se desarrolla la cavidad amniótica, ya se llena con líquido amniótico, aparece la vesícula alantoidea.";
+                break;
+            case 5:
+                return msg = "Aumento sensible del embrión, tiene forma. La cabeza se mueve  más cerca de la cola, se extiende las extremidades, ya se diferéncialos dedos de las extremidades inferiores ";
+                break;
+            case 6:
+                return msg = "La membrana vitelina sigue creciendo rodeando  a más de la mitad de la yema. Fisura entre los dedos primero segundo y tercero de las extremidades superiores";
+                break;
+            case 7:
+                return msg = "Adelgazamiento del cuello, ya se diferencia bien la cabeza del cuerpo, se forma el pico, el cerebro ya entra en la región cefálica.";
+                break;
+            case 8:
+                return msg = "La membrana vitelina cubre toda la yema, la pigmentación de los ojos ya es visible, ya se puede diferenciar el pico las alas y las piernas. El cuello se estira, el cerebro ya se ubica completamente en su cavidad.";
+                break;
+            case 9:
+                return msg = "Aparece las garras, aparece el brote de los primeros folículos de las plumas, crecimiento de la alantoides, aumenta la vascularización del vitelo.";
+                break;
+            case 10:
+                return msg = "Las fosas nasales están presentes como aberturas estrechas, crecimiento de los parpados, los folículos de las plumas ya cubren la parte inferior de las extremidades, aparece el diente de huevo.";
+                break;
+            case 11:
+                return msg = "La alantoides alcanza  su máxima tamaño. El vitelo ya inicia a disminuir, el embrión ya tiene aspecto del pollo.";
+                break;
+            case 12:
+                return msg = "Las plumas ya rodean el meato auditivo externo y también al párpado.";
+                break;
+            case 13:
+                return msg = "La alantoides se encoge para convertirse en la membrana corioalantoidea, aparecen las escamas de las garras y de las piernas.";
+                break;
+            case 14:
+                return msg = "La pelusa cubre casi todo el cuerpo y crece rápidamente.";
+                break;
+            case 15:
+                return msg = "El pollo y las plumas siguen creciendo, se acelera la reducción de vitelo. Desaparición de clara de huevo.";
+                break;
+            case 16:
+                return msg = "El pollo y las plumas siguen creciendo, se acelera la reducción de vitelo. Desaparición de clara de huevo.";
+                break;
+            case 17:
+                return msg = "El sistema renal del embrión produce uratos. El pico, que está abajo el ala apunta hacia celda del aire. La clara de huevo se reabsorbe totalmente.";
+                break;
+            case 18:
+                return msg = "See internaliza el vitelo, reduce el líquido amniótico.";
+                break;
+        }     
+    } 
+
+
+
     function clasificar() {
+        var isDate = document.getElementById("fecha").value;
+        var isImage = document.getElementById("formFile").value;
         if (modelo != null) {
-            //Redimensión del canvas 150x150
-            resample_single(canvas, 150, 150, othercanvas);
-            var ctx2 = othercanvas.getContext("2d");
-
-            var imgData = ctx2.getImageData(0, 0, 150, 150);
-            var arr = [];
-            var arr150 = [];
-            for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
-                var red = imgData.data[p] / 255;
-                var green = imgData.data[p + 1] / 255;
-                var blue = imgData.data[p + 2] / 255;
-                arr150.push([red, green, blue]);
-                if (arr150.length == 150) {
-                    arr.push(arr150);
-                    arr150 = [];
+            if (isDate != "") {
+                if (isImage != "") {                    
+                    //Redimensión del canvas 150x150
+                    resample_single(canvas, 150, 150, othercanvas);
+                    var ctx2 = othercanvas.getContext("2d");
+                    var imgData = ctx2.getImageData(0, 0, 150, 150);
+                    var arr = [];
+                    var arr150 = [];
+                    for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
+                        var red = imgData.data[p] / 255;
+                        var green = imgData.data[p + 1] / 255;
+                        var blue = imgData.data[p + 2] / 255;
+                        arr150.push([red, green, blue]);
+                        if (arr150.length == 150) {
+                            arr.push(arr150);
+                            arr150 = [];
+                        }
+                    }
+                    arr = [arr];
+                    console.log(arr);
+                    var tensor4 = tf.tensor4d(arr);
+                    var resultados = modelo.predict(tensor4).dataSync();                    
+                    var mayorIndice = resultados.indexOf(
+                        Math.max.apply(null, resultados)
+                    );
+                    var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
+                    var diaIncu = calcularDias();
+                    document.getElementById("resultado").innerHTML = `<p><strong>Desarrollo embrionario:</strong> ${clases[mayorIndice]}</p>
+                                                                    <p align="justify"><strong>Descripcion:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
+                                                                    <p align="justify"><strong>Dia de incubacion:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
+                                                                     
+                                                                     
+                                                                     
+                }else{
+                    toastr.warning("Porfavor, seleccione una imagen", "",{
+                        "closeButton": true,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": true,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    });
                 }
-            }
-
-            arr = [arr];
-            console.log(arr);
-
-            var tensor4 = tf.tensor4d(arr);
-            var resultados = modelo.predict(tensor4).dataSync();
-            
-            var mayorIndice = resultados.indexOf(
-                Math.max.apply(null, resultados)
-            );
-            var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
-
-            document.getElementById("resultado").innerHTML = clases[mayorIndice];
+            } else {
+                toastr.warning("Porfavor, ingrese una fecha", "",{
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-top-right",
+                    "preventDuplicates": false,
+                    "onclick": null,
+                    "showDuration": "300",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
+            }          
         }
     }    
 
