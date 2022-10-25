@@ -437,7 +437,7 @@ ul li ul li a:hover {
 	padding: 10px 0px;
 	cursor: pointer;
 	display: block;
-	background: linear-gradient(to right, #089d79, #24ffcc1f);
+	background: linear-gradient(to right, #089d79, #089d79);
 	border: 0;
 	outline: none;
 	border-radius: 30px;
