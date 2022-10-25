@@ -86,16 +86,16 @@
 
     function descipcionEtapa(claseMayor) {
         if(claseMayor == "Etapa Inicial"){
-            return "Esta etapa comprende del dia 1 al dia 7 de incubacion.";    
+            return "Esta etapa comprende del día 1 al 7 de incubación.";    
         }
         if(claseMayor == "Etapa Media"){
-            return "Esta etapa comprende del dia 8 al dia 14 de incubacion.";  
+            return "Esta etapa comprende del día 8 al 14 de incubación.";  
         }
         if(claseMayor == "Etapa Final"){
-            return "Esta etapa comprende del dia 15 al dia 18 de incubacion.";  
+            return "Esta etapa comprende del día 15 al 18 de incubación.";  
         }
         if(claseMayor == "Feto Muerto"){
-            return "Ninguna";
+            return "Puede pertenecer a cualquier etapa del proceso de incubación. ";
         }                 
     } 
 
@@ -192,11 +192,10 @@
                     var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
                     var diaIncu = calcularDias();
                     document.getElementById("resultado").innerHTML = `<p><strong>Desarrollo embrionario:</strong> ${clases[mayorIndice]}</p>
-                                                                    <p align="justify"><strong>Descripcion:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
-                                                                    <p align="justify"><strong>Dia de incubacion:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
-                                                                     
-                                                                     
-                                                                     
+                                                                    <p align="justify"><strong>Descripción:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
+                                                                    <p align="justify"><strong>Día de incubación:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
+                    document.getElementById("fecha").value = "";
+                    document.getElementById("formFile").value = "";
                 }else{
                     toastr.warning("Porfavor, seleccione una imagen", "",{
                         "closeButton": true,
