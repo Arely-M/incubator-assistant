@@ -11,25 +11,28 @@
 								<button type="button" class="toggle-btn" onclick="login()">Iniciar Sesión</button>
 								<button type="button" class="toggle-btn" onclick="register()">Resgistrar</button>
 							</div>
-							<form id="login" class="input-group" action="/login" method="POST">
-                                <input type="email" id="email" name="email" class="input-field" placeholder="Correo" required />
-                                <input type="password" id="password" name="password" class="input-field" placeholder="Contraseña" required />
-                                
-								<div align="rigth">
+							<div>
+								<form id="login" class="input-group row" action="/login" method="POST">
+									<input type="email" id="email" name="email" class="input-field" placeholder="Correo" required />
+									<input type="password" id="password" name="password" class="input-field" placeholder="Contraseña" required />
+									<div>
 										<a class="a" type="button" data-bs-toggle="modal" data-bs-target="#formResetPassword"><u>Restablecer contraseña?</u></a>
-                            	</div>
-
-								<div >
-										<button type="submit" class="submit-btn1">Iniciar sesión</button>
-                            	</div>
-							</form>
+									</div>
+									<div style="padding: 0px;">
+										<button type="submit" class="submit-btn">Iniciar sesión</button>
+									</div>
+								</form>
+							</div>
 							<form id="register" class="input-group">
 								<input type="text" name="registername" class="input-field" placeholder="register Name" required />
 								<input type="password" name="registerpass" class="input-field" placeholder="register Password" required />
                                 <input type="password" name="registerpass" class="input-field" placeholder="register Password" required />
                                 <input type="password" name="registerpass" class="input-field" placeholder="register Password" required />
 								
-								<button type="submit" class="submit-btn">Registrar</button>
+								<div style="padding: 0px;">
+									<button type="submit" class="submit-btn">Registrar</button>
+								</div>
+								
 							</form>
                             {{> resetPassword/rPassword}}
 						</div>
