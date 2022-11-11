@@ -2,7 +2,7 @@ import { Router } from "express";
 import passport from "passport";
 import { isAuthenticated, isAdmin } from "../helpers/auth";
 import { renderHome, renderUser, register } from "../controllers/users.controller";
-import { createLot, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
+import { createLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
 const router = Router();
 
 /*-- Rutas de Login --*/
@@ -11,6 +11,8 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/home", [isAuthenticated], renderHome);
+
+router.get("/chart", [isAuthenticated], renderChart);
 
 /*-- inciar sesión --*/
 router.post("/login", passport.authenticate("local", {

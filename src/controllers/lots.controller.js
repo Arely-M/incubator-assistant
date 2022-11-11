@@ -1,6 +1,8 @@
 import Lots from "../models/lots";
 import Users from "../models/users";
 import Eggs from "../models/eggs";
+import Role from "../models/role";
+
 
 export const renderLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
@@ -65,6 +67,45 @@ export const createLot = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+};
+
+export const renderChart = async (req, res) => {
+    const user = await Users.find({ _id: req.user.id });
+    const role = await Role.find().lean();
+    const idUser = user[0].role;
+
+    res.render("chart", {
+        role: role,
+        user: idUser,
+        helpers: {
+            ifCond: function (v1, operator, v2, options) {
+                switch (operator) {
+                    case "==":
+                        return v1 == v2 ? options.fn(this) : options.inverse(this);
+                    case "===":
+                        return v1 === v2 ? options.fn(this) : options.inverse(this);
+                    case "!=":
+                        return v1 != v2 ? options.fn(this) : options.inverse(this);
+                    case "!==":
+                        return v1 !== v2 ? options.fn(this) : options.inverse(this);
+                    case "<":
+                        return v1 < v2 ? options.fn(this) : options.inverse(this);
+                    case "<=":
+                        return v1 <= v2 ? options.fn(this) : options.inverse(this);
+                    case ">":
+                        return v1 > v2 ? options.fn(this) : options.inverse(this);
+                    case ">=":
+                        return v1 >= v2 ? options.fn(this) : options.inverse(this);
+                    case "&&":
+                        return v1 && v2 ? options.fn(this) : options.inverse(this);
+                    case "||":
+                        return v1 || v2 ? options.fn(this) : options.inverse(this);
+                    default:
+                        return options.inverse(this);
+                }
+            },
+        },
+    });
 };
 
 export const renderEgg = async (req, res) => {
