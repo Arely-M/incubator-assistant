@@ -5,32 +5,53 @@
 				<div class="wrap d-md-flex">
 					<div class="img" style="background-image: url(/img/logo.jpg);"></div>
 					<div class="login-wrap p-4 p-md-2">
-						<div class="form-box">
+						<div id="form-reges" class="form-box-login">
 							<div class="button-box">
 								<div id="btn"></div>
-								<button type="button" class="toggle-btn" onclick="login()">Iniciar Sesión</button>
-								<button type="button" class="toggle-btn" onclick="register()">Resgistrar</button>
+								<button id="btn-login" type="button" class="toggle-btn" onclick="login()">Iniciar Sesión</button>
+								<button id="btn-register" type="button" class="toggle-btn" onclick="register()">Resgistrar</button>
 							</div>
-							<div>
-								<form id="login" class="input-group row" action="/login" method="POST">
-									<input type="email" id="email" name="email" class="input-field" placeholder="Correo" required />
-									<input type="password" id="password" name="password" class="input-field" placeholder="Contraseña" required />
-									<div style="text-align: right;">
-										<a type="button" data-bs-toggle="modal" data-bs-target="#formResetPassword"><u>Restablecer contraseña?</u></a>
-									</div>
-									<div style="padding: 0px;">
-										<button type="submit" class="submit-btn">Iniciar sesión</button>
-									</div>
-								</form>
-							</div>
-							<form id="register" class="input-group row">
-								<input type="text" name="registername" class="input-field" placeholder="register Name" required />
-								<input type="password" name="registerpass" class="input-field" placeholder="register Password" required />
-                                <input type="password" name="registerpass" class="input-field" placeholder="register Password" required />
-                                <input type="password" name="registerpass" class="input-field" placeholder="register Password" required />
-								
+							<form id="login" class="input-group row" action="/login" method="POST">
+								<div class="floating">
+									<input class="floating__input input-field" type="email" id="email-login" name="email" placeholder="Correo" required/>
+									<label for="input__email" class="floating__label" data-content="Correo"></label>
+									<div id="emailError1" class="error-container"></div>
+								</div>
+								<div class="floating">
+									<input class="floating__input input-field" type="password" id="password" pattern=".{6,}" title="La contraseña debe ser superior a 5 caracteres" name="password" placeholder="Contraseña" required/>
+									<label for="input__password" class="floating__label" data-content="Contraseña"></label>
+									<div id="passError1" class="error-container"></div>
+								</div>
+								<div style="text-align: right;">
+									<a type="button" data-bs-toggle="modal" data-bs-target="#formResetPassword"><u class="text-gray">Restablecer contraseña?</u></a>
+								</div>
 								<div style="padding: 0px;">
-									<button type="submit" class="submit-btn">Registrar</button>
+									<input id="btn-login-form" type="submit" class="submit-btn" value="Iniciar sesión">
+								</div>
+							</form>
+							<form id="register" class="input-group row" action="/register" method="POST">
+								<div class="floating">
+									<input class="floating__input input-field" type="text" id="name" name="name" placeholder="Nombre y Apellido" required/>
+									<label for="input__name" class="floating__label" data-content="Nombre y Apellido"></label>
+									<div id="nombreError1" class="error-container"></div>
+								</div>
+								<div class="floating">
+									<input class="floating__input input-field" type="email" id="email-register" name="email" placeholder="Correo" required/>
+									<label for="input__email" class="floating__label" data-content="Correo"></label>
+									<div id="emailError2" class="error-container"></div>
+								</div>
+								<div class="floating">
+									<input class="floating__input input-field" type="password" id="registerpass" pattern=".{6,}" title="La contraseña debe ser superior a 5 caracteres" name="registerpass1" placeholder="Contraseña" required/>
+									<label for="input__pass" class="floating__label" data-content="Contraseña"></label>
+									<div id="passError2" class="error-container"></div>
+								</div>
+								<div class="floating">
+									<input class="floating__input input-field" type="password" id="confregisterpass" pattern=".{6,}" title="La contraseña debe ser superior a 5 caracteres"  name="confregisterpass1" placeholder="Confirmar contraseña" required/>
+									<label for="input__Confpass" class="floating__label" data-content="Confirmar contraseña"></label>
+									<div id="confPassError" class="error-container"></div>
+								</div>
+								<div style="padding: 0px;">
+									<input id="btn-register-form" class="submit-btn" type="submit" value="Registrar">
 								</div>
 								
 							</form>
@@ -46,7 +67,78 @@
 	var x = document.getElementById("login"); 
     var y = document.getElementById("register"); 
     var z = document.getElementById("btn"); 
-    function register(){ x.style.left = "-400px"; y.style.left = "60px"; z.style.left = "125px"; } 
-    function login(){ x.style.left = "50px"; y.style.left = "-400px"; z.style.left = "0"; }
+	$("#btn-login").attr('onclick', ''); 		
 
+	var emailError1 = document.getElementById("emailError1"); 
+	var passError1 = document.getElementById("passError1"); 
+	var nombreError1 = document.getElementById("nombreError1"); 
+	var emailError2 = document.getElementById("emailError2"); 
+	var passError2 = document.getElementById("passError2"); 
+	var confPassError = document.getElementById("confPassError"); 
+
+	var emailLogin = document.getElementById("email-login"); 
+	var passLogin = document.getElementById("password"); 
+
+	var nombre = document.getElementById("name"); 
+	var emailRegister = document.getElementById("email-register"); 
+	var passRegister = document.getElementById("registerpass"); 
+	var confPassRegister = document.getElementById("confregisterpass"); 
+	
+	function register(){ 
+		x.style.left = "-400px"; y.style.left = "65px"; z.style.left = "125px"; z.style.background = "linear-gradient(to left, #089d79, #24ffcc1f)"; 
+		$("#form-reges").attr('class', 'form-box-register ');  
+		$("#btn-login").attr('onclick', 'login();'); 
+		$("#btn-register").attr('onclick', ''); 
+	} 
+    function login(){ 
+		x.style.left = "60px"; y.style.left = "-400px"; z.style.left = "0"; z.style.background = "linear-gradient(to right, #089d79, #24ffcc1f)"; 
+		$("#form-reges").attr('class', 'form-box-login');
+		$("#btn-register").attr('onclick', 'register();'); 
+		$("#btn-login").attr('onclick', ''); 		
+	}
+
+	var loginForm = document.getElementById("btn-login-form"); 
+	var registerForm = document.getElementById("btn-register-form"); 
+
+	loginForm.addEventListener('click', (event)=>{
+		//event.preventDefault();
+		validateEmpty(emailLogin.value, emailLogin, emailError1, "Rellene este campo.");
+		validateEmpty(passLogin.value, passLogin, passError1, "Rellene este campo.");	
+		validateLongitud(passLogin.value, passLogin, passError1, "Debe contener más de 5 caracteres.");
+	});
+
+	registerForm.addEventListener('click', (event)=>{
+		//event.preventDefault();
+		validateEmpty(nombre.value, nombre, nombreError1, "Rellene este campo.");
+		validateEmpty(emailRegister.value, emailRegister, emailError2, "Rellene este campo.");
+		validateEmpty(passRegister.value, passRegister, passError2, "Rellene este campo.");
+		validateEmpty(confPassRegister.value, confPassRegister, confPassError, "Rellene este campo.");
+		validateLongitud(passRegister.value, passRegister, passError2, "Debe contener más de 5 caracteres.");
+		validateLongitud(confPassRegister.value, confPassRegister, confPassError, "Debe contener más de 5 caracteres.");
+	});
+
+	function validateEmpty(input, divInput, divError, msg){
+		if(input.length == 0){
+			showError(divInput, divError, msg);
+		}else{
+			hideError(divInput, divError);
+		}
+	}
+
+	function validateLongitud(input, divInput, divError, msg){
+		if(input.length < 6){
+			showError(divInput, divError, msg);
+		}else{
+			hideError(divInput, divError);
+		}
+	}
+
+	function showError(divInput, divError, msg){
+		divError.innerHTML = `<img class="icon-error" src="img/warning-sign-9769.svg" title="${msg}" alt="">`;
+	}
+
+	function hideError(divInput, divError){
+		divError.innerHTML = "";
+		divError.innerHTML = `<img class="icon-error" src="img/check.svg" alt="">`;
+	}
 </script>

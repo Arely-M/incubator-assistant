@@ -1,4 +1,4 @@
-<div class="page-content p-5" id="content">
+<div class="page-content p-4" id="content">
 	<div class="card-title">
 		<div class="row">
 			<div class="col-sm-10">
@@ -14,10 +14,16 @@
 	</div>
 	<div class="separator"></div>
 	{{#each lots as |lot|}}
-		<div class="card">
-			<h5 class="card-header color-button">Lote {{lot.number}}  
-				<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
-				<a href="/lots/{{lot._id}}/delete" class="text-white"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
+		<div class="card" style="border-radius: 20px;">
+			<h5 class="card-header color-button row" style="margin: -1px; border-top-left-radius: 20px;	border-top-right-radius: 20px;">				
+					<div class="col-10" style="text-align: left;">Lote {{lot.number}} 
+						<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
+						<a href="/lots/{{lot._id}}/delete" class="text-white"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
+					</div>		
+					<div class="col-2"style="text-align: right;">
+						<a href="/lots/{{lot._id}}/view" class="text-white"><i class="fa fa-arrow-right mr-3 fa-fw"></i></a>
+					</div>				
+				
 			</h5>
 			<div class="card-body">				
 				<p class="card-title">Cantidad: {{lot.amount}}</p>
@@ -32,5 +38,5 @@
 			</div>
 		</div>
 		<br/>
-	{{/each}}	
+	{{/each}}
 </div>

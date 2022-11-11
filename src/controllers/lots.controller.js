@@ -1,11 +1,12 @@
 import Lots from "../models/lots";
 import Users from "../models/users";
+import Eggs from "../models/eggs";
 
 export const renderLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
     const lots = await Lots.find().lean();
-    for(let i=0; i<lots.length; i++){        
-        lots[i].date = lots[i].date.toISOString().substring(0,10);          
+    for (let i = 0; i < lots.length; i++) {
+        lots[i].date = lots[i].date.toISOString().substring(0, 10);
     }
     const idUser = user[0].role;
     res.render("lot", {
@@ -51,11 +52,11 @@ export const createLot = async (req, res) => {
             comment: req.body.comment,
             status: "1",
             id_user: req.user.id,
-        });        
+        });
         await lots.save();
         //const lot = await Lots.find().sort({$natural:-1}).limit(1);
-        for (let i=0; i<req.body.amount; i++){
-           
+        for (let i = 0; i < req.body.amount; i++) {
+
         }
 
         req.flash("success_msg", "Registro exitoso!");
@@ -63,5 +64,15 @@ export const createLot = async (req, res) => {
 
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const renderEgg = async (req, res) => {
+    try {
+        const eggs = await Eggs.findById(req.params.id).lean();
+        console.log(req.params.id);
+        res.render("egg", { eggs: eggs });
+    } catch (error) {
+        console.log(error.message);
     }
 };
