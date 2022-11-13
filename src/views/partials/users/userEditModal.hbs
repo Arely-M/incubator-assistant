@@ -1,0 +1,39 @@
+<div class="modal fade" id="formEditUser" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="staticBackdropLabel">Actualizar Usuario</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				<form id="editUser" action="/users/edit" method="POST">
+					<div class="mb-3">
+						<label for="id1" class="col-form-label invisible">Id</label>
+						<input type="id1" class="form-control invisible" id="id1" name="id1" />
+					</div>
+					<div class="mb-3">
+						<label for="name1" class="col-form-label">Name</label>
+						<input type="name1" class="form-control" id="name1" name="name1" placeholder="Ingrese sus nombres" required />
+					</div>
+					<div class="mb-3">
+						<label for="email1" class="col-form-label">Email</label>
+						<input type="email1" class="form-control" id="email1" name="email1" placeholder="Ingrese un email" required />
+					</div>
+					<div class="mb-3">
+						<label for="rol1" class="col-form-label">Rol</label>
+						<select class="form-select" id="rol1" name="rol1" required>
+							<option value="" disabled>-- Escoja una opcion --</option>
+							{{#each role}}
+								<option value="{{_id}}">{{role}}</option>
+							{{/each}}
+						</select>						
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="btn color-button" form="editUser">Actualizar</button>
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+			</div>
+		</div>
+	</div>
+</div>
