@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { isAuthenticated, isAdmin } from "../helpers/auth";
-import { renderHome, renderUser, register } from "../controllers/users.controller";
+import { renderHome, renderUser, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
 import { createLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
 const router = Router();
 
@@ -34,16 +34,14 @@ router.get("/logout", function (req, res, next) {
 
 /*-- registrar user --*/
 router.post("/register", register);
-
-//router.get("/users", [isAuthenticated], renderUser);
-//router.post("/users/add", [isAuthenticated], createUser);
-//router.get("/users/:id/edit", [isAuthenticated], renderEditUser);
-//router.post("/users/:id/edit", [isAuthenticated], editUser);
-//router.get("/users/:id/delete", [isAuthenticated], deleteUser);
+router.get("/users", [isAuthenticated], renderUser);
+router.post("/users/add", [isAuthenticated], createUser);
+router.post("/users/edit", [isAuthenticated], editUser);
+router.get("/users/:id/delete", [isAuthenticated], deleteUser);
 
 /*-- Lotes --*/
 router.get("/lots", [isAuthenticated], renderLot);
-router.post("/lots/add", [isAuthenticated], createLot);
+router.post("/lots/add", createLot);
 
 router.get("/lots/:id/view", [isAuthenticated], renderEgg);
 

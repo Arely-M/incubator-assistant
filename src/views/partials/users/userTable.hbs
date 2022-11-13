@@ -9,7 +9,8 @@
                     <button type="button" class="btn color-button" data-bs-toggle="modal" data-bs-target="#formUser">
                         Nuevo
                     </button>  
-                    {{> users/userModal }}           
+                    {{> users/userModal }} 
+                    {{> users/userEditModal }}           
                 </div>                        
             </div>
         </div>                      
@@ -20,32 +21,25 @@
                 <table id="example2" class="table table-bordered table-striped dataTable dtr-inline collapsed" style="width:100%">
                     <thead>
                         <tr>
-                            <th></th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Nombre</th>
+                            <th style="width: 10%;"></th>  
+                            <th style="width: 40%;">Nombre</th>
+                            <th style="width: 30%;">Email</th>
+                            <th style="width: 20%;">Rol</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {{#each users}}
-                            {{#if @first}}                                
-                            {{else}}
-                                <tr>
-                                    <td>
-                                        <div class="container">
-                                            <div class="row">
-                                                <a href="/users/{{_id}}/edit" class="btn btn-primary btn-sm active" role="button" aria-disabled="true">
-                                                    <i class="fa-regular fa-pen-to-square"></i> </a>
-                                                <a class="btn btn-danger btn-sm active" onclick="delUser('{{_id}}');" role="button" aria-disabled="true">
-                                                    <i class="fa-regular fa-trash-can"></i></a>
-                                            </div> 
-                                        </div>                               
-                                    </td>
-                                    <td>{{email}}</td>
-                                    <td>{{role}}</td>
-                                    <td>{{name}}</td>  
-                                </tr>
-                            {{/if}}
+                        {{#each users}}                            
+                            <tr id="{{_id}}">
+                                <td>                                    
+                                    <a class="editar btn btn-primary btn-sm active" role="button" aria-disabled="true" onclick="editUser('{{_id}}');" data-bs-toggle="modal" data-bs-target="#formEditUser">
+                                        <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i></a>
+                                    <a class="btn btn-danger btn-sm active" role="button" aria-disabled="true" onclick="delUser('{{_id}}');">
+                                        <i class="fa-regular fa-trash-can" aria-hidden="true"></i></a>                                                                     
+                                </td>                                
+                                <td>{{name}}</td> 
+                                <td>{{email}}</td>
+                                <td>{{role}}</td>                                 
+                            </tr>                            
                         {{/each}}                           
                     </tbody>
                 </table>
