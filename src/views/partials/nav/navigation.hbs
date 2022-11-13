@@ -1,103 +1,5 @@
-<!-- Vertical navbar 
-<div class="vertical-nav color-background" id="sidebar">
-	<div class="py-4 px-3 mb-4">
-		<div style="text-align: center;">
-			<img src="/img/user.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm" />
-		</div>
-		<div class="media-body" style="text-align: center;">
-			<h4 class="m-0">Arely Martinez</h4>
-		</div>
-	</div>
-
-	<p class="text-gray font-weight-bold text-uppercase px-3 small pb-4 mb-0">Main</p>
-
-	<ul class="nav flex-column mb-0">
-		<li class="nav-item">
-			<a href="/home" class="font-italic text-turquoise">
-				<i class="fa fa-house mr-3 fa-fw"></i>
-				Inicio
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="/lots" class="font-italic text-turquoise">
-				<i class="fa fa-th-large mr-3 fa-fw"></i>
-				Lotes
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="users" class="font-italic text-turquoise">
-				<i class="fa fa-cubes mr-3 fa-fw"></i>
-				Usuario
-			</a>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="font-italic text-turquoise">
-				<i class="fa fa-picture-o mr-3fa-fw"></i>
-				Galeria
-			</a>
-		</li>
-		<li class="sub-menu"><a class="font-italic text-turquoise">Analizar<div class="fa fa-caret-down right"></div></a>
-			<ul>
-				<li class="nav-item"><a class="font-italic text-turquoise" href="/camera">Analisis por camara</a></li>
-				<li class="nav-item"><a class="font-italic text-turquoise" href="/image">Analisis por imagen</a></li>
-			</ul>
-		</li>
-	</ul>
-
-	<p class="text-gray font-weight-bold text-uppercase px-3 small py-4 mb-0">Gráficas</p>
-
-	<ul class="nav flex-column mb-0">
-		<li class="sub-menu"><a class="text-turquoise">Estadisticas<div class="fa fa-caret-down right"></div></a>
-			<ul>
-				<li class="nav-item">
-					<a href="#" class="font-italic text-turquoise">
-						<i class="fa fa-area-chart mr-3 fa-fw"></i>Area charts
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="font-italic text-turquoise">
-						<i class="fa fa-bar-chart mr-3 fa-fw"></i>Bar charts
-					</a>
-				</li>
-				<li class="nav-item">
-					<a href="#" class="font-italic text-turquoise">
-						<i class="fa fa-pie-chart mr-3 fa-fw"></i>
-						Pie charts
-					</a>
-				</li>
-		</li>
-		<li class="nav-item">
-			<a href="#" class="font-italic text-turquoise">
-				<i class="fa fa-line-chart mr-3 fa-fw"></i>
-				Line charts
-			</a>
-		</li>
-				<li class="nav-item"><a href="#settings">Profile</a></li>
-			</ul>
-		</li>
-		
-		<li class="nav-item">
-			<a href="#" class="font-italic text-turquoise">
-				<i class="fa fa-address-card mr-3 fa-fw"></i>
-				Nosotros
-			</a>
-		</li>
-	</ul>
-
-	<hr>
-
-	<ul class="nav flex-column mb-0">
-		<li class="nav-item">
-			<a class="text-turquoise" href="/logout">
-				<i class="fa fa-sign-out" aria-hidden="true"></i>
-				Salir
-			</a>
-		</li>
-	</ul>
-
-</div>
- End vertical navbar -->
 <div class="container-navbar">
+	<!-- Vertical navbar -->
 	<div class="navigation" id="containerPrincipal">
 		<ul>
 			<li>
@@ -137,6 +39,12 @@
 				</a>
 			</li>
 			<li>
+				<a href="#">
+					<span class="icon"><ion-icon name="images-outline"></ion-icon></span>
+					<span class="title">Galeria</span>
+				</a>
+			</li>
+			<li>
 				<a href="/chart">
 					<span class="icon"><ion-icon name="analytics-outline"></ion-icon></span>
 					<span class="title">Estadisticas</span>
@@ -155,13 +63,14 @@
 				</a>
 			</li>
 			<li>
-				<a href="/logout">
-					<span class="icon"><ion-icon name="log-out-outline"></ion-icon></span>
-					<span class="title">Cerrar Sesión</span>
+				<a href="#">
+					<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+					<span class="title">Nosotros</span>
 				</a>
 			</li>
 		</ul>
 	</div>
+	<!-- End vertical navbar -->
 	
 	<!-- Navar-hortizontal -->
 	<div class="main" id="content">
@@ -183,6 +92,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- End navar-hortizontal -->
 </div>
 
 <!-- Horizontal navbar 
@@ -230,6 +140,7 @@
 		</div>
 	</nav>
 </div>-->
+
 <script>
 	//add hoverd
 	let list = document.querySelectorAll('.navigation li');

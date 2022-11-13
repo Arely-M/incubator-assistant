@@ -30,11 +30,6 @@
 	background: none;
 }
 
-.color-button {
-	background: var(--color__accent);
-	color: #fff;
-}
-
 /*.color-background {
 	background-color: #0d1a25;
 	color: #fff;
@@ -677,11 +672,11 @@ body {
 
 .btn {
 	position: relative;
-	padding: 5px 10px;
+	width: 100px;
 	background: var(--color__accent);
 	text-decoration: none;
 	color: white;
-	border-radius: 6px;
+	border-radius: 20px;
 }
 
 .details .table {
@@ -760,6 +755,39 @@ body {
 	color: var(--color__accent);
 }
 
+/*-- card-egg --*/
+.card-egg {
+	background: var(--color__accent);
+	color: #fff;
+	margin: -1px;
+}
+
+/*-- cardBox-egg --*/
+.cardBox-egg {
+	position: relative;
+	width: 100%;
+	padding: 20px;
+	display: grid;
+	grid-template-columns: repeat(5, 1fr);
+	grid-gap: 30px;
+}
+
+.cardBox-egg .card {
+	position: relative;
+	background: white;
+	border-radius: 20px;
+	cursor: pointer;
+	box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+	padding-top: 30px;
+	align-items: center;
+	min-width: 30vh;
+}
+
+.card-img {
+	width: 80px;
+	height: 100px;
+}
+
 /*-- responsive */
 @media (max-width: 1120px) {
 	.graphBox {
@@ -790,10 +818,16 @@ body {
 	.cardBox {
 		grid-template-columns: repeat(2, 1fr);
 	}
+	.cardBox-egg {
+		grid-template-columns: repeat(3, 1fr);
+	}
 }
 
 @media (max-width: 480px) {
 	.cardBox {
+		grid-template-columns: repeat(1, 1fr);
+	}
+	.cardBox-egg {
 		grid-template-columns: repeat(1, 1fr);
 	}
 	.cardHeader h2 {

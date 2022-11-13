@@ -56,9 +56,18 @@ export const createLot = async (req, res) => {
             id_user: req.user.id,
         });
         await lots.save();
-        //const lot = await Lots.find().sort({$natural:-1}).limit(1);
-        for (let i = 0; i < req.body.amount; i++) {
 
+        const lot = await Lots.find().sort({ $natural: -1 }).limit(1);
+
+        for (let i = 0; i < req.body.amount; i++) {
+            const egg = new Eggs({
+                number: i + 1,
+                transparency: "",
+                width: "",
+                height: "",
+                id_lot: lot[0]._id,
+            });
+            await egg.save();
         }
 
         req.flash("success_msg", "Registro exitoso!");
@@ -110,9 +119,39 @@ export const renderChart = async (req, res) => {
 
 export const renderEgg = async (req, res) => {
     try {
-        const eggs = await Eggs.findById(req.params.id).lean();
+        const eggs = await Eggs.find({ id_lot: req.params.id }).lean();
         console.log(req.params.id);
-        res.render("egg", { eggs: eggs });
+        res.render("egg", {
+            eggs: eggs,
+            helpers: {
+                ifCond: function (v1, operator, v2, options) {
+                    switch (operator) {
+                        case "==":
+                            return v1 == v2 ? options.fn(this) : options.inverse(this);
+                        case "===":
+                            return v1 === v2 ? options.fn(this) : options.inverse(this);
+                        case "!=":
+                            return v1 != v2 ? options.fn(this) : options.inverse(this);
+                        case "!==":
+                            return v1 !== v2 ? options.fn(this) : options.inverse(this);
+                        case "<":
+                            return v1 < v2 ? options.fn(this) : options.inverse(this);
+                        case "<=":
+                            return v1 <= v2 ? options.fn(this) : options.inverse(this);
+                        case ">":
+                            return v1 > v2 ? options.fn(this) : options.inverse(this);
+                        case ">=":
+                            return v1 >= v2 ? options.fn(this) : options.inverse(this);
+                        case "&&":
+                            return v1 && v2 ? options.fn(this) : options.inverse(this);
+                        case "||":
+                            return v1 || v2 ? options.fn(this) : options.inverse(this);
+                        default:
+                            return options.inverse(this);
+                    }
+                },
+            },
+        });
     } catch (error) {
         console.log(error.message);
     }

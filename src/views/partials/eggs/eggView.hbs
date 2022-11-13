@@ -1,0 +1,14 @@
+<div class="page-content p-4" id="content">
+	<div class="cardBox-egg">
+		{{#each eggs as |egg|}}
+			<div class="card">
+				<img class="card-img" src="/img/egg.png" alt="Card image cap" />
+				<div class="card-body">
+					<h5 class="card-title" style="text-align: center;">Huevo #{{egg.number}}</h5>
+					<a href="#" class="btn"><ion-icon name="eye-outline"></ion-icon></a>
+				</div>
+			</div>
+
+		{{/each}}
+	</div>
+</div>

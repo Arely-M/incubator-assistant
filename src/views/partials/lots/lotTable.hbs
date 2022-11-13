@@ -5,7 +5,7 @@
 				<h4>LOTES</h4>
 			</div>
 			<div class="col-sm-2">
-				<button type="button" class="btn color-button" data-bs-toggle="modal" data-bs-target="#formLots">
+				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#formLots">
 					Nuevo
 				</button>
 				{{> lots/lotModal }} 
@@ -15,7 +15,7 @@
 	<div class="separator"></div>
 	{{#each lots as |lot|}}
 		<div class="card" style="border-radius: 20px;">
-			<h5 class="card-header color-button row" style="margin: -1px; border-top-left-radius: 20px;	border-top-right-radius: 20px;">				
+			<h5 class="card-egg card-header row" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">				
 					<div class="col-10" style="text-align: left;">Lote {{lot.number}} 
 						<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
 						<a href="/lots/{{lot._id}}/delete" class="text-white"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
