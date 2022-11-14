@@ -3,6 +3,7 @@ import passport from "passport";
 import { isAuthenticated, isAdmin } from "../helpers/auth";
 import { renderHome, renderUser, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
 import { createLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
+import { editEgg } from "../controllers/eggs.controller";
 const router = Router();
 
 /*-- Rutas de Login --*/
@@ -44,6 +45,9 @@ router.get("/lots", [isAuthenticated], renderLot);
 router.post("/lots/add", createLot);
 
 router.get("/lots/:id/view", [isAuthenticated], renderEgg);
+
+/*-- huevos --*/
+router.post("/eggs/:id/edit", editEgg);
 
 //Rutas de Restablecimiento de contraseña
 //router.post("/resetPassword", resetPassword);
