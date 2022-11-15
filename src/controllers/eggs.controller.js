@@ -1,11 +1,10 @@
 import Eggs from "../models/eggs";
 
 export const renderEditEgg = async (req, res) => {
-    try {
-        const egg = await Eggs.findById(req.params.id).lean();
-        console.log(req.params.id);
+    try {        
+        const egg = await Eggs.findById(req.params.id).lean();        
         res.render("egg", {
-            egg: egg,
+            egg: egg,         
             helpers: {
                 ifCond: function (v1, operator, v2, options) {
                     switch (operator) {
@@ -42,6 +41,7 @@ export const renderEditEgg = async (req, res) => {
 
 export const editEgg = async (req, res) => {
     try {
+
         const egg = new Eggs({
             number: req.body.number,
             transparency: req.body.transparency,

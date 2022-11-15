@@ -6,18 +6,17 @@
 			</div>
 		</div>
 	</div>
-	<div class="separator"></div>
+	<div class="separator"></div>	 
 	<div class="cardBox-egg">
 		{{#each eggs as |egg|}}
 			<div class="card">
 				<img class="card-img" src="/img/egg.png" alt="Card image cap" />
-				<div class="card-body">
+				<div id="{{egg._id}}" class="card-body">
 					<h5 class="card-title" style="text-align: center;">Huevo #{{egg.number}}</h5>
-					<a href="/eggs/{{egg._id}}/edit" class="btn"><i class="fa fa-eye" aria-hidden="true"></i></a>
-
+					<a href="/eggs/{{egg._id}}/view" class="btn" role="button" aria-disabled="true">
+						<i class="fa fa-eye" aria-hidden="true"></i></a>
 				</div>
 			</div>
-
 		{{/each}}
 	</div>
 </div>

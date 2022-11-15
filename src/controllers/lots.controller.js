@@ -121,7 +121,7 @@ export const renderEgg = async (req, res) => {
     try {
         const eggs = await Eggs.find({ id_lot: req.params.id }).lean();
         console.log(req.params.id);
-        res.render("egg", {
+        res.render("eggs", {
             eggs: eggs,
             helpers: {
                 ifCond: function (v1, operator, v2, options) {
