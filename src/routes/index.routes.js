@@ -48,7 +48,7 @@ router.get("/lots/:id/view", [isAuthenticated], renderEgg);
 
 /*-- huevos --*/
 router.get("/eggs/:id/view", renderEditEgg);
-router.post("/eggs/edit", editEgg);
+router.post("/eggs/:id/edit", editEgg);
 
 //Rutas de Restablecimiento de contraseña
 //router.post("/resetPassword", resetPassword);

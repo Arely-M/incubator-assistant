@@ -16,17 +16,48 @@
 							<label for="name" class="col-form-label">Nombre de Lote:</label>
 							<input type="text" class="form-control" id="name" name="name" placeholder="Ingrese el nombre del lote" required />
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-4">
 							<label for="amount" class="col-form-label">Cantidade de huevos:</label>
 							<input type="number" class="form-control" id="amount" name="amount" placeholder="Ingrese la cantidad de huevos" required />
 						</div>
-						<div class="col-md-12">
+						<div class="col-md-8">
 							<label for="date" class="col-form-label">Fecha de inicio:</label>
 							<input type="date" class="form-control" id="date" name="date" placeholder="Ingrese la fecha de inicio" required />
 						</div>
 						<div class="col-md-12">
 							<label for="comment" class="col-form-label">Comentario:</label>
 							<textarea class="form-control" id="comment" name="comment" placeholder="Ingrese un comentario"></textarea>
+						</div>
+						<div class="col-md-12 form-switch">
+							<input class="form-check-input" type="checkbox" role="switch" id="notification" name="notification">
+							<label class="form-check-label" for="notification">Notificación</label>
+						</div>
+						<div class="col-md-8">
+							<div class="form-check form-check-inline">
+								<label for="inlineRadio0" class="col-form-label"><ion-icon name="alarm-outline"></ion-icon> Cada:</label>						
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="3" disabled>
+								<label class="form-check-label" for="inlineRadio1">3</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="4" disabled>
+								<label class="form-check-label" for="inlineRadio2">4</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="6" disabled> 
+								<label class="form-check-label" for="inlineRadio3">6</label>
+							</div>
+							<div class="form-check form-check-inline" style="margin: 0;">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="8" disabled>
+								<label class="form-check-label" for="inlineRadio4">8</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<label for="inlineRadio0" class="col-form-label">Horas</label>						
+							</div>
+						</div>
+						<div class="col-md-4">
+							<label class="form-check-label">1 veces al día.</label>
 						</div>
 					</div>
 				</form>
@@ -38,3 +69,22 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	/*$(document).ready(function(){
+		$(window).load(function(){
+			$(".cargando").fadeOut(1000);
+		});
+	});
+*/
+	$('.notification').change(function(){
+		var notif = $(this).prop('checked') == true ? 1 : 0;
+		if(notif == 1){
+			console.log("hola");
+			document.getElementById('inlineRadio1').disabled = false;
+		}else{
+			document.getElementById('inlineRadio1').disabled = true;
+		}
+	});
+	
+</script>

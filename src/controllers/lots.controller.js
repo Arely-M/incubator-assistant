@@ -62,9 +62,9 @@ export const createLot = async (req, res) => {
         for (let i = 0; i < req.body.amount; i++) {
             const egg = new Eggs({
                 number: i + 1,
-                transparency: "",
-                width: "",
-                height: "",
+                transparency: 0,
+                width: 0,
+                height: 0,
                 id_lot: lot[0]._id,
             });
             await egg.save();

@@ -2,10 +2,216 @@
 	<div class="card-title">
 		<div class="row">
 			<div class="col-sm-10">
-				<h4>Huevo 1</h4>
+				<h4>Huevo {{egg.number}}</h4>
 			</div>
 		</div>
 	</div>
-	<div class="separator"></div>	 
-	
+	<hr />
+	<div>
+		<form id="EditEgg" class="row" action="/eggs/{{egg._id}}/edit" method="POST">
+		{{#ifCond egg.width ">" 0}}      
+		<div class="col-6">
+			<div class="floating">
+				<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
+				<label for="input__email" class="floating__label" data-content="number"></label>
+				<div id="emailError1" class="error-container"></div>
+			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
+				<label for="input__password" class="floating__label" data-content="width"></label>
+				<div id="passError1" class="error-container"></div>
+			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
+				<label for="input__password" class="floating__label" data-content="height"></label>
+				<div id="passError1" class="error-container"></div>
+			</div>
+		</div>
+		<div class="col-5">
+			<div class="floating range">
+				<div class="sliderValue">
+					<span id="spanSlider">0</span>
+				</div>
+				<div class="field">
+					<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
+					<div class="value left">0</div>
+					<div class="progress"></div>
+					<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
+					<div class="value right">100</div>
+				</div>
+			</div>
+			<div class="floating" style="background: transparent;">
+				<div class="egg-transparency" id="ViewEgg"></div>
+			</div>
+		</div>
+			
+			&emsp; &emsp;
+			
+			<div class="details">
+				<div class="recentOrders">
+					<div class="cardHeader">
+						<h2>Ovoscopia</h2>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<td>Número de día</td>
+								<td>Name</td>
+								<td>Estatus</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+								<tr>
+								<td>a</td>
+								<td>a</td>
+								<td><span class="status delivered">Delivered</span></td>
+								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+							</tr>
+							
+							<tr>
+								<td>b</td>
+								<td>b</td>
+								<td><span class="status inprogress">In progress</span></td>
+								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{{else}}  
+				<div class="col-6">
+			<div class="floating">
+				<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
+				<label for="input__email" class="floating__label" data-content="number"></label>
+				<div id="emailError1" class="error-container"></div>
+			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
+				<label for="input__password" class="floating__label" data-content="width"></label>
+				<div id="passError1" class="error-container"></div>
+			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
+				<label for="input__password" class="floating__label" data-content="height"></label>
+				<div id="passError1" class="error-container"></div>
+			</div>
+		</div>
+		<div class="col-5">
+			<div class="floating range">
+				<div class="sliderValue">
+					<span id="spanSlider">0</span>
+				</div>
+				<div class="field">
+					<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
+					<div class="value left">0</div>
+					<div class="progress"></div>
+					<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
+					<div class="value right">100</div>
+				</div>
+			</div>
+			<div class="floating" style="background: transparent;">
+				<div class="egg-transparency" id="ViewEgg"></div>
+			</div>
+		</div>
+
+			<div class="details">
+				<div class="recentOrders">
+					<div class="cardHeader">
+						<h2>Ovoscopia</h2>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<td>Número de día</td>
+								<td>Name</td>
+								<td>Estatus</td>
+								<td></td>
+							</tr>
+						</thead>
+						<tbody>
+								<tr>
+								<td>a</td>
+								<td>a</td>
+								<td><span class="status delivered">Delivered</span></td>
+								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+							</tr>
+							
+							<tr>
+								<td>b</td>
+								<td>b</td>
+								<td><span class="status inprogress">In progress</span></td>
+								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			{{/ifCond}}    
+			<br />
+			<div class="modal-footer">
+				<a class="btn btn-secondary" href="/lots/{{egg.id_lot}}/view">Cancelar</a>
+				<button type="submit" class="btn color-button" form="EditEgg">Guardar</button>
+			</div>
+		</form>
+	</div>
 </div>
+<script>
+	const sliderValue = document.getElementById("spanSlider");
+    const inputSlider = document.getElementById("transparency");
+	const progress = document.querySelector(".progress");
+
+	window.onload = function() {
+		transparency();
+	}
+	function transparency(){
+        let value = inputSlider.value;
+        sliderValue.textContent = value;
+        if(value == 0){
+			progress.style.width = "0%";
+            document.getElementById("ViewEgg").style = "rgb(250, 206, 119)";
+            sliderValue.style.left =  value + "%";
+        }
+        if(value == 25){
+			value = value - 5;
+			progress.style.width = "23%";
+            document.getElementById("ViewEgg").style = "background-color: rgb(242, 185, 71)";
+            sliderValue.style.left =  value + "%";
+        }
+        if(value == 50){
+			value = value - 10;
+			progress.style.width = "43%";
+            document.getElementById("ViewEgg").style = "background-color: rgba(253, 162, 0, 1)";
+            sliderValue.style.left = value + "%";
+        }
+        if(value == 75){
+			value = value - 15;
+			progress.style.width = "63%";
+            document.getElementById("ViewEgg").style = "background-color: rgb(248, 152, 42)";
+            sliderValue.style.left = value + "%";
+        }
+        if(value == 100){
+			value = value - 20;
+			progress.style.width = "85%";
+            document.getElementById("ViewEgg").style = "background-color: rgb(240, 101, 60, 1)";
+            sliderValue.style.left = value + "%";
+        }
+    };
+
+    inputSlider.oninput = (()=>{
+        transparency();
+        sliderValue.classList.add("show");
+    });
+    
+    inputSlider.onmouseover = (()=>{
+        let value = inputSlider.value;
+        sliderValue.textContent = value;
+        sliderValue.classList.add("show");
+        document.getElementById("labelRange").style = "color: #089d79";
+    });
+    
+    inputSlider.onmouseout = (()=>{
+        sliderValue.classList.remove("show");
+        document.getElementById("labelRange").style = "color: rgb(83 80 80)";
+    });
+</script>
