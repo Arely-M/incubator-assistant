@@ -7,16 +7,46 @@
 		</div>
 	</div>
 	<hr>
+	<!-- Add charts -->
+	<div class="graphBox">
+		<div class="box" style="width: 75%;">
+			<canvas id="earning"></canvas>
+		</div>
+	</div>
+	<hr />
 	<div class="cardBox-egg">
 		{{#each eggs as |egg|}}
 			<div class="card">
 				<img class="card-img" src="/img/egg.png" alt="Card image cap" />
 				<div id="{{egg._id}}" class="card-body">
 					<h5 class="card-title" style="text-align: center;">Huevo #{{egg.number}}</h5>
-					<a href="/eggs/{{egg._id}}/view" class="btn" role="button" aria-disabled="true">
+					<a href="/eggs/{{egg._id}}/view" class="btn btn-turquoise" role="button" aria-disabled="true">
 						<i class="fa fa-eye" aria-hidden="true"></i></a>
 				</div>
 			</div>
 		{{/each}}
 	</div>
 </div>
+<script>
+	/*charts*/ 
+    const ctx1 = document.getElementById('earning').getContext('2d'); 
+
+	const earning = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['Exitos', 'Infertiles', 'Muertos'],
+            datasets: [{
+                label: '# of Votes',
+                data: [12, 13, 5],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+            }]
+        },
+        options: {
+            responsive: true, 
+        }
+    });
+</script>

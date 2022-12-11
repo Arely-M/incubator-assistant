@@ -8,14 +8,6 @@ import passport from "passport";
 import flash from "connect-flash";
 import multer from "multer";
 
-
-const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'public/uploads'),
-  filename: (req, file, cb) => {
-    cb(null, 'imgTest.jpg')
-  }
-});
-
 //Initializations
 const app = express();
 require("./config/passport");
@@ -32,6 +24,7 @@ app.engine(
     partialsDir: path.join(app.get("views"), "partials"),
     defaulLayout: "main",
     extname: ".hbs",
+    //helpers: require("./helpers"),
   }).engine
 );
 
@@ -52,9 +45,27 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+const storage = multer.diskStorage({
+  destination: path.join(__dirname, 'public/uploads/temp'),
+  filename: (req, file, cb) => {
+    cb(null, file.originalname)
+  }
+});
+
 app.use(multer({
   storage,
-  dest: path.join(__dirname, 'public/uploads')
+  dest: path.join(__dirname, 'public/uploads/temp'),
+  limits: { fileSize: 5000000 },
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|webp/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname));
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb("Error: Archivo debe ser una imagen valida");
+  }
 }).single('image'));
 
 app.use(passport.initialize());

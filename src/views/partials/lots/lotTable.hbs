@@ -5,7 +5,7 @@
 				<h4>LOTES</h4>
 			</div>
 			<div class="col-sm-2">
-				<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#formLots">
+				<button type="button" class="btn btn-turquoise" data-bs-toggle="modal" data-bs-target="#formLots">
 					Nuevo
 				</button>
 				{{> lots/lotModal }} 
@@ -13,30 +13,107 @@
 		</div>
 	</div>
 	<hr>
+	{{#ifCond lots '!=' ""}}
 	{{#each lots as |lot|}}
 		<div class="card" style="border-radius: 20px;">
 			<h5 class="card-egg card-header row" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">				
-					<div class="col-10" style="text-align: left;">Lote {{lot.number}} 
-						<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
-						<a href="/lots/{{lot._id}}/delete" class="text-white"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
-					</div>		
-					<div class="col-2"style="text-align: right;">
-						<a href="/lots/{{lot._id}}/view" class="text-white"><i class="fa fa-arrow-right mr-3 fa-fw"></i></a>
-					</div>				
-				
+				<div class="col-10 btn-et">Lote {{lot.number}} 
+					<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
+					<a class="text-white" onclick="delLot('{{_id}}');"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
+				</div>		
+				<div class="col-2 btn-f">
+					<a href="/lots/{{lot._id}}/view" class="text-white"><i class="fa fa-arrow-right mr-3 fa-fw"></i></a>
+				</div>	
 			</h5>
 			<div class="card-body">				
-				<p class="card-title">Cantidad: {{lot.amount}}</p>
+				<p class="card-title"><b>Cantidad:</b> {{lot.amount}}</p>
 				{{#ifCond lot.comment '==' ''}}
-					<p class="card-text">Comentario: Ninguno</p>
+					<p class="card-text"><b>Comentario:</b> Ninguno</p>
 				{{else}}				
-					<p class="card-text">Comentario: {{lot.comment}}</p>	
-				{{/ifCond}}			
+					<p class="card-text"><b>Comentario:</b> {{lot.comment}}</p>	
+				{{/ifCond}}	
+				<p class="card-title"><b>Progreso de incubación:</b></p>	
+				<div class="progress">
+					<div id="prog{{lot.number}}" class="progress-bar lot" role="progressbar" aria-label="Example with label" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+				</div>					
 			</div>
-			<div class="card-footer text-muted" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
-				{{lot.date}}
+			<div class="card-footer text-muted row" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+				<div class="col-6"><b>Fecha de inicio:</b> <span id="startDate{{lot.number}}">{{lot.startDate}}</span></div>
+				<div class="col-6"><b>Fecha tentativa de finalizar:</b> <span>{{lot.endDate}}</span></div>
 			</div>
 		</div>
-		<br/>
+		<br/>		
+		{{#if @last}}
+			<input id="numb" type="hidden" value="{{lot.number}}">
+		{{/if}}
 	{{/each}}
+	{{else}}				
+		<h2 class="no-text">No existen datos disponibles. :(</h2>	
+	{{/ifCond}}	
 </div>
+
+<script>
+	window.onload = function() {	
+		var numLotes = $("#numb").val();		
+		progress(numLotes);
+	};
+		
+	function progress(numLotes){		
+		for(let i=1; i<=numLotes; i++){
+			if(document.getElementById("prog"+i) === null){ }else{
+				var date1 = new Date(document.getElementById("startDate"+i).textContent);
+				var date2 = new Date();
+
+				var day_as_milliseconds = 86400000;
+				var diff_in_millisenconds = date2 - date1;
+				var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+
+				var progress = Math.round((Math.round(diff_in_days) * 100)/21);
+				if(progress == 0){
+					document.getElementById("prog"+i).style = "width: 2%; color: black; background: #E9ECEF";
+					document.getElementById("prog"+i).innerHTML = progress+"%";
+				}else{
+					if(progress >= 100){
+						document.getElementById("prog"+i).style = "width: 100%";
+						document.getElementById("prog"+i).innerHTML = "100%";
+					}else{
+						document.getElementById("prog"+i).style = "width: "+progress+"%";
+						document.getElementById("prog"+i).innerHTML = progress+"%";
+					}
+				}
+			}
+		}
+	};	
+
+	/*window.onload = function() {	
+		var numLotes = $("#numb").val();
+		console.log(numLotes);
+		progreso(numLotes);
+	}
+
+	function progreso(numLotes){
+		for(let i=1; i<numLotes; i++){
+				var date1 = new Date(document.getElementById("startDate"+i).textContent);
+				var date2 = new Date();
+
+				var day_as_milliseconds = 86400000;
+				var diff_in_millisenconds = date2 - date1;
+				var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
+
+				var progress = Math.round((Math.round(diff_in_days) * 100)/21);
+				if(progress == 0){
+					document.getElementById("prog"+i).style = "width: 2%; color: black; background: #E9ECEF";
+					document.getElementById("prog"+i).innerHTML = progress+"%";
+				}else{
+					if(progress >= 100){
+						document.getElementById("prog"+i).style = "width: 100%";
+						document.getElementById("prog"+i).innerHTML = "100%";
+					}else{
+						document.getElementById("prog"+i).style = "width: "+progress+"%";
+						document.getElementById("prog"+i).innerHTML = progress+"%";
+					}
+				}
+			
+		}
+	}*/
+</script>

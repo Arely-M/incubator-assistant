@@ -51,6 +51,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>    
 <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -153,7 +154,35 @@
                     )
                 }
             })
-        }        
+        }    
+
+        function delLot(id){
+            Swal.fire({
+                title: 'Esta seguro?',
+                text: "No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, elimnar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Eliminado!',
+                    'Tu informacion ha sido eliminada.',
+                    'success'
+                    ).then((result) => {
+                        window.location = '/lots/'+id+'/delete';
+                    })
+                }else if (result.isDismissed){
+                    Swal.fire(
+                        'Cancelado',
+                        'Tu informacion esta a salvo :)',
+                        'error'
+                    )
+                }
+            })
+        }         
 
         /*
         var esIndefinidoP = false;

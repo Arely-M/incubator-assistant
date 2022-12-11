@@ -11,6 +11,7 @@ const eggsSchema = new Schema(
         },
         width: Number,
         height: Number,
+        status: Number,
         id_lot: String,
 
     },

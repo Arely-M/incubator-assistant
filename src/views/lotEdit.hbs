@@ -1,0 +1,83 @@
+{{> nav/navigation}}
+
+<div class="page-content p-5" id="content">
+	<div class="card-title">
+		<div class="row">
+			<div class="col-sm-10">
+				<h4>Editar de lote {{lot.number}}</h4>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div>
+		<form id="EditEgg" class="row" action="/lots/{{lot._id}}/edit" method="POST">
+		<div class="col-6">
+			<div class="floating">
+				<input class="floating__input input-field" type="date" id="startDate" name="startDate" placeholder="Fecha de inicio" value="{{lot.startDate}}" required/>
+				<label for="input__startDate" class="floating__label" data-content="Fecha de inicio"></label>
+				<div id="startDateError1" class="error-container"></div>
+			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="number" id="amount" name="amount" placeholder="Cantidad" value="{{lot.amount}}" required />
+				<label for="input__password" class="floating__label" data-content="Cantidad"></label>
+				<div id="amountError1" class="error-container"></div>
+			</div>
+			{{#ifCond lot.comment '==' ''}}
+				<div class="floating">
+					<textarea class="floating__input input-field floting__textarea" id="comment" name="comment" placeholder="Comentario">Ninguno</textarea>
+					<label for="comment" class="floating__label" data-content="Comentario"></label>
+					<div id="emailError1" class="error-container"></div>
+				</div>
+			{{else}}				
+				<div class="floating">
+					<textarea class="floating__input input-field floting__textarea" id="comment" name="comment" placeholder="Comentario"  value="{{lot.comment}}"></textarea>
+					<label for="comment" class="floating__label" data-content="Comentario"></label>
+				<div id="emailError1" class="error-container"></div>
+			</div>
+			{{/ifCond}}	
+			
+		</div>
+		<div class="col-6">
+			<div class="floating">
+				<input class="floating__input input-field" type="date" id="endDate" name="endDate" placeholder="Fecha de finalización" value="{{lot.endDate}}" required />
+				<label for="input__endDate" class="floating__label" data-content="Fecha de finalización"></label>
+				<div id="endDateError1" class="error-container"></div>
+			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" value="{{lot.status}}" required />
+				<label for="input__status" class="floating__label" data-content="Estado"></label>
+				<div id="statusError1" class="error-container"></div>
+			</div>
+		</div>
+			<br />
+			<div class="modal-footer">
+				<button type="submit" class="btn btn-turquoise" form="EditEgg">Guardar</button>
+				<a class="btn btn btn-dark-blue" href="/lots">Cancelar</a>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+	window.onload = function() {	
+		fechaMin();
+		fechaMax();
+	};
+
+	function fechaMax(){
+		var date = document.getElementById("startDate");
+		var today = new Date();
+		date.setAttribute("max",today.toISOString().substring(0, 10));
+	}
+
+	function fechaMin(){
+		var date = document.getElementById("startDate"); 
+		var today = new Date(); //today
+		date.setAttribute("min",today.removeDays(21)); // today - 21 
+	}
+
+	Date.prototype.removeDays = function (noOfDays) {
+        var tmpDate = new Date(this.valueOf());
+        tmpDate.setDate(tmpDate.getDate() - noOfDays);
+        return tmpDate.toISOString().substring(0, 10);
+    }
+</script>

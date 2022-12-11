@@ -3,8 +3,11 @@ import Eggs from "../models/eggs";
 export const renderEditEgg = async (req, res) => {
     try {
         const egg = await Eggs.findById(req.params.id).lean();
+        const name = req.user.name;
+
         res.render("egg", {
             egg: egg,
+            name: name,
             helpers: {
                 ifCond: function (v1, operator, v2, options) {
                     switch (operator) {

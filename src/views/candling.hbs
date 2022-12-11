@@ -1,0 +1,10 @@
+{{> nav/navigation}}    
+
+<div class="page-content p-5" id="content">
+    <h5 class="text-black">Ovoscopia</h5>
+	<hr>
+    <form action="/uploadImage" method="POST" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit">Subir</button>
+    </form>
+</div>

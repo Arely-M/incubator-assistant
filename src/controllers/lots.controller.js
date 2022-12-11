@@ -8,12 +8,17 @@ export const renderLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
     const lots = await Lots.find().lean();
     for (let i = 0; i < lots.length; i++) {
-        lots[i].date = lots[i].date.toISOString().substring(0, 10);
+        lots[i].startDate = lots[i].startDate.toISOString().substring(0, 10);
+        lots[i].endDate = lots[i].endDate.toISOString().substring(0, 10);
     }
+
     const idUser = user[0].role;
+    const name = req.user.name;
+
     res.render("lot", {
         user: idUser,
         lots: lots,
+        name: name,
         helpers: {
             ifCond: function (v1, operator, v2, options) {
                 switch (operator) {
@@ -47,9 +52,19 @@ export const renderLot = async (req, res) => {
 
 export const createLot = async (req, res) => {
     try {
+        var count = 0;
+        const countLot = await Lots.find({ "id_user": req.user.id });
+        if (countLot === undefined) {
+            count = 1;
+        } else {
+            const countLot = await Lots.find({ "id_user": req.user.id }).sort({ $natural: -1 }).limit(1);
+            count = countLot[0].number + 1;
+        }
+        console.log(count);
         const lots = new Lots({
-            number: req.body.number,
-            date: req.body.date,
+            number: count,
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
             amount: req.body.amount,
             comment: req.body.comment,
             status: "1",
@@ -69,12 +84,106 @@ export const createLot = async (req, res) => {
             });
             await egg.save();
         }
-
         req.flash("success_msg", "Registro exitoso!");
         res.redirect("/lots");
-
     } catch (error) {
         console.log(error);
+    }
+};
+
+export const renderEditLot = async (req, res) => {
+    const user = await Users.find({ _id: req.user.id });
+    const lot = await Lots.findById(req.params.id).lean();
+
+    lot.startDate = lot.startDate.toISOString().substring(0, 10);
+    lot.endDate = lot.endDate.toISOString().substring(0, 10);
+
+    const idUser = user[0].role;
+    const name = req.user.name;
+
+    res.render("lotEdit", {
+        user: idUser,
+        lot: lot,
+        name: name,
+        helpers: {
+            ifCond: function (v1, operator, v2, options) {
+                switch (operator) {
+                    case "==":
+                        return v1 == v2 ? options.fn(this) : options.inverse(this);
+                    case "===":
+                        return v1 === v2 ? options.fn(this) : options.inverse(this);
+                    case "!=":
+                        return v1 != v2 ? options.fn(this) : options.inverse(this);
+                    case "!==":
+                        return v1 !== v2 ? options.fn(this) : options.inverse(this);
+                    case "<":
+                        return v1 < v2 ? options.fn(this) : options.inverse(this);
+                    case "<=":
+                        return v1 <= v2 ? options.fn(this) : options.inverse(this);
+                    case ">":
+                        return v1 > v2 ? options.fn(this) : options.inverse(this);
+                    case ">=":
+                        return v1 >= v2 ? options.fn(this) : options.inverse(this);
+                    case "&&":
+                        return v1 && v2 ? options.fn(this) : options.inverse(this);
+                    case "||":
+                        return v1 || v2 ? options.fn(this) : options.inverse(this);
+                    default:
+                        return options.inverse(this);
+                }
+            },
+        },
+    });
+};
+
+export const editLot = async (req, res) => {
+    try {
+        const id = req.params.id;
+
+        const lot = await Lots.findById(id).limit(1);
+        const newAmount = req.body.amount - lot.amount;
+        const newAmount1 = lot.amount - req.body.amount;
+
+        if (lot.amount > req.body.amount) {
+            for (let i = 1; i <= newAmount1; i++) {
+                const egg = await Eggs.find({ id_lot: id }).sort({ $natural: -1 }).limit(1);
+                await Eggs.findByIdAndDelete(egg[0].id);
+            }
+        } else {
+            for (let i = 1; i <= newAmount; i++) {
+                const eggNumber = await Eggs.find({ id_lot: id }).sort({ $natural: -1 }).limit(1);
+                const egg = new Eggs({
+                    number: eggNumber[0].number + 1,
+                    transparency: 0,
+                    width: 0,
+                    height: 0,
+                    id_lot: id,
+                });
+                await egg.save();
+            }
+        }
+        await Lots.findByIdAndUpdate(id, {
+            startDate: req.body.startDate,
+            endDate: req.body.endDate,
+            amount: req.body.amount,
+            comment: req.body.comment
+        });
+        req.flash("success_msg", "Actualización exitosa!");
+        res.redirect("/lots");
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
+export const deleteLot = async (req, res) => {
+    try {
+        const { id } = req.params;
+        await Lots.findByIdAndDelete(id);
+        await Eggs.remove({ "id_lot": id });
+
+        res.redirect("/lots");
+    } catch (error) {
+        console.log(error.message);
     }
 };
 
@@ -82,10 +191,12 @@ export const renderChart = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
     const role = await Role.find().lean();
     const idUser = user[0].role;
+    const name = req.user.name;
 
     res.render("chart", {
         role: role,
         user: idUser,
+        name: name,
         helpers: {
             ifCond: function (v1, operator, v2, options) {
                 switch (operator) {
@@ -120,9 +231,11 @@ export const renderChart = async (req, res) => {
 export const renderEgg = async (req, res) => {
     try {
         const eggs = await Eggs.find({ id_lot: req.params.id }).lean();
-        console.log(req.params.id);
+        const name = req.user.name;
+
         res.render("eggs", {
             eggs: eggs,
+            name: name,
             helpers: {
                 ifCond: function (v1, operator, v2, options) {
                     switch (operator) {

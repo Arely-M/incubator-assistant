@@ -6,9 +6,13 @@ const lotsSchema = new Schema(
             type: Number,
             required: [true, "El número de lote es requerido!"]
         },
-        date: {
+        startDate: {
             type: Date,
             required: [true, "La fecha es requerida!"]
+        },
+        endDate: {
+            type: Date,
+            required: [true, "La fecha tentativa de finalización es requerida!"]
         },
         amount: {
             type: Number,

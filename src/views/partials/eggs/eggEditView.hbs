@@ -7,6 +7,7 @@
 		</div>
 	</div>
 	<hr />
+	
 	<div>
 		<form id="EditEgg" class="row" action="/eggs/{{egg._id}}/edit" method="POST">
 		{{#ifCond egg.width ">" 0}}      
@@ -26,8 +27,13 @@
 				<label for="input__password" class="floating__label" data-content="height"></label>
 				<div id="passError1" class="error-container"></div>
 			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
+				<label for="input__password" class="floating__label" data-content="Status"></label>
+				<div id="passError1" class="error-container"></div>
+			</div>
 		</div>
-		<div class="col-5">
+		<div class="col-6">
 			<div class="floating range">
 				<div class="sliderValue">
 					<span id="spanSlider">0</span>
@@ -66,21 +72,21 @@
 								<td>a</td>
 								<td>a</td>
 								<td><span class="status delivered">Delivered</span></td>
-								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
 							</tr>
 							
 							<tr>
 								<td>b</td>
 								<td>b</td>
 								<td><span class="status inprogress">In progress</span></td>
-								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 			</div>
 			{{else}}  
-				<div class="col-6">
+			<div class="col-6">
 			<div class="floating">
 				<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
 				<label for="input__email" class="floating__label" data-content="number"></label>
@@ -96,8 +102,13 @@
 				<label for="input__password" class="floating__label" data-content="height"></label>
 				<div id="passError1" class="error-container"></div>
 			</div>
+			<div class="floating">
+				<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
+				<label for="input__password" class="floating__label" data-content="Status"></label>
+				<div id="passError1" class="error-container"></div>
+			</div>
 		</div>
-		<div class="col-5">
+		<div class="col-6">
 			<div class="floating range">
 				<div class="sliderValue">
 					<span id="spanSlider">0</span>
@@ -134,14 +145,14 @@
 								<td>a</td>
 								<td>a</td>
 								<td><span class="status delivered">Delivered</span></td>
-								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
 							</tr>
 							
 							<tr>
 								<td>b</td>
 								<td>b</td>
 								<td><span class="status inprogress">In progress</span></td>
-								<td><a href="#"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
+								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
 							</tr>
 						</tbody>
 					</table>
@@ -150,10 +161,11 @@
 			{{/ifCond}}    
 			<br />
 			<div class="modal-footer">
-				<a class="btn btn-secondary" href="/lots/{{egg.id_lot}}/view">Cancelar</a>
-				<button type="submit" class="btn color-button" form="EditEgg">Guardar</button>
+				<button type="submit" class="btn btn-turquoise" form="EditEgg">Guardar</button>
+				<a class="btn btn btn-dark-blue" href="/lots/{{egg.id_lot}}/view">Cancelar</a>
 			</div>
 		</form>
+
 	</div>
 </div>
 <script>

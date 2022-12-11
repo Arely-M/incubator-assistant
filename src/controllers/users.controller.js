@@ -34,10 +34,12 @@ export const renderHome = async (req, res) => {
   const user = await Users.find({ _id: req.user.id });
   const role = await Role.find().lean();
   const idUser = user[0].role;
+  const name = req.user.name;
 
   res.render("home", {
     role: role,
     user: idUser,
+    name: name,
     helpers: {
       ifCond: function (v1, operator, v2, options) {
         switch (operator) {
@@ -72,18 +74,20 @@ export const renderHome = async (req, res) => {
 export const renderUser = async (req, res) => {
   const user = await Users.find({ _id: req.user.id });
   const userRole = user[0].role;
-  const users = await Users.find().lean();  
+  const users = await Users.find().lean();
   const role = await Role.find().lean();
+  const name = req.user.name;
 
-  for (var i = 0; i < users.length; i++) {    
-    const role = await Role.find({ _id: users[i].role }).limit(1).lean();    
+  for (var i = 0; i < users.length; i++) {
+    const role = await Role.find({ _id: users[i].role }).limit(1).lean();
     users[i].role = role[0].role;
   }
 
   res.render("user", {
-    users: users,    
+    users: users,
     role: role,
     userRole: userRole,
+    name: name,
     helpers: {
       ifCond: function (v1, operator, v2, options) {
         switch (operator) {
@@ -119,10 +123,10 @@ export const createUser = async (req, res) => {
   try {
     var j = 0;
     var pass = "";
-    var str ="ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
+    var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
 
     const emailUser = await Users.find({ email: req.body.email }).limit(1).count();
-    
+
     if (emailUser == 1) {
       req.flash("error_msg", "Ya existe un usuario asociado a este correo electrónico.");
       //res.redirect("/users");
@@ -167,23 +171,23 @@ export const createUser = async (req, res) => {
 
 export const editUser = async (req, res) => {
   try {
-     var j = 0;
-     var pass = "";
-     var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
-     const id = req.body.id1;
-     const users = new Users();
+    var j = 0;
+    var pass = "";
+    var str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
+    const id = req.body.id1;
+    const users = new Users();
 
     for (var i = 1; i <= 8; i++) {
       var char = Math.floor(Math.random() * str.length + 1);
       pass += str.charAt(char);
     }
-    
+
     var passw = await users.encryptPassword(pass);
     await Users.findByIdAndUpdate(id, {
       name: req.body.name1,
       email: req.body.email1,
       //password: passw,
-      role: req.body.rol1,      
+      role: req.body.rol1,
     });
     /*await transporter.sendMail({
       from: '"UTI" <storepcbuild.2020@gmail.com>',
