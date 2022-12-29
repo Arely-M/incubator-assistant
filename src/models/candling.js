@@ -1,20 +1,21 @@
 import { Schema, model } from "mongoose";
+const path = require('path');
 
 const candlingSchema = new Schema(
     {
-        date: Date,
-        image: {
-            type: Buffer,
-            contentType: String,
-        },
+        filename: String,
+        timestamps: { type: Date, default: Date.now },
         status: Number,
         id_egg: String,
 
     },
     {
-        timestamps: false,
         versionKey: false,
     }
 );
+
+candlingSchema.virtual('uniqueId').get(function () {
+    return this.filename.replace(path.extname(this.filename, ''))
+});
 
 export default model("candling", candlingSchema);

@@ -6,6 +6,7 @@ import Role from "../models/role";
 
 export const renderLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
+    const role = await Role.find().lean();
     const lots = await Lots.find().lean();
     for (let i = 0; i < lots.length; i++) {
         lots[i].startDate = lots[i].startDate.toISOString().substring(0, 10);
@@ -17,6 +18,7 @@ export const renderLot = async (req, res) => {
 
     res.render("lot", {
         user: idUser,
+        role: role,
         lots: lots,
         name: name,
         helpers: {
@@ -80,6 +82,7 @@ export const createLot = async (req, res) => {
                 transparency: 0,
                 width: 0,
                 height: 0,
+                status: "1",
                 id_lot: lot[0]._id,
             });
             await egg.save();
@@ -93,6 +96,7 @@ export const createLot = async (req, res) => {
 
 export const renderEditLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
+    const role = await Role.find().lean();
     const lot = await Lots.findById(req.params.id).lean();
 
     lot.startDate = lot.startDate.toISOString().substring(0, 10);
@@ -103,6 +107,7 @@ export const renderEditLot = async (req, res) => {
 
     res.render("lotEdit", {
         user: idUser,
+        role: role,
         lot: lot,
         name: name,
         helpers: {
@@ -194,8 +199,8 @@ export const renderChart = async (req, res) => {
     const name = req.user.name;
 
     res.render("chart", {
-        role: role,
         user: idUser,
+        role: role,
         name: name,
         helpers: {
             ifCond: function (v1, operator, v2, options) {
@@ -230,10 +235,15 @@ export const renderChart = async (req, res) => {
 
 export const renderEgg = async (req, res) => {
     try {
+        const user = await Users.find({ _id: req.user.id });
+        const role = await Role.find().lean();
+        const idUser = user[0].role;
         const eggs = await Eggs.find({ id_lot: req.params.id }).lean();
         const name = req.user.name;
 
         res.render("eggs", {
+            user: idUser,
+            role: role,
             eggs: eggs,
             name: name,
             helpers: {

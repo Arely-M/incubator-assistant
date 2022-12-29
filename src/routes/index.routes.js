@@ -4,7 +4,7 @@ import { isAuthenticated, isAdmin } from "../helpers/auth";
 import { renderHome, renderUser, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
 import { createLot, editLot, renderEditLot, deleteLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
 import { renderEditEgg, editEgg } from "../controllers/eggs.controller";
-import { createCandling, renderCandlings } from "../controllers/candling.controller";
+import { createCandling, renderCandlings, renderCandlingsCamera, renderCandlingsImage } from "../controllers/candling.controller";
 
 const router = Router();
 
@@ -60,19 +60,16 @@ router.post("/eggs/:id/edit", editEgg);
 
 
 /*-- Ovoscopia --*/
-router.get("/candling", renderCandlings);
+//router.get("/candling", renderCandlings);
+router.get("/candling/:id", renderCandlings);
 
 router.post("/uploadImage", createCandling);
 
 /*-- Analisis --*/
-router.get("/camera", [isAuthenticated], async (req, res) => {
-  const name = req.user.name;
-  res.render("camera", { name: name });
-});
-router.get("/image", [isAuthenticated], async (req, res) => {
-  const name = req.user.name;
-  res.render("image", { name: name });
-});
+router.get("/camera", [isAuthenticated], renderCandlingsCamera);
+
+router.get("/image", [isAuthenticated], renderCandlingsImage);
+
 router.post("/upload", async (req, res) => {
   const name = req.user.name;
   res.redirect("/image", { name: name });

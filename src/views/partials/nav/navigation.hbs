@@ -20,12 +20,7 @@
 					<span class="title">Lotes</span>
 				</a>
 			</li>
-			<li>
-				<a href="/users">
-					<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-					<span class="title">Usuarios</span>
-				</a>
-			</li>
+			
 			<!--<li>
 				<a href="/camera">
 					<span class="icon"><ion-icon name="albums-outline"></ion-icon></span>
@@ -38,16 +33,34 @@
 					<span class="title">Análisis Imagen</span>
 				</a>
 			</li>
-			<!--<li>
-				<a href="#">
-					<span class="icon"><ion-icon name="images-outline"></ion-icon></span>
-					<span class="title">Galeria</span>
-				</a>
-			</li>-->
 			<li>
 				<a href="/chart">
 					<span class="icon"><ion-icon name="analytics-outline"></ion-icon></span>
 					<span class="title">Estadisticas</span>
+				</a>
+			</li>
+			{{#each role}}       
+				{{#ifCond _id '==' ../user}}                        
+					{{#ifCond role '==' "Administrador"}}                   
+						<li>
+							<a href="/users">
+								<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+								<span class="title">Usuarios</span>
+							</a>
+						</li>               
+						<li>
+							<a href="/candling">
+								<span class="icon"><ion-icon name="images-outline"></ion-icon></span>
+								<span class="title">Galeria</span>
+							</a>
+						</li>
+					{{/ifCond}}
+				{{/ifCond}}
+			{{/each}}
+			<li>
+				<a href="#">
+					<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
+					<span class="title">Nosotros</span>
 				</a>
 			</li>
 			<li>
@@ -62,12 +75,6 @@
 					<span class="title">Configuración</span>
 				</a>
 			</li>-->
-			<li>
-				<a href="#">
-					<span class="icon"><ion-icon name="people-outline"></ion-icon></span>
-					<span class="title">Nosotros</span>
-				</a>
-			</li>
 		</ul>
 	</div>
 	<!-- End vertical navbar -->
@@ -94,52 +101,6 @@
 	</div>
 	<!-- End navar-hortizontal -->
 </div>
-
-<!-- Horizontal navbar 
-<div class="page-content" id="content">
-	<nav class="horizontal-nav navbar navbar-expand-lg navbar-dark">
-		<div class="container-fluid">
-			 Toggle button -->
-
-			<!--<button id="sidebarCollapse" type="button"><i class="fa fa-bars mr-2"></i></button>
-			<a class="navbar-brand" style="color: black;" href="/home">CM-Vision</a>
-			<button
-				class="navbar-toggler"
-				type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarNav"
-				aria-controls="navbarNav"
-				aria-expanded="false"
-				aria-label="Toggle navigation"
-			>
-				<span class="navbar-toggler-icon"></span>
-			</button>-->
-		<!--	<div class="collapse navbar-collapse" id="navbarNav">
-				
-                <ul class="navbar-nav"> 
-                    {{#each role}}       
-                        {{#ifCond _id '==' ../user}}                        
-                            {{#ifCond role '==' "Administrador"}}                   
-                                <li class="nav-item">                                
-                                    <a class="nav-link" href="/users">
-                                        <i class="fa fa-user-o" aria-hidden="true"></i> Usuario
-                                    </a>
-                                </li>                 
-                                <li class="nav-item">                                
-                                    <a class="nav-link" href="/categories">
-                                        <i class="fa fa-tags" aria-hidden="true"></i> Categoria
-                                    </a>                       
-                                </li>
-                            {{/ifCond}}
-                        {{/ifCond}}
-                    {{/each}}
-                </ul>
-				-->
-	<!--
-			</div>
-		</div>
-	</nav>
-</div>-->
 
 <script>
 	//add hoverd

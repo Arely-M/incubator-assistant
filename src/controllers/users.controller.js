@@ -76,6 +76,8 @@ export const renderUser = async (req, res) => {
   const userRole = user[0].role;
   const users = await Users.find().lean();
   const role = await Role.find().lean();
+
+  const idUser = user[0].role;
   const name = req.user.name;
 
   for (var i = 0; i < users.length; i++) {
@@ -85,6 +87,7 @@ export const renderUser = async (req, res) => {
 
   res.render("user", {
     users: users,
+    user: idUser,
     role: role,
     userRole: userRole,
     name: name,

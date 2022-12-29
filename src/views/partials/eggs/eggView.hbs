@@ -17,11 +17,35 @@
 	<div class="cardBox-egg">
 		{{#each eggs as |egg|}}
 			<div class="card">
+				<div style="align-self: end;">
+					{{#ifCond egg.status "==" 1}}  
+						<span class="luces-circulo green" title="Estado: Viable"></span>
+					{{/ifCond}} 
+					{{#ifCond egg.status "==" 2}}  
+						<span class="luces-circulo yellow" title="Estado: Infertil"></span>
+					{{/ifCond}} 
+					{{#ifCond egg.status "==" 3}}  
+						<span class="luces-circulo red" title="Estado: Inerte"></span>
+					{{/ifCond}} 
+				</div>
 				<img class="card-img" src="/img/egg.png" alt="Card image cap" />
 				<div id="{{egg._id}}" class="card-body">
-					<h5 class="card-title" style="text-align: center;">Huevo #{{egg.number}}</h5>
-					<a href="/eggs/{{egg._id}}/view" class="btn btn-turquoise" role="button" aria-disabled="true">
-						<i class="fa fa-eye" aria-hidden="true"></i></a>
+					<h5 class="card-title" style="text-align: center;">Huevo N° {{egg.number}}</h5>
+					<div class="egg-btn row">
+						<div class="col-6" style="padding-bottom: 5px;">
+							<a href="/eggs/{{egg._id}}/view" class="btn btn-turquoise" style="width:75px" role="button" aria-disabled="true" title="Ver">
+							<i class="fa fa-eye" aria-hidden="true"></i></a>
+						</div>
+						<div class="dropdown col-6">
+							<a class="btn btn-secondary dropdown-toggle btn btn-turquoise" style="width:75px" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Ovoscopia">
+								<ion-icon name="flashlight-outline" style="font-size: 110%;"></ion-icon>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a class="dropdown-item" href="/candling/{{egg._id}}">Subir imagen</a></li>
+								<li><a class="dropdown-item" href="/camera">Camará</a></li>
+							</ul>
+						</div>
+					</div>
 				</div>
 			</div>
 		{{/each}}

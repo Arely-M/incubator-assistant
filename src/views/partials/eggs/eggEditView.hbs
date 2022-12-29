@@ -11,48 +11,46 @@
 	<div>
 		<form id="EditEgg" class="row" action="/eggs/{{egg._id}}/edit" method="POST">
 		{{#ifCond egg.width ">" 0}}      
-		<div class="col-6">
-			<div class="floating">
-				<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
-				<label for="input__email" class="floating__label" data-content="number"></label>
-				<div id="emailError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
-				<label for="input__password" class="floating__label" data-content="width"></label>
-				<div id="passError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
-				<label for="input__password" class="floating__label" data-content="height"></label>
-				<div id="passError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
-				<label for="input__password" class="floating__label" data-content="Status"></label>
-				<div id="passError1" class="error-container"></div>
-			</div>
-		</div>
-		<div class="col-6">
-			<div class="floating range">
-				<div class="sliderValue">
-					<span id="spanSlider">0</span>
+			<div class="col-6">
+				<div class="floating">
+					<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
+					<label for="input__email" class="floating__label" data-content="number"></label>
+					<div id="emailError1" class="error-container"></div>
 				</div>
-				<div class="field">
-					<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
-					<div class="value left">0</div>
-					<div class="progress"></div>
-					<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
-					<div class="value right">100</div>
+				<div class="floating">
+					<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
+					<label for="input__password" class="floating__label" data-content="width"></label>
+					<div id="passError1" class="error-container"></div>
+				</div>
+				<div class="floating">
+					<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
+					<label for="input__password" class="floating__label" data-content="height"></label>
+					<div id="passError1" class="error-container"></div>
+				</div>
+				<div class="floating">
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
+					<label for="input__password" class="floating__label" data-content="Status"></label>
+					<div id="passError1" class="error-container"></div>
 				</div>
 			</div>
-			<div class="floating" style="background: transparent;">
-				<div class="egg-transparency" id="ViewEgg"></div>
+			<div class="col-6">
+				<div class="floating range">
+					<div class="sliderValue">
+						<span id="spanSlider">0</span>
+					</div>
+					<div class="field">
+						<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
+						<div class="value left">0</div>
+						<div class="progress"></div>
+						<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
+						<div class="value right">100</div>
+					</div>
+				</div>
+				<div class="floating" style="background: transparent;">
+					<div class="egg-transparency" id="ViewEgg"></div>
+				</div>
 			</div>
-		</div>
-			
-			&emsp; &emsp;
-			
+				
 			<div class="details">
 				<div class="recentOrders">
 					<div class="cardHeader">
@@ -68,63 +66,58 @@
 							</tr>
 						</thead>
 						<tbody>
-								<tr>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status delivered">Delivered</span></td>
-								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
-							</tr>
-							
-							<tr>
-								<td>b</td>
-								<td>b</td>
-								<td><span class="status inprogress">In progress</span></td>
-								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
-							</tr>
-						</tbody>
+						{{#each candlings}}                            
+							<tr id="{{_id}}">
+								<td>b</td>  
+								<td>b</td>                               
+								<td>{{status}}</td>  
+								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>                               
+							</tr>                            
+						{{/each}}                           
+					</tbody>
 					</table>
 				</div>
 			</div>
-			{{else}}  
+		{{else}}  
 			<div class="col-6">
-			<div class="floating">
-				<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
-				<label for="input__email" class="floating__label" data-content="number"></label>
-				<div id="emailError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
-				<label for="input__password" class="floating__label" data-content="width"></label>
-				<div id="passError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
-				<label for="input__password" class="floating__label" data-content="height"></label>
-				<div id="passError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
-				<label for="input__password" class="floating__label" data-content="Status"></label>
-				<div id="passError1" class="error-container"></div>
-			</div>
-		</div>
-		<div class="col-6">
-			<div class="floating range">
-				<div class="sliderValue">
-					<span id="spanSlider">0</span>
+				<div class="floating">
+					<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
+					<label for="input__email" class="floating__label" data-content="number"></label>
+					<div id="emailError1" class="error-container"></div>
 				</div>
-				<div class="field">
-					<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
-					<div class="value left">0</div>
-					<div class="progress"></div>
-					<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
-					<div class="value right">100</div>
+				<div class="floating">
+					<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
+					<label for="input__password" class="floating__label" data-content="width"></label>
+					<div id="passError1" class="error-container"></div>
+				</div>
+				<div class="floating">
+					<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
+					<label for="input__password" class="floating__label" data-content="height"></label>
+					<div id="passError1" class="error-container"></div>
+				</div>
+				<div class="floating">
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
+					<label for="input__password" class="floating__label" data-content="Status"></label>
+					<div id="passError1" class="error-container"></div>
 				</div>
 			</div>
-			<div class="floating" style="background: transparent;">
-				<div class="egg-transparency" id="ViewEgg"></div>
+			<div class="col-6">
+				<div class="floating range">
+					<div class="sliderValue">
+						<span id="spanSlider">0</span>
+					</div>
+					<div class="field">
+						<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
+						<div class="value left">0</div>
+						<div class="progress"></div>
+						<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
+						<div class="value right">100</div>
+					</div>
+				</div>
+				<div class="floating" style="background: transparent;">
+					<div class="egg-transparency" id="ViewEgg"></div>
+				</div>
 			</div>
-		</div>
 
 			<div class="details">
 				<div class="recentOrders">
@@ -141,31 +134,25 @@
 							</tr>
 						</thead>
 						<tbody>
-								<tr>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status delivered">Delivered</span></td>
-								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
-							</tr>
-							
-							<tr>
-								<td>b</td>
-								<td>b</td>
-								<td><span class="status inprogress">In progress</span></td>
-								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>
-							</tr>
-						</tbody>
+						{{#each candlings}}                            
+							<tr id="{{_id}}">
+								<td>b</td>  
+								<td>b</td>                               
+								<td>{{status}}</td>  
+								<td><a href="/candling"><ion-icon name="camera" class="icon-camera"></ion-icon></a></td>                               
+							</tr>                            
+						{{/each}}                           
+					</tbody>
 					</table>
 				</div>
 			</div>
-			{{/ifCond}}    
+		{{/ifCond}}    
 			<br />
 			<div class="modal-footer">
 				<button type="submit" class="btn btn-turquoise" form="EditEgg">Guardar</button>
 				<a class="btn btn btn-dark-blue" href="/lots/{{egg.id_lot}}/view">Cancelar</a>
 			</div>
 		</form>
-
 	</div>
 </div>
 <script>
