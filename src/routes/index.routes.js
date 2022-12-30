@@ -4,7 +4,7 @@ import { isAuthenticated, isAdmin } from "../helpers/auth";
 import { renderHome, renderUser, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
 import { createLot, editLot, renderEditLot, deleteLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
 import { renderEditEgg, editEgg } from "../controllers/eggs.controller";
-import { createCandling, renderCandlings, renderCandlingsCamera, renderCandlingsImage } from "../controllers/candling.controller";
+import { createCandling, renderCandlings, renderCandlingsCamera, renderCandlingsImage, renderGallery } from "../controllers/candling.controller";
 
 const router = Router();
 
@@ -74,5 +74,9 @@ router.post("/upload", async (req, res) => {
   const name = req.user.name;
   res.redirect("/image", { name: name });
 });
+
+/*-- Gallery --*/
+router.get("/gallery", renderGallery);
+
 
 export default router;

@@ -1,0 +1,24 @@
+{{> nav/navigation}}
+
+<div class="page-content p-5" id="content">
+    <h5 class="text-black">Galeria de imagenes</h5>
+    <hr>
+    <div class="card mt-2">
+        <div class="card-header bg-dark text-white">
+            <h4><i class="far fa-images"> Recent Upload</i></h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                {{#each images}}
+                <div class="col-md-4">
+                    <a href="/images/{{uniqueId}}">
+                        <img src="./uploads/{{filename}}" alt="" class="w-100 h-100 img-thumbnail">
+                    </a>
+                </div>
+                {{/each}}
+            </div>
+            
+        </div>
+    </div>
+
+</div>
