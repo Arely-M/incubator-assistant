@@ -1,10 +1,10 @@
 import { Router } from "express";
 import passport from "passport";
 import { isAuthenticated, isAdmin } from "../helpers/auth";
-import { renderHome, renderUser, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
+import { renderHome, renderUser, resetPassword, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
 import { createLot, editLot, renderEditLot, deleteLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
 import { renderEditEgg, editEgg } from "../controllers/eggs.controller";
-import { createCandling, renderCandlings, renderCandlingsCamera, renderCandlingsImage, renderGallery } from "../controllers/candling.controller";
+import { createCandling, renderCandlings, renderCandlingsCamera, renderCandlingsImage, renderGallery, renderGalleryImage, deleteGalleryImage, renderInicial, renderMedia, renderFinal, renderInerte } from "../controllers/candling.controller";
 
 const router = Router();
 
@@ -52,18 +52,18 @@ router.get("/lots/:id/delete", [isAuthenticated], deleteLot);
 router.get("/lots/:id/view", [isAuthenticated], renderEgg);
 
 /*-- huevos --*/
-router.get("/eggs/:id/view", renderEditEgg);
-router.post("/eggs/:id/edit", editEgg);
+router.get("/eggs/:id/view", [isAuthenticated], renderEditEgg);
+router.post("/eggs/:id/edit", [isAuthenticated], editEgg);
 
 //Rutas de Restablecimiento de contraseña
-//router.post("/resetPassword", resetPassword);
+router.post("/resetPassword", resetPassword);
 
 
 /*-- Ovoscopia --*/
 //router.get("/candling", renderCandlings);
-router.get("/candling/:id", renderCandlings);
+router.get("/candling/:id", [isAuthenticated], renderCandlings);
 
-router.post("/uploadImage", createCandling);
+router.post("/uploadImage/:id", [isAuthenticated], createCandling);
 
 /*-- Analisis --*/
 router.get("/camera", [isAuthenticated], renderCandlingsCamera);
@@ -76,7 +76,14 @@ router.post("/upload", async (req, res) => {
 });
 
 /*-- Gallery --*/
-router.get("/gallery", renderGallery);
+router.get("/gallery", [isAuthenticated], renderGallery);
+router.get("/gallery/:image_id", [isAuthenticated], renderGalleryImage);
+router.get("/gallery/delete/:image_id", [isAuthenticated], deleteGalleryImage);
 
+
+router.get("/inicial", [isAuthenticated], renderInicial);
+router.get("/media", [isAuthenticated], renderMedia);
+router.get("/final", [isAuthenticated], renderFinal);
+router.get("/inerte", [isAuthenticated], renderInerte);
 
 export default router;

@@ -14,22 +14,24 @@
 			<div class="col-6">
 				<div class="floating">
 					<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
-					<label for="input__email" class="floating__label" data-content="number"></label>
+					<label for="input__email" class="floating__label" data-content="Número"></label>
 					<div id="emailError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
-					<label for="input__password" class="floating__label" data-content="width"></label>
+					<input class="floating__input input-field" type="text" id="width" name="width" placeholder="Ancho" value="{{egg.width}}" required />
+					<label for="input__password" class="floating__label" data-content="Ancho"></label>
 					<div id="passError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
-					<label for="input__password" class="floating__label" data-content="height"></label>
+					<input class="floating__input input-field" type="text" id="height" name="height" placeholder="Altura" value="{{egg.height}}" required />
+					<label for="input__password" class="floating__label" data-content="Altura"></label>
 					<div id="passError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
-					<label for="input__password" class="floating__label" data-content="Status"></label>
+					{{#ifCond egg.status "===" 1}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
 					<div id="passError1" class="error-container"></div>
 				</div>
 			</div>
@@ -39,7 +41,7 @@
 						<span id="spanSlider">0</span>
 					</div>
 					<div class="field">
-						<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
+						<label id="labelRange" class="floating__label_range" data-content="Transparencia"></label>
 						<div class="value left">0</div>
 						<div class="progress"></div>
 						<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
@@ -61,7 +63,7 @@
 							<tr>
 								<td>Número de día</td>
 								<td>Name</td>
-								<td>Estatus</td>
+								<td>Estado</td>
 								<td></td>
 							</tr>
 						</thead>
@@ -82,22 +84,24 @@
 			<div class="col-6">
 				<div class="floating">
 					<input class="floating__input input-field" type="number" id="number" name="number" value="{{egg.number}}" placeholder="Número" readonly />
-					<label for="input__email" class="floating__label" data-content="number"></label>
+					<label for="input__email" class="floating__label" data-content="Número"></label>
 					<div id="emailError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					<input class="floating__input input-field" type="text" id="width" name="width" placeholder="width" value="{{egg.width}}" required />
-					<label for="input__password" class="floating__label" data-content="width"></label>
+					<input class="floating__input input-field" type="text" id="width" name="width" placeholder="Ancho" value="{{egg.width}}" required />
+					<label for="input__password" class="floating__label" data-content="Ancho"></label>
 					<div id="passError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					<input class="floating__input input-field" type="text" id="height" name="height" placeholder="height" value="{{egg.height}}" required />
-					<label for="input__password" class="floating__label" data-content="height"></label>
+					<input class="floating__input input-field" type="text" id="height" name="height" placeholder="Altura" value="{{egg.height}}" required />
+					<label for="input__password" class="floating__label" data-content="Altura"></label>
 					<div id="passError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" required />
-					<label for="input__password" class="floating__label" data-content="Status"></label>
+					{{#ifCond egg.status "===" 1}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" required />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
 					<div id="passError1" class="error-container"></div>
 				</div>
 			</div>
@@ -107,7 +111,7 @@
 						<span id="spanSlider">0</span>
 					</div>
 					<div class="field">
-						<label id="labelRange" class="floating__label_range" data-content="transparency"></label>
+						<label id="labelRange" class="floating__label_range" data-content="Transparencia"></label>
 						<div class="value left">0</div>
 						<div class="progress"></div>
 						<input id="transparency" name="transparency" type="range" class="input-field" min="0" max="100" step="25" value="{{egg.transparency}}" />
@@ -129,7 +133,7 @@
 							<tr>
 								<td>Número de día</td>
 								<td>Name</td>
-								<td>Estatus</td>
+								<td>Estado</td>
 								<td></td>
 							</tr>
 						</thead>

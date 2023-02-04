@@ -1,7 +1,7 @@
 {{> nav/navigation}}    
 
 <div class="page-content p-5" id="content">
-    <h5 class="text-black">Análisis de Etpas mediante imagenes</h5>
+    <h5 class="text-black">Análisis de etapas mediante imagenes</h5>
 	<hr>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div class="row mb-2 mt-2">
@@ -10,32 +10,15 @@
                 <div class="col-sm-9">
                     <input class="form-control" type="date" name="fecha" id="fecha">
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label for="image" class="col-sm-2 col-form-label">Imagen: </label>
-                <div class="col-sm-9">
-                    <input class="form-control" type="file" id="formFile" name="image">
-                </div>   
                 <div class="col-1">
                     <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();">
                     Clasificar
-                </button>
-            </div>            
+                    </button>
+                </div>
             </div>
         </div>
     </form>
     <div class="columnas">
-        <div class="resultados">
-            <canvas id="canvas" class="mt-2" width="400" height="400" style="max-width: 100%; border-radius: 20px;"></canvas>
-            <canvas id="othercanvas" width="150" height="150" style="display: none;"></canvas> 
-        </div>
-        <div id="resultado">
-        </div>
-        <div id="dias">
-        </div>
-    </div>
-    <hr>
-    <div class="columnas" style="padding-bottom: 60px;">
         <div class="resultados">
             <form id="file-upload-form" class="uploader-image row" action="/uploadImage" method="POST" enctype="multipart/form-data">
                 <input id="file-upload" type="file" name="image" accept="image/*" />
@@ -54,22 +37,76 @@
                 </label>
             </form>
         </div>
-        <div id="resultado">
+        <div id="resultado-etapas" style="margin-bottom: 10px;">		
+            <div class="card" style="border-radius: 20px;  margin-bottom: 10px;">
+                <div class="card-body">	
+                    <div class="row">
+                        <div class="col-5 btn-et">
+                            <h6 style="color: #e57801;"><b>Etapa Inicial:</b></h6>	
+                        </div>		
+                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
+                            <div class="progress progress-stage">
+                                <div id="progInicial" class="progress-bar inicial" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>	
+                        </div>	
+                        <div class="col-5 btn-et">
+                            <h6 style="color: #d8486b;"><b>Etapa Media:</b></h6>	
+                        </div>		
+                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
+                            <div class="progress progress-stage">
+                                <div id="progMedia" class="progress-bar media" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>	
+                        </div>	
+                        
+                        <div class="col-5 btn-et">
+                            <h6 style="color: #937cd6"><b>Etapa Final:</b></h6>	
+                        </div>		
+                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
+                            <div class="progress progress-stage">
+                                <div id="progFinal" class="progress-bar final" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>	
+                        </div>	
+                        <div class="col-5 btn-et">
+                            <h6 style="color: #7090c0"><b>Feto Muerto:</b></h6>	
+                        </div>		
+                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
+                            <div class="progress progress-stage">
+                                <div id="progInerte" class="progress-bar inerte" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                            </div>	
+                        </div>
+                    </div>						
+                </div>
+            </div>
+            <div class="card" style="border-radius: 20px;">
+                <div class="card-body">	
+                    <p style="font-size: 16px;" align="center"><strong>Resultados</strong></p>
+                    <div id="resultado"></div>			
+                </div>
+            </div>
         </div>
-        <div id="dias"> 
-        </div> 
     </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-turquoise" form="file-upload-form">Guardar</button>
-        <a class="btn btn btn-dark-blue" href="/lots/{{id_lot}}/view">Cancelar</a>
+    <div class="columnas" style="visibility: hidden; display: none;">
+        <div class="resultados">
+            <canvas id="canvas" width="400" height="400" style="max-width: 100%; border-radius: 20px; visibility: hidden; display: none;"></canvas>
+            <canvas id="othercanvas" width="150" height="150" style="display: none; visibility: hidden;"></canvas> 
+        </div>
     </div>
 </div>
 <script type="text/javascript">
+    window.onload = function() {	
+		fechaMax();
+	};
+
+    function fechaMax(){
+		var date = document.getElementById("fecha");
+		var today = new Date();
+		date.setAttribute("max",today.toISOString().substring(0, 10));
+	}
     //////////////////////Script de imagen///////////////////////
     var modelo = null;
     (async () => {
         console.log("Cargando modelo...");
-        modelo = await tf.loadLayersModel("train/carpeta_Inception/tfjs_model/model.json");
+        modelo = await tf.loadLayersModel("train/carpeta_Prueba_optimizador/tfjs_model/model.json");
         console.log("Modelo cargado...");        
     })();
     
@@ -89,7 +126,7 @@
                 reader.readAsDataURL(input.files[0])
             }
         }
-        $('#formFile').change(function(){
+        $('#file-upload').change(function(){
             filePreview(this);
         });
     })(); 
@@ -186,7 +223,7 @@
 
     function clasificar() {
         var isDate = document.getElementById("fecha").value;
-        var isImage = document.getElementById("formFile").value;
+        var isImage = document.getElementById("file-upload").value;
         if (modelo != null) {
             if (isDate != "") {
                 if (isImage != "") {                    
@@ -209,17 +246,21 @@
                     arr = [arr];
                     console.log(arr);
                     var tensor4 = tf.tensor4d(arr);
-                    var resultados = modelo.predict(tensor4).dataSync();                    
+                    var resultados = modelo.predict(tensor4).dataSync();  
+                    for(let i = 0; i < resultados.length; i++){
+                        progressEtapas(i, resultados[i]);
+                    }
+                    
                     var mayorIndice = resultados.indexOf(
                         Math.max.apply(null, resultados)
                     );
                     var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
                     var diaIncu = calcularDias();
-                    document.getElementById("resultado").innerHTML = `<p><strong>Desarrollo embrionario:</strong> ${clases[mayorIndice]}</p>
-                                                                    <p align="justify"><strong>Descripción:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
-                                                                    <p align="justify"><strong>Día de incubación:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
+                    document.getElementById("resultado").innerHTML = `<p style="font-size: 16px;"><strong>Desarrollo embrionario:</strong> ${clases[mayorIndice]}</p>
+                                                                    <p align="justify" style="font-size: 16px;"><strong>Descripción:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
+                                                                    <p align="justify" style="font-size: 16px;"><strong>Día de incubación:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
                     document.getElementById("fecha").value = "";
-                    document.getElementById("formFile").value = "";
+                    document.getElementById("file-upload").value = "";
                 }else{
                     toastr.warning("Porfavor, seleccione una imagen", "",{
                         "closeButton": true,
@@ -326,43 +367,36 @@
     }   
 
     // File Upload
-/*function ekUpload(){
-    function Init() {
+    function ekUpload(){
+        function Init() {
+        console.log("Upload Initialised");
+        var fileSelect    = document.getElementById('file-upload'),
+            fileDrag      = document.getElementById('file-drag'),
+            submitButton  = document.getElementById('submit-button');
 
-    console.log("Upload Initialised");
-
-    var fileSelect    = document.getElementById('file-upload'),
-        fileDrag      = document.getElementById('file-drag'),
-        submitButton  = document.getElementById('submit-button');
-
-    fileSelect.addEventListener('change', fileSelectHandler, false);
-
-    // Is XHR2 available?
-    var xhr = new XMLHttpRequest();
-    if (xhr.upload) {
-        // File Drop
-        fileDrag.addEventListener('dragover', fileDragHover, false);
-        fileDrag.addEventListener('dragleave', fileDragHover, false);
-        fileDrag.addEventListener('drop', fileSelectHandler, false);
+        fileSelect.addEventListener('change', fileSelectHandler, false);
+        // Is XHR2 available?
+        var xhr = new XMLHttpRequest();
+        if (xhr.upload) {
+            // File Drop
+            fileDrag.addEventListener('dragover', fileDragHover, false);
+            fileDrag.addEventListener('dragleave', fileDragHover, false);
+            fileDrag.addEventListener('drop', fileSelectHandler, false);
+        }
     }
-}
 
 function fileDragHover(e) {
     var fileDrag = document.getElementById('file-drag');
-
     e.stopPropagation();
     e.preventDefault();
-
     fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
 }
 
 function fileSelectHandler(e) {
 // Fetch FileList object
     var files = e.target.files || e.dataTransfer.files;
-
     // Cancel event and hover styling
     fileDragHover(e);
-
     // Process all File objects
     for (var i = 0, f; f = files[i]; i++) {
         parseFile(f);
@@ -378,12 +412,10 @@ function output(msg) {
 }
 
 function parseFile(file) {
-
     console.log(file.name);
     output(
         '<strong>' + encodeURI(file.name) + '</strong>'
     );
-
     // var fileType = file.type;
     // console.log(fileType);
     var imageName = file.name;
@@ -408,7 +440,6 @@ function parseFile(file) {
 
 function setProgressMaxValue(e) {
     var pBar = document.getElementById('file-progress');
-
     if (e.lengthComputable) {
         pBar.max = e.total;
     }
@@ -416,13 +447,12 @@ function setProgressMaxValue(e) {
 
 function updateFileProgress(e) {
     var pBar = document.getElementById('file-progress');
-
     if (e.lengthComputable) {
         pBar.value = e.loaded;
     }
 }
 
-/*function uploadFile(file) {
+function uploadFile(file) {
     var xhr = new XMLHttpRequest(),
         fileInput = document.getElementById('class-roster-file'),
         pBar = document.getElementById('file-progress'),
@@ -454,15 +484,80 @@ function updateFileProgress(e) {
         } else {
         output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
         }
-    }*//*
+    }*/
 }
 
 // Check for the various File API support.
-   /* if (window.File && window.FileList && window.FileReader) {
+    if (window.File && window.FileList && window.FileReader) {
         Init();
     } else {
         document.getElementById('file-drag').style.display = 'none';
     }
 }
-ekUpload();*/
+ekUpload();
+
+    function progressEtapas(pos, porcentajeEtapa){			
+        if(pos == 0){
+            
+            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
+            console.log(progress);
+            if(progress == 0){
+                document.getElementById("progFinal").style = "width: 100%; color: black; background: #E9ECEF";
+                document.getElementById("progFinal").innerHTML = progress+"%";
+            }else{
+                if(progress >= 100){
+                    document.getElementById("progFinal").style = "width: 100%";
+                    document.getElementById("progFinal").innerHTML = "100%";
+                }else{
+                    document.getElementById("progFinal").style = "width: "+progress+"%";
+                    document.getElementById("progFinal").innerHTML = progress+"%";
+                }
+            }
+        }
+        if(pos == 1){
+            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
+            if(progress == 0){
+                document.getElementById("progInicial").style = "width: 100%; color: black; background: #E9ECEF";
+                document.getElementById("progInicial").innerHTML = progress+"%";
+            }else{
+                if(progress >= 100){
+                    document.getElementById("progInicial").style = "width: 100%";
+                    document.getElementById("progInicial").innerHTML = "100%";
+                }else{
+                    document.getElementById("progInicial").style = "width: "+progress+"%";
+                    document.getElementById("progInicial").innerHTML = progress+"%";
+                }
+            }
+        }
+        if(pos == 2){
+            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
+            if(progress == 0){
+                document.getElementById("progMedia").style = "width: 100%; color: black; background: #E9ECEF";
+                document.getElementById("progMedia").innerHTML = progress+"%";
+            }else{
+                if(progress >= 100){
+                    document.getElementById("progMedia").style = "width: 100%";
+                    document.getElementById("progMedia").innerHTML = "100%";
+                }else{
+                    document.getElementById("progMedia").style = "width: "+progress+"%";
+                    document.getElementById("progMedia").innerHTML = progress+"%";
+                }
+            }
+        }
+        if(pos == 3){
+            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
+            if(progress == 0){
+                document.getElementById("progInerte").style = "width: 100%; color: black; background: #E9ECEF";
+                document.getElementById("progInerte").innerHTML = progress+"%";
+            }else{
+                if(progress >= 100){
+                    document.getElementById("progInerte").style = "width: 100%";
+                    document.getElementById("progInerte").innerHTML = "100%";
+                }else{
+                    document.getElementById("progInerte").style = "width: "+progress+"%";
+                    document.getElementById("progInerte").innerHTML = progress+"%";
+                }
+            }
+        }
+	}
 </script>

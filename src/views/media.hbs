@@ -1,0 +1,26 @@
+{{> nav/navigation}}
+<div class="page-content p-5" id="content">
+    <div class="row">
+			<div class="col-sm-10">
+				<h5 class="text-black">Huevos en huevos media</h5>
+			</div>
+			<div class="col-sm-2">
+				<a type="button" href="/gallery" class="btn btn-dark-blue">Regresar</a>
+			</div>
+		</div>
+    
+	<hr>
+    <div class="card mt-2">
+        <div class="card-body">
+            <div class="row">
+                {{#each images}}
+                    <div class="col-md-4">
+                        <a href="/gallery/{{uniqueId}}">
+                            <img src="{{imageURL}}" alt="" class="w-100 h-100 img-thumbnail">
+                        </a>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</div>

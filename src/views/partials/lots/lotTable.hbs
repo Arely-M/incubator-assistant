@@ -2,7 +2,7 @@
 	<div class="card-title">
 		<div class="row">
 			<div class="col-sm-10">
-				<h4>LOTES</h4>
+				<h5>Lotes</h5>
 			</div>
 			<div class="col-sm-2">
 				<button type="button" class="btn btn-turquoise" data-bs-toggle="modal" data-bs-target="#formLots">
@@ -83,37 +83,5 @@
 				}
 			}
 		}
-	};	
-
-	/*window.onload = function() {	
-		var numLotes = $("#numb").val();
-		console.log(numLotes);
-		progreso(numLotes);
 	}
-
-	function progreso(numLotes){
-		for(let i=1; i<numLotes; i++){
-				var date1 = new Date(document.getElementById("startDate"+i).textContent);
-				var date2 = new Date();
-
-				var day_as_milliseconds = 86400000;
-				var diff_in_millisenconds = date2 - date1;
-				var diff_in_days = diff_in_millisenconds / day_as_milliseconds;
-
-				var progress = Math.round((Math.round(diff_in_days) * 100)/21);
-				if(progress == 0){
-					document.getElementById("prog"+i).style = "width: 2%; color: black; background: #E9ECEF";
-					document.getElementById("prog"+i).innerHTML = progress+"%";
-				}else{
-					if(progress >= 100){
-						document.getElementById("prog"+i).style = "width: 100%";
-						document.getElementById("prog"+i).innerHTML = "100%";
-					}else{
-						document.getElementById("prog"+i).style = "width: "+progress+"%";
-						document.getElementById("prog"+i).innerHTML = progress+"%";
-					}
-				}
-			
-		}
-	}*/
 </script>

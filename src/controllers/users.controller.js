@@ -1,6 +1,8 @@
 import Users from "../models/users";
 import Role from "../models/role";
-//import { transporter } from "../config/mailer";
+import Lots from "../models/lots";
+import Candlings from "../models/candling";
+import { transporter } from "../config/mailer";
 
 export const register = async (req, res) => {
   try {
@@ -17,9 +19,9 @@ export const register = async (req, res) => {
         email: req.body.email,
         role: idRole[0]._id,
       });
-      console.log(req.body.registerpass1);
+      //console.log(req.body.registerpass1);
       pass = await users.encryptPassword(req.body.registerpass1);
-      console.log(pass);
+      //console.log(pass);
       users.password = pass;
       const savedUser = await users.save();
       req.flash("success_msg", "Registro exitoso!");
@@ -36,10 +38,17 @@ export const renderHome = async (req, res) => {
   const idUser = user[0].role;
   const name = req.user.name;
 
+  const users = (await Users.find().lean()).length;
+  const lots = (await Lots.find().lean()).length;
+  const candlings = (await Candlings.find().lean()).length;
+
   res.render("home", {
     role: role,
     user: idUser,
     name: name,
+    users: users,
+    lots: lots,
+    candlings: candlings,
     helpers: {
       ifCond: function (v1, operator, v2, options) {
         switch (operator) {
@@ -232,64 +241,67 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-// //Restablecimiento de contraseña
-// export const resetPassword = async (req, res) => {
-//   try {
-//     var pass = "";
-//     var str =
-//       "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
-//     var email = "";
-//     var emailConfirm = "";
+//Restablecimiento de contraseña
+export const resetPassword = async (req, res) => {
+  try {
+    var pass = "";
+    var str =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "abcdefghijklmnopqrstuvwxyz0123456789@#$";
+    var email = "";
+    var emailConfirm = "";
 
-//     email = req.body.email1;
-//     emailConfirm = req.body.emailConfirm;
-//     const users = await Users.findOne({ email: req.body.email1 });
-//     console.log(users);
-//     if (users === null || users === undefined) {
-//       req.flash(
-//         "error_msg",
-//         "El correo ingresado no coincide con ninguno existente, Intente de nuevo."
-//       );
-//       res.redirect("/");
-//     } else {
-//       if (email == emailConfirm) {
-//         const user = await Users.find({ email: req.body.email1 })
-//           .limit(1)
-//           .lean();
-//         for (var i = 1; i <= 8; i++) {
-//           var char = Math.floor(Math.random() * str.length + 1);
-//           pass += str.charAt(char);
-//         }
-//         var passw = await users.encryptPassword(pass);
-//         const isReset = await Users.findByIdAndUpdate(user[0]._id, {
-//           password: passw,
-//         });
-//         if (isReset) {
-//           await transporter.sendMail({
-//             from: '"UTI" <storepcbuild.2020@gmail.com>',
-//             to: req.body.email1,
-//             subject: "Restablecimiento de contraseña ✔",
-//             html: `<b>BIENVENIDO AL ADMINISTRADOR DE UTI</b>
-//                   <hr>
-//                   <p>Hola! te saluda UTI, me he enterado que se te ha olvidado la contraseña
-//                   por motivos de seguridad la contraseña antes dada es inaccesible para mi, pero no estes triste
-//                   tu amiga UTI te ayudara con otra, pero ¡shhh...! no le digas al administrador,
-//                   revisa tu correo para saber tu nueva contraseña.</p>
-//                   <p>Su nueva contraseña es: <b>${pass}</b></p>
-//             `,
-//           });
-//         }
-//         req.flash("success_msg", "Se ha restablecido la contraseña exitosamente.");
-//         res.redirect("/");
-//       } else {
-//         req.flash(
-//           "error_msg",
-//           "Su correo de confirmacion no coincide, Intente de nuevo."
-//         );
-//         res.redirect("/");
-//       }
-//     }
-//   } catch (error) {
-//     console.log(error.message);
-//   }
-// };
+    email = req.body.email1;
+    emailConfirm = req.body.emailConfirm;
+    const users = await Users.findOne({ email: req.body.email1 });
+    //console.log(users);
+    if (users === null || users === undefined) {
+      req.flash(
+        "error_msg",
+        "El correo ingresado no coincide con ninguno existente, Intente de nuevo."
+      );
+      res.redirect("/");
+    } else {
+      if (email == emailConfirm) {
+        console.log('1');
+        const user = await Users.find({ email: req.body.email1 })
+          .limit(1)
+          .lean();
+        console.log(user);
+        for (var i = 1; i <= 8; i++) {
+          var char = Math.floor(Math.random() * str.length + 1);
+          pass += str.charAt(char);
+        }
+        var passw = await users.encryptPassword(pass);
+        const isReset = await Users.findByIdAndUpdate(user[0]._id, {
+          password: passw,
+        });
+        if (isReset) {
+          console.log('2');
+          await transporter.sendMail({
+            from: '"Asistente de incubación" <cm.asistente.incubacion@gmail.com>',
+            to: req.body.email1,
+            subject: "Restablecimiento de contraseña ✔",
+            html: `<b>BIENVENIDO AL ASISTENTE DE INCUABCION</b>
+                  <hr>
+                  <p>Hola! nos hemos enterado que se te ha olvidado la contraseña
+                  por motivos de seguridad la contraseña antes dada es inaccesible para nosotros, pero no estes triste
+                  te ayudaremos proporcionando otra, pero ¡shhh...! no le digas al administrador,
+                  revisa tu correo para saber tu nueva contraseña.</p>
+                  <p>Su nueva contraseña es: <b>${pass}</b></p>
+            `,
+          });
+        }
+        req.flash("success_msg", "Se ha restablecido la contraseña exitosamente.");
+        res.redirect("/");
+      } else {
+        req.flash(
+          "error_msg",
+          "Su correo de confirmacion no coincide, Intente de nuevo."
+        );
+        res.redirect("/");
+      }
+    }
+  } catch (error) {
+    console.log(error.message);
+  }
+};

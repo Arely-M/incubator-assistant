@@ -7,6 +7,8 @@ import morgan from "morgan";
 import passport from "passport";
 import flash from "connect-flash";
 import multer from "multer";
+const Handlebars = require('handlebars')
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access')
 
 //Initializations
 const app = express();
@@ -25,6 +27,7 @@ app.engine(
     defaulLayout: "main",
     extname: ".hbs",
     //helpers: require("./helpers"),
+    handlebars: allowInsecurePrototypeAccess(Handlebars)
   }).engine
 );
 

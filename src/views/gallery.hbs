@@ -3,22 +3,34 @@
 <div class="page-content p-5" id="content">
     <h5 class="text-black">Galeria de imagenes</h5>
     <hr>
-    <div class="card mt-2">
-        <div class="card-header bg-dark text-white">
-            <h4><i class="far fa-images"> Recent Upload</i></h4>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                {{#each images}}
-                <div class="col-md-4">
-                    <a href="/images/{{uniqueId}}">
-                        <img src="./uploads/{{filename}}" alt="" class="w-100 h-100 img-thumbnail">
-                    </a>
-                </div>
-                {{/each}}
+    <main class="page-content-gallery">
+        <div class="card-gallery">
+            <div class="content-gallery">
+            <h2 class="title-gallery">Huevos en etapa inicial</h2>
+            <p class="copy-gallery">Echa un vistazo a todas estas ovoscopias de huevos en sus primeros siete días de desarrollo</p>
+            <a href="/inicial" class="btn-gallery">Ver ovoscopias</a>
             </div>
-            
         </div>
-    </div>
-
+        <div class="card-gallery">
+            <div class="content-gallery">
+            <h2 class="title-gallery">Huevos en etapa media</h2>
+            <p class="copy-gallery">Echa un vistazo a todas estas ovoscopias de huevos en su etapa de desarrollo intermedia</p>
+            <a href="/media" class="btn-gallery">Ver ovoscopias</a>
+            </div>
+        </div>
+        <div class="card-gallery">
+            <div class="content-gallery">
+            <h2 class="title-gallery">Huevos en etapa final</h2>
+            <p class="copy-gallery">Echa un vistazo a todas estas ovoscopias de huevos en su etapa culminante de desarrollo</p>
+            <a href="/final" class="btn-gallery">Ver ovoscopias</a>
+            </div>
+        </div>
+        <div class="card-gallery">
+            <div class="content-gallery">
+            <h2 class="title-gallery">Fetos inertes</h2>
+            <p class="copy-gallery"></p>
+            <a href="/inerte" class="btn-gallery">Ver ovoscopias</a>
+            </div>
+        </div>
+    </main>
 </div>

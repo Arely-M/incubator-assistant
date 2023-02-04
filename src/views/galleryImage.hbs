@@ -1,0 +1,12 @@
+{{> nav/navigation}}
+
+<div class="page-content p-5" id="content">
+    <h5 class="text-black">imagenes</h5>
+    <hr>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <a href="/gallery/delete/{{image._id}}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+        </div>
+        <img src="{{image.imageURL}}" class="w-50 h-50 img-thumbnail">
+    </div>
+</div>

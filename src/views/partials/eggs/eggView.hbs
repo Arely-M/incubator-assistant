@@ -2,14 +2,14 @@
 	<div class="card-title">
 		<div class="row">
 			<div class="col-sm-10">
-				<h4>Lote 1</h4>
+				<h4>Lote {{lot.number}}</h4>
 			</div>
 		</div>
 	</div>
 	<hr>
 	<!-- Add charts -->
-	<div class="graphBox">
-		<div class="box" style="width: 75%;">
+	<div class="graphBox" style="grid-template-columns: 1fr 0fr;">
+		<div class="box" style="width: 30%;text-align: center; margin: auto;">
 			<canvas id="earning"></canvas>
 		</div>
 	</div>
@@ -22,9 +22,15 @@
 						<span class="luces-circulo green" title="Estado: Viable"></span>
 					{{/ifCond}} 
 					{{#ifCond egg.status "==" 2}}  
-						<span class="luces-circulo yellow" title="Estado: Infertil"></span>
+						<span class="luces-circulo green" title="Estado: Viable"></span>
 					{{/ifCond}} 
 					{{#ifCond egg.status "==" 3}}  
+						<span class="luces-circulo green" title="Estado: Viable"></span>
+					{{/ifCond}} 
+					{{#ifCond egg.status "==" 5}}  
+						<span class="luces-circulo yellow" title="Estado: Infertil"></span>
+					{{/ifCond}} 
+					{{#ifCond egg.status "==" 4}}  
 						<span class="luces-circulo red" title="Estado: Inerte"></span>
 					{{/ifCond}} 
 				</div>
@@ -36,7 +42,11 @@
 							<a href="/eggs/{{egg._id}}/view" class="btn btn-turquoise" style="width:75px" role="button" aria-disabled="true" title="Ver">
 							<i class="fa fa-eye" aria-hidden="true"></i></a>
 						</div>
-						<div class="dropdown col-6">
+						<div class="col-6" style="padding-bottom: 5px;">
+							<a href="/candling/{{egg._id}}" class="btn btn-turquoise" style="width:75px" role="button" aria-disabled="true" title="Subir imagen">
+							<ion-icon name="flashlight-outline" style="font-size: 110%;"></ion-icon></a>
+						</div>
+						<!--<div class="dropdown col-6">
 							<a class="btn btn-secondary dropdown-toggle btn btn-turquoise" style="width:75px" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" title="Ovoscopia">
 								<ion-icon name="flashlight-outline" style="font-size: 110%;"></ion-icon>
 							</a>
@@ -44,7 +54,7 @@
 								<li><a class="dropdown-item" href="/candling/{{egg._id}}">Subir imagen</a></li>
 								<li><a class="dropdown-item" href="/camera">Camará</a></li>
 							</ul>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>
@@ -52,16 +62,17 @@
 	</div>
 </div>
 <script>
+
 	/*charts*/ 
     const ctx1 = document.getElementById('earning').getContext('2d'); 
 
 	const earning = new Chart(ctx1, {
-        type: 'bar',
+        type: 'polarArea',
         data: {
-            labels: ['Exitos', 'Infertiles', 'Muertos'],
+            labels: ['Viable', 'Infertiles', 'Inertes'],
             datasets: [{
-                label: '# of Votes',
-                data: [12, 13, 5],
+                label: 'Casos',
+                data: [{{countExitos}}, {{countInfertiles}}, {{countInertes}}],
                 backgroundColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',

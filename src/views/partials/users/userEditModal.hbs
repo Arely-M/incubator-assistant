@@ -6,9 +6,26 @@
 				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			</div>
 			<div class="modal-body">
-				<form id="editUser" action="/users/edit" method="POST">		
-					<input type="id1" class="form-control invisible" id="id1" name="id1" />					
-					<div class="mb-3">
+				<form id="editUser" class="row g-3" action="/users/edit" method="POST">		
+					<input type="id1" class="form-control invisible" id="id1" name="id1" />		
+					<div class="floating">
+						<input class="floating__input input-field" type="text" id="name1" name="name1" placeholder="Nombre" required/>
+						<label for="name1" class="floating__label" data-content="Nombre"></label>
+					</div>	
+					<div class="floating">
+						<input class="floating__input input-field" type="email" id="email1" name="email1" placeholder="Correo" required/>
+						<label for="email1" class="floating__label" data-content="Correo"></label>
+					</div>	
+					<div class="floating__combo floating__combo_select">
+						<select class="floating__select" id="rol1" name="rol1" required>
+							<option value="" disabled>-- Escoja una opcion --</option>
+							{{#each role}}
+								<option value="{{_id}}">{{role}}</option>
+							{{/each}}
+						</select>
+						<span class="floating__input_label">Rol</span>
+					</div>		
+					<!--<div class="mb-3">
 						<label for="name1" class="col-form-label">Name</label>
 						<input type="name1" class="form-control" id="name1" name="name1" placeholder="Ingrese sus nombres" required />
 					</div>
@@ -24,12 +41,12 @@
 								<option value="{{_id}}">{{role}}</option>
 							{{/each}}
 						</select>						
-					</div>
+					</div>-->
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button type="submit" class="btn color-button" form="editUser">Actualizar</button>
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+				<button type="submit" class="btn btn-turquoise" form="editUser">Actualizar</button>
+				<button type="button" class="btn btn-dark-blue" data-bs-dismiss="modal">Cancelar</button>
 			</div>
 		</div>
 	</div>

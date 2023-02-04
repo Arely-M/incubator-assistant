@@ -7,7 +7,7 @@ import Role from "../models/role";
 export const renderLot = async (req, res) => {
     const user = await Users.find({ _id: req.user.id });
     const role = await Role.find().lean();
-    const lots = await Lots.find().lean();
+    const lots = await Lots.find({ id_user: req.user.id }).lean();
     for (let i = 0; i < lots.length; i++) {
         lots[i].startDate = lots[i].startDate.toISOString().substring(0, 10);
         lots[i].endDate = lots[i].endDate.toISOString().substring(0, 10);
@@ -55,14 +55,13 @@ export const renderLot = async (req, res) => {
 export const createLot = async (req, res) => {
     try {
         var count = 0;
-        const countLot = await Lots.find({ "id_user": req.user.id });
-        if (countLot === undefined) {
+        const countLot = await Lots.find({ "id_user": req.user.id }).lean();
+        if (countLot === undefined || countLot.length === 0) {
             count = 1;
         } else {
             const countLot = await Lots.find({ "id_user": req.user.id }).sort({ $natural: -1 }).limit(1);
             count = countLot[0].number + 1;
         }
-        console.log(count);
         const lots = new Lots({
             number: count,
             startDate: req.body.startDate,
@@ -241,11 +240,34 @@ export const renderEgg = async (req, res) => {
         const eggs = await Eggs.find({ id_lot: req.params.id }).lean();
         const name = req.user.name;
 
+        const lot = await Lots.findById({ _id: eggs[0].id_lot }).lean();
+        //lot.startDate = lot.startDate.toISOString().substring(0, 10);
+
+        var countExitos = 0;
+        var countInfertiles = 0;
+        var countInertes = 0;
+
+        for (let i = 0; i < eggs.length; i++) {
+            if (eggs[i].status == 1 || eggs[i].status == 2 || eggs[i].status == 3) {
+                countExitos = countExitos + 1;
+            }
+            if (eggs[i].status === 4) {
+                countInertes = countInertes + 1;
+            }
+            if (eggs[i].status === 5) {
+                countInfertiles = countInfertiles + 1;
+            }
+        }
+
         res.render("eggs", {
             user: idUser,
             role: role,
             eggs: eggs,
             name: name,
+            lot: lot,
+            countExitos: countExitos,
+            countInfertiles: countInfertiles,
+            countInertes: countInertes,
             helpers: {
                 ifCond: function (v1, operator, v2, options) {
                     switch (operator) {

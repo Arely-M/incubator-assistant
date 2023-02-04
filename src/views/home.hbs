@@ -1,40 +1,39 @@
 {{> nav/navigation}}
 <!-- page-content -->
 <div class="page-content p-5" id="content">
-
-	{{#each role}}       
+	{{#each role}}    
 		{{#ifCond _id '==' ../user}}                        
 			{{#ifCond role '==' "Administrador"}}                   
 			<!-- cards -->
-			<div class="cardBox">
+			<div class="cardBox" style="padding-bottom: 30px;">
 				<div class="card">
 					<div>
-						<div class="numbers">1,504</div>
-						<div class="cardName">AAAAA AAAAA</div>
+						<div class="numbers">{{../users}}</div>
+						<div class="cardName">Usuarios</div>
 					</div>
 					<div class="iconBx">
-						<ion-icon name="eye-outline"></ion-icon>
+						<ion-icon name="people-circle-outline"></ion-icon>
+					</div>
+				</div>
+				<div class="card" onmouseover="white()" onmouseout="gray()">
+					<div>
+						<div class="numbers">{{../lots}}</div>
+						<div class="cardName">incubaciones</div>
+					</div>
+					<div class="iconBx">
+						<img id="incubator" width="49px" src="./img/incubator.png" title="Incubadora">
 					</div>
 				</div>
 				<div class="card">
 					<div>
-						<div class="numbers">1,904</div>
-						<div class="cardName">BBBBB BBB</div>
+						<div class="numbers">{{../candlings}}</div>
+						<div class="cardName">Ovoscopias</div>
 					</div>
 					<div class="iconBx">
-						<ion-icon name="cart-outline"></ion-icon>
+						<ion-icon name="egg-outline"></ion-icon>
 					</div>
 				</div>
-				<div class="card">
-					<div>
-						<div class="numbers">1,504</div>
-						<div class="cardName">CCCCC CCC</div>
-					</div>
-					<div class="iconBx">
-						<ion-icon name="chatbubbles-outline"></ion-icon>
-					</div>
-				</div>
-				<div class="card">
+				<!--<div class="card">
 					<div>
 						<div class="numbers">1,504</div>
 						<div class="cardName">DDDD DDDD</div>
@@ -42,61 +41,8 @@
 					<div class="iconBx">
 						<ion-icon name="eye-outline"></ion-icon>
 					</div>
-				</div>
+				</div>-->
 			</div>
-
-			<!-- datails -->
-			<div class="details">
-				<div class="recentOrders">
-					<div class="cardHeader">
-						<h2>Recent Orders</h2>
-						<a href="#" class="btn">View All</a>
-					</div>
-					<table>
-						<thead>
-							<tr>
-								<td>Name</td>
-								<td>Name</td>
-								<td>Name</td>
-								<td>Status</td>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>a</td>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status delivered">Delivered</span></td>
-							</tr>
-							<tr>
-								<td>a</td>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status pending">Pendings</span></td>
-							</tr>
-							<tr>
-								<td>a</td>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status delivered">Delivered</span></td>
-							</tr>
-							<tr>
-								<td>a</td>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status return">Return</span></td>
-							</tr>
-							<tr>
-								<td>a</td>
-								<td>a</td>
-								<td>a</td>
-								<td><span class="status inprogress">In progress</span></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-	
 			{{/ifCond}}
 		{{/ifCond}}
 	{{/each}}
@@ -105,9 +51,8 @@
 	<!-- Demo content -->
     <h4 class="display-5 text-black">Bienvenido al Asistente de Incubación CM-Vision</h4>
 	<p class="lead text-black mb-0">Una herramienta sencilla y facil de usar, te permite llevar un control sobre tus incubaciones y más.</p>
-	</p>
+	
 	<hr>
-    <br/>
     <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
 		<ol class="carousel-indicators">
 			<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -117,16 +62,16 @@
 		</ol>
 		<div class="carousel-inner">
 		<div class="carousel-item active">
-			<img src="./img/slide1.png" class="d-block w-100" alt="...">
+			<img src="https://bmeditores.mx/wp-content/uploads/2018/05/Incubacion-Incubacion-Gran-Altura-Aves-Domesticas.jpg" class="d-block w-100" alt="...">
 		</div>
 		<div class="carousel-item">
-			<img src="./img/slide2.png" class="d-block w-100" alt="...">
+			<img src="https://bmeditores.mx/wp-content/uploads/2020/05/bases-fisiologicas-incubacion-p2-prin-1068x534.jpg" class="d-block w-100" alt="...">
 		</div>
 		<div class="carousel-item">
-			<img src="./img/slide3.png" class="d-block w-100" alt="...">
+			<img src="https://bmeditores.mx/wp-content/uploads/2021/05/incubacion-clave-pollo-engorde-1068x534.jpg" class="d-block w-100" alt="...">
 		</div>
 		<div class="carousel-item">
-			<img src="./img/slide4.png" class="d-block w-100" alt="...">
+			<img src="http://www.gallipedia.es/wp-content/uploads/2017/01/incubadora.jpg" class="d-block w-100" alt="...">
 		</div>
 		</div>
 		<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -186,4 +131,13 @@
 	</div>
 	<!-- End demo content -->
 </div>
+<script>
+	function white(){
+		document.getElementById("incubator").src = './img/incubator-white.png';
+	}
 
+	function gray(){
+		document.getElementById("incubator").src = './img/incubator.png';
+	}
+	
+</script>
