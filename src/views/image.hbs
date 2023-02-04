@@ -11,7 +11,7 @@
                     <input class="form-control" type="date" name="fecha" id="fecha">
                 </div>
                 <div class="col-1">
-                    <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();">
+                    <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();" disabled>
                     Clasificar
                     </button>
                 </div>
@@ -106,8 +106,9 @@
     var modelo = null;
     (async () => {
         console.log("Cargando modelo...");
-        modelo = await tf.loadLayersModel("train/carpeta_Prueba_optimizador/tfjs_model/model.json");
-        console.log("Modelo cargado...");        
+        modelo = await tf.loadLayersModel("train/carpeta_Inception_SDG_15/tfjs_model/model.json");
+        console.log("Modelo cargado...");      
+        document.getElementById("pred").disabled = false;
     })();
     
     (function(){

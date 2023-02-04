@@ -1,7 +1,7 @@
 import { Router } from "express";
 import passport from "passport";
 import { isAuthenticated, isAdmin } from "../helpers/auth";
-import { renderHome, renderUser, resetPassword, createUser, editUser, deleteUser, register } from "../controllers/users.controller";
+import { renderHome, renderUser, resetPassword, createUser, editUser, deleteUser, register, renderAyuda } from "../controllers/users.controller";
 import { createLot, editLot, renderEditLot, deleteLot, renderChart, renderAnalysis, renderLot, renderEgg } from "../controllers/lots.controller";
 import { renderEditEgg, editEgg } from "../controllers/eggs.controller";
 import { createCandling, renderCandlings, renderCandlingsCamera, renderCandlingsImage, renderGallery, renderGalleryImage, deleteGalleryImage, renderInicial, renderMedia, renderFinal, renderInerte } from "../controllers/candling.controller";
@@ -85,5 +85,7 @@ router.get("/inicial", [isAuthenticated], renderInicial);
 router.get("/media", [isAuthenticated], renderMedia);
 router.get("/final", [isAuthenticated], renderFinal);
 router.get("/inerte", [isAuthenticated], renderInerte);
+
+router.get("/ayuda", [isAuthenticated], renderAyuda);
 
 export default router;

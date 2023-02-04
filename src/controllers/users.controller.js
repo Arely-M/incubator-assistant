@@ -305,3 +305,48 @@ export const resetPassword = async (req, res) => {
     console.log(error.message);
   }
 };
+
+export const renderAyuda = async (req, res) => {
+  try {
+    const user = await Users.find({ _id: req.user.id });
+    const role = await Role.find().lean();
+    const name = req.user.name;
+    const idUser = user[0].role;
+
+    res.render("ayuda", {
+      user: idUser,
+      role: role,
+      name: name,
+      helpers: {
+        ifCond: function (v1, operator, v2, options) {
+          switch (operator) {
+            case "==":
+              return v1 == v2 ? options.fn(this) : options.inverse(this);
+            case "===":
+              return v1 === v2 ? options.fn(this) : options.inverse(this);
+            case "!=":
+              return v1 != v2 ? options.fn(this) : options.inverse(this);
+            case "!==":
+              return v1 !== v2 ? options.fn(this) : options.inverse(this);
+            case "<":
+              return v1 < v2 ? options.fn(this) : options.inverse(this);
+            case "<=":
+              return v1 <= v2 ? options.fn(this) : options.inverse(this);
+            case ">":
+              return v1 > v2 ? options.fn(this) : options.inverse(this);
+            case ">=":
+              return v1 >= v2 ? options.fn(this) : options.inverse(this);
+            case "&&":
+              return v1 && v2 ? options.fn(this) : options.inverse(this);
+            case "||":
+              return v1 || v2 ? options.fn(this) : options.inverse(this);
+            default:
+              return options.inverse(this);
+          }
+        },
+      },
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
