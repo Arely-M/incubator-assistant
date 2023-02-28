@@ -6,13 +6,13 @@
 
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div class="row mb-2 mt-2">
-            <div class="row mb-3">
-                <label for="fecha" class="col-sm-2 col-form-label">Fecha de inicio: </label>
-                <div class="col-sm-9">
+            <div class="columnas-analisis">
+                <label for="fecha" class="col-form-label">Fecha de inicio: </label>
+                <div>
                     <input class="form-control" type="date" name="fecha" id="fecha" value="{{fechaLote}}" readonly>
                 </div>
-                <div class="col-1">
-                    <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();">
+                <div class="vertical-center">
+                    <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();" style="width: 200px;margin-top: 10%;margin-bottom: 10%;" disabled>
                     Clasificar
                     </button>
                 </div>
@@ -22,7 +22,7 @@
     <div class="columnas">
         <div class="resultados">
             <form id="file-upload-form" class="uploader row" action="/uploadImage/{{id_egg}}" method="POST" enctype="multipart/form-data">
-                <input id="file-upload" type="file" name="image" accept="image/*" />
+                <input id="file-upload" type="file" name="image" accept="image/*" disabled/>
 
                 <label for="file-upload" id="file-drag">
                     <img id="file-image" src="#" alt="Preview" class="hidden">
@@ -104,8 +104,10 @@
     var modelo = null;
     (async () => {
         console.log("Cargando modelo...");
-        modelo = await tf.loadLayersModel("../train/carpeta_Inception/tfjs_model/model.json");
-        console.log("Modelo cargado...");        
+        modelo = await tf.loadLayersModel("../train/carpeta_Inception_SDG_15/tfjs_model/model.json");
+        console.log("Modelo cargado...");  
+        document.getElementById("pred").disabled = false;     
+        document.getElementById("file-upload").disabled = false; 
     })();
     
     (function(){
@@ -147,13 +149,13 @@
 
     function descipcionEtapa(claseMayor) {
         if(claseMayor == "Etapa Inicial"){
-            return "Esta etapa comprende del día 1 al 7 de incubación.";    
+            return "Esta etapa corresponde del día 1 al 7 de incubación.";    
         }
         if(claseMayor == "Etapa Media"){
-            return "Esta etapa comprende del día 8 al 14 de incubación.";  
+            return "Esta etapa corresponde del día 8 al 14 de incubación.";  
         }
         if(claseMayor == "Etapa Final"){
-            return "Esta etapa comprende del día 15 al 18 de incubación.";  
+            return "Esta etapa corresponde del día 15 al 18 de incubación.";  
         }
         if(claseMayor == "Feto Muerto"){
             return "Puede pertenecer a cualquier etapa del proceso de incubación. ";
@@ -217,7 +219,7 @@
                 return msg = "Se internaliza el vitelo, reduce el líquido amniótico.";
                 break;
             default: 
-                return msg = "No corresponde al rango de días que dura una incuabación.";
+                return msg = "No corresponde al rango de días que dura una incubación.";
         }     
     }
     function clasificar() {

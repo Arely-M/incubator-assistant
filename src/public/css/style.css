@@ -26,11 +26,6 @@
 	background: none;
 }
 
-/*.color-background {
-	background-color: #0d1a25;
-	color: #fff;
-}*/
-
 .text-uppercase {
 	letter-spacing: 0.1em;
 }
@@ -39,11 +34,6 @@
 figure {
 	margin: 0 0 1rem;
 }
-
-/*img {
-	vertical-align: middle;
-	border-style: none;
-}*/
 
 .ftco-section {
 	padding-top: 150px;
@@ -126,6 +116,35 @@ figure {
 	border-radius: 30px;
 }
 
+#login {
+	left: 60px;
+}
+#register {
+	left: 450px;
+}
+
+
+@media (max-width: 450px) { 
+	.form-box-login{
+		width: 360px;
+		height: 300px;
+	}
+	.form-box-register {
+		width: 360px;
+		height: 400px;
+	}
+	.button-box{
+		margin: 20px 20px auto;/*0;
+    	margin-top: 20px;*/
+	}
+	#login{
+		left: 25px;
+	}
+	#register {
+		left: 400px;
+	}
+}
+
 .toggle-btn {
 	padding: 10px 30px;
 	cursor: pointer;
@@ -179,12 +198,6 @@ figure {
 	box-shadow: 0 0 5px #63cbb3bf, 0 0 15px #63cbb3bf, 0 0 50px #63cbb3bf, 0 0 100px #63cbb3bf;
 }
 
-#login {
-	left: 60px;
-}
-#register {
-	left: 450px;
-}
 
 /*.container-fluid {
 	width: 100%;
@@ -450,7 +463,6 @@ body {
 
 .search {
 	position: relative;
-	width: 400px;
 	margin: 0 10px;
 }
 
@@ -832,9 +844,34 @@ body {
 	border: 1px solid #ccc;
 }
 
+.columnas-analisis {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+}
+
 .columnas {
 	display: grid;
 	grid-template-columns: repeat(2, 1fr);
+}
+
+/*Diseño de image.hbs*/
+.resultados {
+	margin: auto;
+    margin-top: 0%;
+	margin-right: 10%;
+	width: 90%;
+}
+
+.vertical-center {
+	margin: auto;
+}
+
+#resultado {
+	padding: 3px 10px;
+	/*border: PowderBlue 5px solid;*/
+	border-radius: 20px;
+	/*font-size: 14px;*/
+	font-size: 20px;
 }
 
 @media (max-width: 850px) {
@@ -847,7 +884,12 @@ body {
 	.graphBox .box {
 		width: 50% !important;
 	}
+	.resultados{
+		margin: auto;
+		width: 100%;
+	}
 }
+
 
 @media (max-width: 560px) { /*480px*/
 	.egg-btn{
@@ -856,17 +898,10 @@ body {
 	.graphBox .box {
 		width: 100% !important;
 	}
-}
-/*Diseño de image.hbs*/
-.resultados {
-	width: 90%;
-}
-#resultado {
-	padding: 3px 10px;
-	/*border: PowderBlue 5px solid;*/
-	border-radius: 20px;
-	/*font-size: 14px;*/
-	font-size: 20px;
+	.resultados{
+		margin: auto;
+		width: 100%;
+	}
 }
 
 /*

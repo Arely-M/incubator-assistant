@@ -1,17 +1,17 @@
 {{> nav/navigation}}    
 
 <div class="page-content p-5" id="content">
-    <h5 class="text-black">Análisis de etapas mediante imagenes</h5>
+    <h5 class="text-black" style="text-align: justify;">Análisis de etapas mediante imagenes</h5>
 	<hr>
     <form action="/upload" method="POST" enctype="multipart/form-data">
         <div class="row mb-2 mt-2">
-            <div class="row mb-3">
-                <label for="fecha" class="col-sm-2 col-form-label">Fecha de inicio: </label>
-                <div class="col-sm-9">
+            <div class="columnas-analisis">
+                <label for="fecha" class="col-form-label">Fecha de inicio: </label>
+                <div>
                     <input class="form-control" type="date" name="fecha" id="fecha">
                 </div>
-                <div class="col-1">
-                    <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();" disabled>
+                <div class="vertical-center">
+                    <button id="pred" class="btn btn-turquoise" type="button" onclick="clasificar();" style="width: 200px;margin-top: 10%;margin-bottom: 10%;" disabled>
                     Clasificar
                     </button>
                 </div>
@@ -21,7 +21,7 @@
     <div class="columnas">
         <div class="resultados">
             <form id="file-upload-form" class="uploader-image row" action="/uploadImage" method="POST" enctype="multipart/form-data">
-                <input id="file-upload" type="file" name="image" accept="image/*" />
+                <input id="file-upload" type="file" name="image" accept="image/*" disabled/>
 
                 <label for="file-upload" id="file-drag">
                     <img id="file-image" src="#" alt="Preview" class="hidden">
@@ -109,6 +109,7 @@
         modelo = await tf.loadLayersModel("train/carpeta_Inception_SDG_15/tfjs_model/model.json");
         console.log("Modelo cargado...");      
         document.getElementById("pred").disabled = false;
+        document.getElementById("file-upload").disabled = false; 
     })();
     
     (function(){
@@ -219,6 +220,8 @@
             case 18:
                 return msg = "See internaliza el vitelo, reduce el líquido amniótico.";
                 break;
+            default: 
+                return msg = "No corresponde al rango de días que dura una incubación.";
         }     
     } 
 
@@ -245,7 +248,7 @@
                         }
                     }
                     arr = [arr];
-                    console.log(arr);
+                    //console.log(arr);
                     var tensor4 = tf.tensor4d(arr);
                     var resultados = modelo.predict(tensor4).dataSync();  
                     for(let i = 0; i < resultados.length; i++){
