@@ -28,11 +28,26 @@
 					<div id="passError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					{{#ifCond egg.status "===" 1}}
+					{{#ifCond egg.status "===" "1"}}
 					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
 					<label for="input__password" class="floating__label" data-content="Estado"></label>
 					{{/ifCond}}
-					<div id="passError1" class="error-container"></div>
+					{{#ifCond egg.status "===" "2"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
+					{{#ifCond egg.status "===" "3"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
+					{{#ifCond egg.status "===" "4"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Inerte" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
+					{{#ifCond egg.status "===" "5"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Infertil" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
 				</div>
 			</div>
 			<div class="col-6">
@@ -98,11 +113,26 @@
 					<div id="passError1" class="error-container"></div>
 				</div>
 				<div class="floating">
-					{{#ifCond egg.status "===" 1}}
-					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" required />
+					{{#ifCond egg.status "===" "1"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
 					<label for="input__password" class="floating__label" data-content="Estado"></label>
 					{{/ifCond}}
-					<div id="passError1" class="error-container"></div>
+					{{#ifCond egg.status "===" "2"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
+					{{#ifCond egg.status "===" "3"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Vivo - Viable" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
+					{{#ifCond egg.status "===" "4"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Inerte" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
+					{{#ifCond egg.status "===" "5"}}
+					<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Estado" value="Infertil" readonly />
+					<label for="input__password" class="floating__label" data-content="Estado"></label>
+					{{/ifCond}}
 				</div>
 			</div>
 			<div class="col-6">

@@ -11,7 +11,10 @@ const eggsSchema = new Schema(
         },
         width: Number,
         height: Number,
-        status: Number,
+        status: {
+            type: String,
+            required: [true, "El estado del huevo es requerido!"],
+        },
         id_lot: String,
 
     },

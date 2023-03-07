@@ -215,7 +215,7 @@ export const renderGallery = async (req, res) => {
         const name = req.user.name;
         const idUser = user[0].role;
 
-        const images = await Candlings.find().sort({ timestamp: -1 });
+        const images = await Candlings.find({ $or: [{ status: "1" }, { status: "2" }, { status: "3" }, { status: "4" }, { status: "5" }] }).sort({ timestamp: -1 });
 
         res.render("gallery", {
             user: idUser,
@@ -324,7 +324,7 @@ export const renderInicial = async (req, res) => {
         const name = req.user.name;
         const idUser = user[0].role;
 
-        const imagesInicial = await Candlings.find({ $or: [{ status: 1 }, { status: 5 }] }).sort({ timestamp: -1 });
+        const imagesInicial = await Candlings.find({ $or: [{ status: "1" }, { status: "5" }] }).sort({ timestamp: -1 });
 
         res.render("inicial", {
             user: idUser,
@@ -372,7 +372,7 @@ export const renderMedia = async (req, res) => {
         const name = req.user.name;
         const idUser = user[0].role;
 
-        const imagesMedia = await Candlings.find({ status: 2 }).sort({ timestamp: -1 });
+        const imagesMedia = await Candlings.find({ status: "2" }).sort({ timestamp: -1 });
 
         res.render("media", {
             user: idUser,
@@ -420,7 +420,7 @@ export const renderFinal = async (req, res) => {
         const name = req.user.name;
         const idUser = user[0].role;
 
-        const imagesFinal = await Candlings.find({ status: 3 }).sort({ timestamp: -1 });
+        const imagesFinal = await Candlings.find({ status: "3" }).sort({ timestamp: -1 });
 
         res.render("final", {
             user: idUser,
@@ -468,7 +468,7 @@ export const renderInerte = async (req, res) => {
         const name = req.user.name;
         const idUser = user[0].role;
 
-        const imagesInerte = await Candlings.find({ status: 4 }).sort({ timestamp: -1 });
+        const imagesInerte = await Candlings.find({ status: "4" }).sort({ timestamp: -1 });
 
         res.render("inerte", {
             user: idUser,

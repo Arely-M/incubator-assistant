@@ -36,7 +36,7 @@
                         <div id="messages"></div>
                     </div>
                 </label>
-                <input id="status" name="status" style="display: none;" value="">
+                <input id="status" name="status" type="number" style="display: none;" value="">
             </form>
         </div>
         <div id="resultado-etapas" style="margin-bottom: 10px;">		
@@ -265,7 +265,11 @@
                     //document.getElementById("fecha").value = "";
                     //document.getElementById("file-upload").value = "";
                     if(clases[mayorIndice] == "Etapa Final"){
-                        document.getElementById("status").value = 3;
+                        if(calcularDias() > 7){
+                            document.getElementById("status").value = 5;                       
+                        }else{
+                            document.getElementById("status").value = 3;
+                        }
                     }
                     if(clases[mayorIndice] == "Etapa Inicial"){
                         document.getElementById("status").value = 1;

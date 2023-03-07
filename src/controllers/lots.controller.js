@@ -64,6 +64,7 @@ export const createLot = async (req, res) => {
         }
         const lots = new Lots({
             number: count,
+            lotName: req.body.lotName,
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             amount: req.body.amount,
@@ -170,6 +171,7 @@ export const editLot = async (req, res) => {
             startDate: req.body.startDate,
             endDate: req.body.endDate,
             amount: req.body.amount,
+            status: req.body.status,
             comment: req.body.comment
         });
         req.flash("success_msg", "Actualización exitosa!");

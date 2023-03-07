@@ -1,4 +1,9 @@
 <div class="page-content p-5" id="content">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active" aria-current="page">Lotes</li>
+		</ol>
+	</nav>
 	<div class="card-title">
 		<div class="row">
 			<div class="col-sm-10">
@@ -15,9 +20,10 @@
 	<hr>
 	{{#ifCond lots '!=' ""}}
 	{{#each lots as |lot|}}
+		{{#ifCond lot.status '===' "1"}}
 		<div class="card" style="border-radius: 20px;">
 			<h5 class="card-egg card-header row" style="border-top-left-radius: 20px; border-top-right-radius: 20px;">				
-				<div class="col-10 btn-et">Lote {{lot.number}} 
+				<div class="col-10 btn-et">Lote {{lot.number}}
 					<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
 					<a class="text-white" onclick="delLot('{{_id}}');"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
 				</div>		
@@ -26,6 +32,7 @@
 				</div>	
 			</h5>
 			<div class="card-body">				
+				<p class="card-title"><b>Nombre:</b> {{lot.lotName}}</p>
 				<p class="card-title"><b>Cantidad:</b> {{lot.amount}}</p>
 				{{#ifCond lot.comment '==' ''}}
 					<p class="card-text"><b>Comentario:</b> Ninguno</p>
@@ -42,10 +49,28 @@
 				<div class="col-6"><b>Fecha tentativa de finalizar:</b> <span>{{lot.endDate}}</span></div>
 			</div>
 		</div>
+		{{/ifCond}}
+
+		{{#ifCond lot.status '===' "2"}}
+		<div class="card" style="border-radius: 20px;">
+			<h5 class="card-egg card-header row" style="border-top-left-radius: 20px; border-top-right-radius: 20px; background: lightcoral;">				
+				<div class="col-10 btn-et">Lote {{lot.number}}
+					<a href="/lots/{{lot._id}}/edit" class="text-white"><i class="fa fa-edit mr-3 fa-fw"></i></a>
+					<a class="text-white" onclick="delLot('{{_id}}');"><i class="fa fa-trash-o mr-3 fa-fw"></i></a>
+				</div>	
+			</h5>
+			<div class="card-footer text-muted row" style="border-bottom-left-radius: 20px; border-bottom-right-radius: 20px;">
+				<div class="col-6"><b>Fecha de inicio:</b> <span id="startDate{{lot.number}}">{{lot.startDate}}</span></div>
+				<div class="col-6"><b>Fecha tentativa de finalizar:</b> <span>{{lot.endDate}}</span></div>
+			</div>
+		</div>
+		{{/ifCond}}
+
 		<br/>		
 		{{#if @last}}
 			<input id="numb" type="hidden" value="{{lot.number}}">
 		{{/if}}
+		
 	{{/each}}
 	{{else}}				
 		<h2 class="no-text">No existen datos disponibles :(</h2>	

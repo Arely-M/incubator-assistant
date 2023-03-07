@@ -6,6 +6,10 @@ const lotsSchema = new Schema(
             type: Number,
             required: [true, "El número de lote es requerido!"]
         },
+        lotName: {
+            type: String,
+            required: [true, "El nombre de lote es requerido!"]
+        },
         startDate: {
             type: Date,
             required: [true, "La fecha es requerida!"]

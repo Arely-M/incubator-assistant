@@ -1,6 +1,11 @@
 {{> nav/navigation}}
 <!-- page-content -->
 <div class="page-content p-5" id="content">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item active" aria-current="page">Inicio</li>
+		</ol>
+	</nav>
 	{{#each role}}    
 		{{#ifCond _id '==' ../user}}                        
 			{{#ifCond role '==' "Administrador"}}                   
@@ -47,8 +52,7 @@
 		{{/ifCond}}
 	{{/each}}
 
-	
-	<!-- Demo content -->
+		<!-- Demo content -->
     <h4 class="display-5 text-black">Bienvenido a CM-Assistant</h4>
 	<p class="lead text-black mb-0">Una herramienta sencilla y facil de usar, te permite llevar un control sobre tus incubaciones y más.</p>
 	

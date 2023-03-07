@@ -1,6 +1,12 @@
 {{> nav/navigation}}
 
 <div class="page-content p-5" id="content">
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">Lotes</li>
+			<li class="breadcrumb-item active" aria-current="page">Editar</li>
+		</ol>
+	</nav>
 	<div class="card-title">
 		<div class="row">
 			<div class="col-sm-10">
@@ -42,11 +48,21 @@
 				<input class="floating__input input-field" type="date" id="endDate" name="endDate" placeholder="Fecha de finalización" value="{{lot.endDate}}" required />
 				<label for="input__endDate" class="floating__label" data-content="Fecha de finalización"></label>
 				<div id="endDateError1" class="error-container"></div>
-			</div>
-			<div class="floating">
-				<input class="floating__input input-field" type="text" id="status" name="status" placeholder="Status" value="{{lot.status}}" required />
-				<label for="input__status" class="floating__label" data-content="Estado"></label>
-				<div id="statusError1" class="error-container"></div>
+			</div>			
+			<div class="floating__combo floating__combo_select">
+				<select class="floating__select" name="status" id="status">
+					{{#ifCond lot.status "===" "1"}}
+					<option value="Select" disabled>Seleccione</option>
+					<option value="1" selected>Activo</option>
+					<option value="2">Inactivo</option>
+					{{/ifCond}}
+					{{#ifCond lot.status "===" "2"}}
+					<option value="Select" disabled>Seleccione</option>
+					<option value="1">Activo</option>
+					<option value="2" selected>Inactivo</option>
+					{{/ifCond}}
+				</select>
+				<span class="floating__input_label">Estado</span>		
 			</div>
 		</div>
 			<br />
@@ -59,7 +75,7 @@
 </div>
 <script>
 	window.onload = function() {	
-		fechaMin();
+		//fechaMin();
 		fechaMax();
 	};
 

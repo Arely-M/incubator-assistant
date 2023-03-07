@@ -1,5 +1,11 @@
 {{> nav/navigation}}
 <div class="page-content p-5" id="content">
+    <nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/gallery">Galeria</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Etapa inicial</li>
+		</ol>
+	</nav>
     <div class="row">
 			<div class="col-sm-10">
 				<h5 class="text-black">Huevos en etapa inicial</h5>
@@ -14,7 +20,7 @@
         <div class="card-body">
             <div class="row">
                 {{#each images}}
-                    <div class="col-md-4">
+                    <div class="col-md-2">
                         <a href="/gallery/{{uniqueId}}">
                             <img src="{{imageURL}}" alt="" class="w-100 h-100 img-thumbnail">
                         </a>
