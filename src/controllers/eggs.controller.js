@@ -2,6 +2,7 @@ import Eggs from "../models/eggs";
 import Users from "../models/users";
 import Role from "../models/role";
 import Candlings from "../models/candling";
+import Lote from "../models/lots";
 
 export const renderEditEgg = async (req, res) => {
     try {
@@ -9,8 +10,7 @@ export const renderEditEgg = async (req, res) => {
         const role = await Role.find().lean();
         const egg = await Eggs.findById(req.params.id).lean();
         const candlings = await Candlings.find({ id_egg: req.params.id }).lean();
-        console.log(candlings.length);
-
+        const lot = await Lote.find({ _id: egg.id_lot }).lean();
 
         const idUser = user[0].role;
         const name = req.user.name;
@@ -20,6 +20,7 @@ export const renderEditEgg = async (req, res) => {
             role: role,
             egg: egg,
             candlings: candlings,
+            lot: lot[0],
             name: name,
             helpers: {
                 ifCond: function (v1, operator, v2, options) {
@@ -65,7 +66,6 @@ export const editEgg = async (req, res) => {
             width: req.body.width,
             height: req.body.height
         });
-        //console.log(e.id_lot);
         req.flash("success_msg", "Actualización exitosa!");
         res.redirect("/lots/" + e.id_lot + "/view");
     } catch (error) {

@@ -2,7 +2,7 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/lots">Lotes</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Huevos del lote {{lot.number}}</li>
+			<li class="breadcrumb-item active" aria-current="page">Lote {{lot.number}}</li>
 		</ol>
 	</nav>
 	<hr>
@@ -67,7 +67,7 @@
     const ctx1 = document.getElementById('earning').getContext('2d'); 
 
 	const earning = new Chart(ctx1, {
-        type: 'polarArea',
+        type: 'doughnut',
         data: {
             labels: ['Viable', 'Infertiles', 'Inertes'],
             datasets: [{

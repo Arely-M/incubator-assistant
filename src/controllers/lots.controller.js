@@ -250,13 +250,13 @@ export const renderEgg = async (req, res) => {
         var countInertes = 0;
 
         for (let i = 0; i < eggs.length; i++) {
-            if (eggs[i].status == 1 || eggs[i].status == 2 || eggs[i].status == 3) {
+            if (eggs[i].status == "1" || eggs[i].status == "2" || eggs[i].status == "3") {
                 countExitos = countExitos + 1;
             }
-            if (eggs[i].status === 4) {
+            if (eggs[i].status === "4") {
                 countInertes = countInertes + 1;
             }
-            if (eggs[i].status === 5) {
+            if (eggs[i].status === "5") {
                 countInfertiles = countInfertiles + 1;
             }
         }

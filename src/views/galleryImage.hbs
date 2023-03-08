@@ -4,18 +4,50 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/gallery">Galeria</a></li>
-            <li class="breadcrumb-item"><a href="#">Etapa</a></li>
+            <li class="breadcrumb-item">Etapa</li>
             <li class="breadcrumb-item active" aria-current="page">Detalles de la imágen</li>
         </ol>
     </nav>
     <hr>
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <a href="/gallery/delete/{{image._id}}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+        <div class="card-header justify-content-between align-items-center">
+            <div style="text-align: right;">
+                <a onclick="deleteImg('{{image._id}}')" class="btn btn-danger"><i class="fa fa-times"></i></a>
+            </div>
+            
         </div>
-        
-        <div class="col-md-4">
+        <div class="col-md-4" style="margin: auto;">
             <img src="{{image.imageURL}}" class="w-50 h-50 img-thumbnail">
         </div>
     </div>
 </div>
+
+<script>
+    function deleteImg(id){
+            Swal.fire({
+                title: 'Esta seguro?',
+                text: "No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, elimnar!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                    'Eliminado!',
+                    'Tu información ha sido eliminada.',
+                    'success'
+                    ).then((result) => {
+                        window.location = '/gallery/delete/'+id;
+                    })
+                }else if (result.isDismissed){
+                    Swal.fire(
+                        'Cancelado',
+                        'Tu información esta a salvo :)',
+                        'error'
+                    )
+                }
+            })
+        }     
+</script>

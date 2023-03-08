@@ -1,6 +1,25 @@
 {{> nav/navigation}}    
 
 <div class="page-content p-5" id="content">
+    <div id="loader-bob" class="fondo">
+        <div class="loader">
+            <div class="bobber">
+                <div class="bob">
+                    <div class="eye"></div>
+                    <div class="eye"></div>
+                </div>
+                <div class="shadow"></div>
+                <div class="loanding"><span>Cargando...</span></div>
+            </div>
+        </div>
+    </div>
+    <nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">Lotes</li>
+			<li class="breadcrumb-item" aria-current="page">Lote {{lot.number}}</li>
+            <li class="breadcrumb-item active" aria-current="page">Análisis del huevo N° {{e.number}}</li>
+		</ol>
+	</nav>
     <h5 class="text-black">Ovoscopia</h5>
 	<hr>
 
@@ -36,6 +55,9 @@
                         <div id="messages"></div>
                     </div>
                 </label>
+                <div id="text-clasificador" style="text-align: center;">
+                    
+                </div>	
                 <input id="status" name="status" type="number" style="display: none;" value="">
             </form>
         </div>
@@ -46,36 +68,47 @@
                         <div class="col-5 btn-et">
                             <h6 style="color: #e57801;"><b>Etapa Inicial:</b></h6>	
                         </div>		
-                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
-                            <div class="progress progress-stage">
-                                <div id="progInicial" class="progress-bar inicial" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-                            </div>	
-                        </div>	
+                        <div class="col-7 btn-f">
+                            <div class="metric slide-in-bottom">
+                                <div class="bar" id="bar1">
+                                    <span class="bar-text">0%</span>
+                                    <div  class="bar-inner"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-5 btn-et">
                             <h6 style="color: #d8486b;"><b>Etapa Media:</b></h6>	
                         </div>		
-                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
-                            <div class="progress progress-stage">
-                                <div id="progMedia" class="progress-bar media" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-                            </div>	
-                        </div>	
-                        
-                        <div class="col-5 btn-et">
-                            <h6 style="color: #937cd6"><b>Etapa Final:</b></h6>	
-                        </div>		
-                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
-                            <div class="progress progress-stage">
-                                <div id="progFinal" class="progress-bar final" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-                            </div>	
-                        </div>	
-                        <div class="col-5 btn-et">
-                            <h6 style="color: #7090c0"><b>Feto Muerto:</b></h6>	
-                        </div>		
-                        <div class="col-7 btn-f" style="padding-bottom: 15px;">
-                            <div class="progress progress-stage">
-                                <div id="progInerte" class="progress-bar inerte" role="progressbar" aria-label="Example with label" style="width: 100%; color: black;background: #E9ECEF" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
-                            </div>	
+                        <div class="col-7 btn-f">
+                            <div class="metric slide-in-bottom">
+                                <div class="bar" id="bar2">
+                                    <span class="bar-text">0%</span>
+                                    <div  class="bar-inner"></div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="col-5 btn-et">
+                            <h6 style="color: #937cd6;"><b>Etapa Final:</b></h6>	
+                        </div>		
+                        <div class="col-7 btn-f">
+                            <div class="metric slide-in-bottom">
+                                <div class="bar" id="bar0">
+                                    <span class="bar-text">0%</span>
+                                    <div  class="bar-inner"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-5 btn-et">
+                            <h6 style="color: #7090c0;"><b>Embrión/Feto Muerto:</b></h6>	
+                        </div>		
+                        <div class="col-7 btn-f">
+                            <div class="metric slide-in-bottom">
+                                <div class="bar" id="bar3">
+                                    <span class="bar-text">0%</span>
+                                    <div  class="bar-inner"></div>
+                                </div>
+                            </div>
+                        </div>	
                     </div>						
                 </div>
             </div>
@@ -100,7 +133,13 @@
     
 </div>
 
+
 <script type="text/javascript">
+
+    /*window.onload = function() {	
+		loaded();
+	};*/
+    
     var modelo = null;
     (async () => {
         console.log("Cargando modelo...");
@@ -108,6 +147,8 @@
         console.log("Modelo cargado...");  
         document.getElementById("pred").disabled = false;     
         document.getElementById("file-upload").disabled = false; 
+        document.getElementById('loader-bob').hidden = true;
+        
     })();
     
     (function(){
@@ -157,8 +198,10 @@
         if(claseMayor == "Etapa Final"){
             return "Esta etapa corresponde del día 15 al 18 de incubación.";  
         }
-        if(claseMayor == "Feto Muerto"){
-            return "Puede pertenecer a cualquier etapa del proceso de incubación. ";
+        if(claseMayor == "Embrión/Feto Muerto"){
+            return "Puede pertenecer a cualquier etapa del proceso de incubación.";
+        }else{
+            return "Factores internos o externos afectaron de forma negativa al embrión.";
         }                 
     } 
 
@@ -222,86 +265,69 @@
                 return msg = "No corresponde al rango de días que dura una incubación.";
         }     
     }
+    
+    
     function clasificar() {
+        //document.getElementById("text-clasificador").innerHTML = `<span>Clasificando...</span>`;
         var isDate = document.getElementById("fecha").value;
         console.log(isDate);
         var isImage = document.getElementById("file-upload").value;
         if (modelo != null) {
-            
-                if (isImage != "") {                    
-                    //Redimensión del canvas 150x150
-                    resample_single(canvas, 150, 150, othercanvas);
-                    var ctx2 = othercanvas.getContext("2d");
-                    var imgData = ctx2.getImageData(0, 0, 150, 150);
-                    var arr = [];
-                    var arr150 = [];
-                    for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
-                        var red = imgData.data[p] / 255;
-                        var green = imgData.data[p + 1] / 255;
-                        var blue = imgData.data[p + 2] / 255;
-                        arr150.push([red, green, blue]);
-                        if (arr150.length == 150) {
-                            arr.push(arr150);
-                            arr150 = [];
-                        }
+            if (isImage != "") {                    
+                //Redimensión del canvas 150x150
+                resample_single(canvas, 150, 150, othercanvas);
+                var ctx2 = othercanvas.getContext("2d");
+                var imgData = ctx2.getImageData(0, 0, 150, 150);
+                var arr = [];
+                var arr150 = [];
+                for (var p = 0, i = 0; p < imgData.data.length; p += 4) {
+                    var red = imgData.data[p] / 255;
+                    var green = imgData.data[p + 1] / 255;
+                    var blue = imgData.data[p + 2] / 255;
+                    arr150.push([red, green, blue]);
+                    if (arr150.length == 150) {
+                        arr.push(arr150);
+                        arr150 = [];
                     }
-                    arr = [arr];
-                    console.log(arr);
-                    var tensor4 = tf.tensor4d(arr);
-                    var resultados = modelo.predict(tensor4).dataSync();  
-                    console.log(resultados);
-                    for(let i = 0; i < resultados.length; i++){
-                        progressEtapas(i, resultados[i]);
-                    }
-                    
-                    var mayorIndice = resultados.indexOf(
-                        Math.max.apply(null, resultados)
-                    );
-                    var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
-                    var diaIncu = calcularDias();
-                    document.getElementById("resultado").innerHTML = `<p style="font-size: 16px;"><strong>Desarrollo embrionario:</strong> ${clases[mayorIndice]}</p>
-                                                                    <p align="justify" style="font-size: 16px;"><strong>Descripción:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
-                                                                    <p align="justify" style="font-size: 16px;"><strong>Día de incubación:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
-                    //document.getElementById("fecha").value = "";
-                    //document.getElementById("file-upload").value = "";
-                    if(clases[mayorIndice] == "Etapa Final"){
-                        if(calcularDias() > 7){
-                            document.getElementById("status").value = 5;                       
-                        }else{
-                            document.getElementById("status").value = 3;
-                        }
-                    }
-                    if(clases[mayorIndice] == "Etapa Inicial"){
+                }
+                arr = [arr];
+                console.log(arr);
+                var tensor4 = tf.tensor4d(arr);
+                var resultados = modelo.predict(tensor4).dataSync();  
+                console.log(resultados);
+                for(let i = 0; i < resultados.length; i++){
+                    progressEtapas(i, resultados[i]);
+                }
+                
+                var mayorIndice = resultados.indexOf(
+                    Math.max.apply(null, resultados)
+                );
+                var clases = ["Etapa Final", "Etapa Inicial", "Etapa Media", "Feto Muerto"];
+                var diaIncu = calcularDias();
+                document.getElementById("resultado").innerHTML = `<p style="font-size: 16px;"><strong>Desarrollo embrionario:</strong> ${clases[mayorIndice]}</p>
+                                                                <p align="justify" style="font-size: 16px;"><strong>Descripción:</strong> ${descipcionEtapa(clases[mayorIndice])}</p>
+                                                                <p align="justify" style="font-size: 16px;"><strong>Día de incubación:</strong> ${diaIncu}, ${descipcionDia(diaIncu)}</p>`;
+                //document.getElementById("fecha").value = "";
+                //document.getElementById("file-upload").value = "";
+                if(clases[mayorIndice] == "Etapa Final"){
+                    document.getElementById("status").value = 3;
+                }
+                if(clases[mayorIndice] == "Etapa Inicial"){
+                    if(calcularDias() > 7){
+                        document.getElementById("status").value = 5;                       
+                    }else{
                         document.getElementById("status").value = 1;
                     }
-                    if(clases[mayorIndice] == "Etapa Media"){
-                        document.getElementById("status").value = 2;
-                    }
-                    if(clases[mayorIndice] == "Feto Muerto"){
-                        document.getElementById("status").value = 4;
-                    }
-                    
-                }else{
-                    toastr.warning("Porfavor, seleccione una imagen", "",{
-                        "closeButton": true,
-                        "debug": false,
-                        "newestOnTop": false,
-                        "progressBar": true,
-                        "positionClass": "toast-top-right",
-                        "preventDuplicates": false,
-                        "onclick": null,
-                        "showDuration": "300",
-                        "hideDuration": "1000",
-                        "timeOut": "5000",
-                        "extendedTimeOut": "1000",
-                        "showEasing": "swing",
-                        "hideEasing": "linear",
-                        "showMethod": "fadeIn",
-                        "hideMethod": "fadeOut"
-                    });
                 }
-            /*else {
-                toastr.warning("Porfavor, ingrese una fecha", "",{
+                if(clases[mayorIndice] == "Etapa Media"){
+                    document.getElementById("status").value = 2;
+                }
+                if(clases[mayorIndice] == "Feto Muerto"){
+                    document.getElementById("status").value = 4;
+                }
+                
+            }else{
+                toastr.warning("Porfavor, seleccione una imagen", "",{
                     "closeButton": true,
                     "debug": false,
                     "newestOnTop": false,
@@ -318,8 +344,9 @@
                     "showMethod": "fadeIn",
                     "hideMethod": "fadeOut"
                 });
-            }       */   
+            }
         }
+        return true;
     }    
 
     function resample_single(canvas, width, height, resize_canvas) {
@@ -387,208 +414,154 @@
     }
 
     // File Upload
-function ekUpload(){
-    function Init() {
+    function ekUpload(){
+        function Init() {
 
-    console.log("Upload Initialised");
+        console.log("Upload Initialised");
 
-    var fileSelect    = document.getElementById('file-upload'),
-        fileDrag      = document.getElementById('file-drag'),
-        submitButton  = document.getElementById('submit-button');
+        var fileSelect    = document.getElementById('file-upload'),
+            fileDrag      = document.getElementById('file-drag'),
+            submitButton  = document.getElementById('submit-button');
 
-    fileSelect.addEventListener('change', fileSelectHandler, false);
+        fileSelect.addEventListener('change', fileSelectHandler, false);
 
-    // Is XHR2 available?
-    var xhr = new XMLHttpRequest();
-    if (xhr.upload) {
-        // File Drop
-        fileDrag.addEventListener('dragover', fileDragHover, false);
-        fileDrag.addEventListener('dragleave', fileDragHover, false);
-        fileDrag.addEventListener('drop', fileSelectHandler, false);
+        // Is XHR2 available?
+        var xhr = new XMLHttpRequest();
+        if (xhr.upload) {
+            // File Drop
+            fileDrag.addEventListener('dragover', fileDragHover, false);
+            fileDrag.addEventListener('dragleave', fileDragHover, false);
+            fileDrag.addEventListener('drop', fileSelectHandler, false);
+        }
     }
-}
 
-function fileDragHover(e) {
-    var fileDrag = document.getElementById('file-drag');
+    function fileDragHover(e) {
+        var fileDrag = document.getElementById('file-drag');
 
-    e.stopPropagation();
-    e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
 
-    fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
-}
-
-function fileSelectHandler(e) {
-// Fetch FileList object
-    var files = e.target.files || e.dataTransfer.files;
-
-    // Cancel event and hover styling
-    fileDragHover(e);
-
-    // Process all File objects
-    for (var i = 0, f; f = files[i]; i++) {
-        parseFile(f);
-        uploadFile(f);
+        fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
     }
-}
 
-// Output
-function output(msg) {
-// Response
-    var m = document.getElementById('messages');
-    m.innerHTML = msg;
-}
+    function fileSelectHandler(e) {
+    // Fetch FileList object
+        var files = e.target.files || e.dataTransfer.files;
 
-function parseFile(file) {
+        // Cancel event and hover styling
+        fileDragHover(e);
 
-    console.log(file.name);
-    output(
-        '<strong>' + encodeURI(file.name) + '</strong>'
-    );
-
-    // var fileType = file.type;
-    // console.log(fileType);
-    var imageName = file.name;
-
-    var isGood = (/\.(?=gif|jpg|png|jpeg|webp)/gi).test(imageName);
-    if (isGood) {
-        document.getElementById('start').classList.add("hidden");
-        document.getElementById('response').classList.remove("hidden");
-        document.getElementById('notimage').classList.add("hidden");
-        // Thumbnail Preview
-        document.getElementById('file-image').classList.remove("hidden");
-        document.getElementById('file-image').src = URL.createObjectURL(file);
+        // Process all File objects
+        for (var i = 0, f; f = files[i]; i++) {
+            parseFile(f);
+            uploadFile(f);
+        }
     }
-    else {
-        document.getElementById('file-image').classList.add("hidden");
-        document.getElementById('notimage').classList.remove("hidden");
-        document.getElementById('start').classList.remove("hidden");
-        document.getElementById('response').classList.add("hidden");
-        document.getElementById("file-upload-form").reset();
+
+    // Output
+    function output(msg) {
+    // Response
+        var m = document.getElementById('messages');
+        m.innerHTML = msg;
     }
-}
 
-function setProgressMaxValue(e) {
-    var pBar = document.getElementById('file-progress');
+    function parseFile(file) {
 
-    if (e.lengthComputable) {
-        pBar.max = e.total;
+        console.log(file.name);
+        output(
+            '<strong>' + encodeURI(file.name) + '</strong>'
+        );
+
+        // var fileType = file.type;
+        // console.log(fileType);
+        var imageName = file.name;
+
+        var isGood = (/\.(?=gif|jpg|png|jpeg|webp)/gi).test(imageName);
+        if (isGood) {
+            document.getElementById('start').classList.add("hidden");
+            document.getElementById('response').classList.remove("hidden");
+            document.getElementById('notimage').classList.add("hidden");
+            // Thumbnail Preview
+            document.getElementById('file-image').classList.remove("hidden");
+            document.getElementById('file-image').src = URL.createObjectURL(file);
+        }
+        else {
+            document.getElementById('file-image').classList.add("hidden");
+            document.getElementById('notimage').classList.remove("hidden");
+            document.getElementById('start').classList.remove("hidden");
+            document.getElementById('response').classList.add("hidden");
+            document.getElementById("file-upload-form").reset();
+        }
     }
-}
 
-function updateFileProgress(e) {
-    var pBar = document.getElementById('file-progress');
+    function setProgressMaxValue(e) {
+        var pBar = document.getElementById('file-progress');
 
-    if (e.lengthComputable) {
-        pBar.value = e.loaded;
+        if (e.lengthComputable) {
+            pBar.max = e.total;
+        }
     }
-}
 
-function uploadFile(file) {
-    var xhr = new XMLHttpRequest(),
-        fileInput = document.getElementById('class-roster-file'),
-        pBar = document.getElementById('file-progress'),
-        fileSizeLimit = 1024; // In MB
-    /*if (xhr.upload) {
-        // Check if file is less than x MB
-        if (file.size <= fileSizeLimit * 1024 * 1024) {
-        // Progress bar
-        pBar.style.display = 'inline';
-        xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
-        xhr.upload.addEventListener('progress', updateFileProgress, false);
+    function updateFileProgress(e) {
+        var pBar = document.getElementById('file-progress');
 
-        // File received / failed
-        xhr.onreadystatechange = function(e) {
-            if (xhr.readyState == 4) {
-            // Everything is good!
+        if (e.lengthComputable) {
+            pBar.value = e.loaded;
+        }
+    }
 
-            // progress.className = (xhr.status == 200 ? "success" : "failure");
-            // document.location.reload(true);
+    function uploadFile(file) {
+        var xhr = new XMLHttpRequest(),
+            fileInput = document.getElementById('class-roster-file'),
+            pBar = document.getElementById('file-progress'),
+            fileSizeLimit = 1024; // In MB
+        /*if (xhr.upload) {
+            // Check if file is less than x MB
+            if (file.size <= fileSizeLimit * 1024 * 1024) {
+            // Progress bar
+            pBar.style.display = 'inline';
+            xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
+            xhr.upload.addEventListener('progress', updateFileProgress, false);
+
+            // File received / failed
+            xhr.onreadystatechange = function(e) {
+                if (xhr.readyState == 4) {
+                // Everything is good!
+
+                // progress.className = (xhr.status == 200 ? "success" : "failure");
+                // document.location.reload(true);
+                }
+            };
+
+            // Start upload
+            xhr.open('POST', document.getElementById('file-upload-form').action, true);
+            xhr.setRequestHeader('X-File-Name', file.name);
+            xhr.setRequestHeader('X-File-Size', file.size);
+            xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+            xhr.send(file);
+            } else {
+            output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
             }
-        };
+        }*/
+    }
 
-        // Start upload
-        xhr.open('POST', document.getElementById('file-upload-form').action, true);
-        xhr.setRequestHeader('X-File-Name', file.name);
-        xhr.setRequestHeader('X-File-Size', file.size);
-        xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-        xhr.send(file);
+    // Check for the various File API support.
+        if (window.File && window.FileList && window.FileReader) {
+            Init();
         } else {
-        output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
+            document.getElementById('file-drag').style.display = 'none';
         }
-    }*/
-}
-
-// Check for the various File API support.
-    if (window.File && window.FileList && window.FileReader) {
-        Init();
-    } else {
-        document.getElementById('file-drag').style.display = 'none';
     }
-}
-ekUpload();
+    ekUpload();
 
-function progressEtapas(pos, porcentajeEtapa){			
-        if(pos == 0){
-            
-            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
-            console.log(progress);
-            if(progress == 0){
-                document.getElementById("progFinal").style = "width: 100%; color: black; background: #E9ECEF";
-                document.getElementById("progFinal").innerHTML = progress+"%";
-            }else{
-                if(progress >= 100){
-                    document.getElementById("progFinal").style = "width: 100%";
-                    document.getElementById("progFinal").innerHTML = "100%";
-                }else{
-                    document.getElementById("progFinal").style = "width: "+progress+"%";
-                    document.getElementById("progFinal").innerHTML = progress+"%";
-                }
-            }
-        }
-        if(pos == 1){
-            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
-            if(progress == 0){
-                document.getElementById("progInicial").style = "width: 100%; color: black; background: #E9ECEF";
-                document.getElementById("progInicial").innerHTML = progress+"%";
-            }else{
-                if(progress >= 100){
-                    document.getElementById("progInicial").style = "width: 100%";
-                    document.getElementById("progInicial").innerHTML = "100%";
-                }else{
-                    document.getElementById("progInicial").style = "width: "+progress+"%";
-                    document.getElementById("progInicial").innerHTML = progress+"%";
-                }
-            }
-        }
-        if(pos == 2){
-            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
-            if(progress == 0){
-                document.getElementById("progMedia").style = "width: 100%; color: black; background: #E9ECEF";
-                document.getElementById("progMedia").innerHTML = progress+"%";
-            }else{
-                if(progress >= 100){
-                    document.getElementById("progMedia").style = "width: 100%";
-                    document.getElementById("progMedia").innerHTML = "100%";
-                }else{
-                    document.getElementById("progMedia").style = "width: "+progress+"%";
-                    document.getElementById("progMedia").innerHTML = progress+"%";
-                }
-            }
-        }
-        if(pos == 3){
-            var progress = ((porcentajeEtapa * 100)/1).toFixed(2);
-            if(progress == 0){
-                document.getElementById("progInerte").style = "width: 100%; color: black; background: #E9ECEF";
-                document.getElementById("progInerte").innerHTML = progress+"%";
-            }else{
-                if(progress >= 100){
-                    document.getElementById("progInerte").style = "width: 100%";
-                    document.getElementById("progInerte").innerHTML = "100%";
-                }else{
-                    document.getElementById("progInerte").style = "width: "+progress+"%";
-                    document.getElementById("progInerte").innerHTML = progress+"%";
-                }
-            }
-        }
+    function progressEtapas(pos, porcentajeEtapa){			
+        var predictionValue = `${(porcentajeEtapa * 100).toFixed(0)}%`;
+        console.log("predictionValue:" +predictionValue);
+
+        var progress = `${((porcentajeEtapa * 100)/1).toFixed(2)}%`;
+        console.log(progress);
+
+        document.getElementById(`bar${pos}`).getElementsByClassName('bar-text')[0].innerHTML = progress;
+        document.getElementById(`bar${pos}`).getElementsByClassName('bar-inner')[0].style.width = progress;
 	}
 </script>

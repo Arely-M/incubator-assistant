@@ -39,8 +39,8 @@ export const renderHome = async (req, res) => {
   const name = req.user.name;
 
   const users = (await Users.find().lean()).length;
-  const lots = (await Lots.find().lean()).length;
-  const candlings = (await Candlings.find().lean()).length;
+  const lots = (await Lots.find({ $or: [{ status: "1" }] }).lean()).length;
+  const candlings = (await Candlings.find({ $or: [{ status: "1" }, { status: "2" }, { status: "3" }, { status: "4" }, { status: "5" }] }).lean()).length;
 
   res.render("home", {
     role: role,
